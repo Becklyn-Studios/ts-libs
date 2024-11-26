@@ -4,7 +4,8 @@
         "build": "turbo build",
         "dev": "turbo dev",
         "lint": "turbo lint",
-        "release": "turbo release"
+        "test": "turbo test",
+        "release": "turbo run build lint test && changeset version && changeset publish"
     },
     "devDependencies": {
         "@becklyn/prettier": "^1.0.2",

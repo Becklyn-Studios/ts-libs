@@ -13,6 +13,6 @@
         "**/*"
     ],
     "scripts": {
-        "release": ""
+        "test": "echo \"Error: no test specified\" && exit 0"
     }
 }
