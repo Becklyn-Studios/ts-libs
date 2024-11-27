@@ -1,6 +1,6 @@
 {
     "name": "@becklyn/tsconfig",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "license": "MIT",
     "description": "the tsconfig base we use for our TypeScript apps",
     "homepage": "https://github.com/Becklyn-Studios/ts-frontend",
