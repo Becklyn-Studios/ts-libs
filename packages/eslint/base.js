@@ -2,7 +2,6 @@ import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import turboPlugin from "eslint-plugin-turbo";
 import tseslint from "typescript-eslint";
-import onlyWarn from "eslint-plugin-only-warn";
 import importAlias from "@limegrass/import-alias";
 
 /**
@@ -11,31 +10,31 @@ import importAlias from "@limegrass/import-alias";
  * @type {import("eslint").Linter.Config}
  * */
 export const config = [
-  js.configs.recommended,
-  eslintConfigPrettier,
-  ...tseslint.configs.recommended,
-  {
-    plugins: {
-      "@limegrass/import-alias": importAlias,
+    js.configs.recommended,
+    eslintConfigPrettier,
+    ...tseslint.configs.recommended,
+    {
+        plugins: {
+            "@limegrass/import-alias": importAlias,
+        },
+        rules: {
+            "@limegrass/import-alias/import-alias": [
+                "error",
+                {
+                    relativeImportOverrides: [{ path: ".", depth: 0 }],
+                },
+            ],
+        },
     },
-    rules: {
-      "@limegrass/import-alias/import-alias": "error",
+    {
+        plugins: {
+            turbo: turboPlugin,
+        },
+        rules: {
+            "turbo/no-undeclared-env-vars": "warn",
+        },
     },
-  },
-  {
-    plugins: {
-      turbo: turboPlugin,
+    {
+        ignores: ["dist/**"],
     },
-    rules: {
-      "turbo/no-undeclared-env-vars": "warn",
-    },
-  },
-  {
-    plugins: {
-      onlyWarn,
-    },
-  },
-  {
-    ignores: ["dist/**"],
-  },
 ];
