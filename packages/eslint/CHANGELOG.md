@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.0.2
+
+### Patch Changes
+
+- 167b1e0: Fix typo in package.json
+
 ## 1.0.1
 
 ### Patch Changes
