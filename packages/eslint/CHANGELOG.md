@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.0.3
+
+### Patch Changes
+
+- 3091b3c: Fix import
+
 ## 1.0.2
 
 ### Patch Changes
