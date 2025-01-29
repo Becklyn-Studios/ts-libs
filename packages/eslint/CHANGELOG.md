@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.0.1
+
+### Patch Changes
+
+- 31d0379: Fix eslint config
+
 ## 1.0.0
 
 ### Major Changes
