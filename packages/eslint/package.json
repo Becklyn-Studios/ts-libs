@@ -10,7 +10,7 @@
         "directory": "packages/eslint-config"
     },
     "type": "module",
-    "expo<rts": {
+    "exports": {
         "./base": "./base.js",
         "./next-js": "./next.js",
         "./react-internal": "./react-internal.js"
