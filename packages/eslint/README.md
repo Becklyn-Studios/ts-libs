@@ -1,27 +1,39 @@
-# eslint-config
+# eslint
 
-The eslint-config base we use for our TypeScript apps.
+The eslint base config we use for our TypeScript apps.
 
 ## Usage
 
-Use in your `.eslintrc.js`:
+### NextJs Projects
+
+Use in your `eslint.config.js`:
 
 ```js
+import { nextJsConfig } from "@becklyn/eslint/next-js";
+
 /** @type {import("eslint").Linter.Config} */
-module.exports = {
-  extends: [
-    "@becklyn/eslint-config/eslint.js",
-    "plugin:@dword-design/import-alias/recommended",
-  ],
-  rules: {
-    "@dword-design/import-alias/prefer-alias": [
-      "error",
-      {
-        alias: {
-          "@": ".",
-        },
-      },
-    ],
-  },
-};
+export default nextJsConfig;
+```
+
+
+### React Projects
+
+Use in your `eslint.config.mjs`:
+
+```js
+import { config } from "@becklyn/eslint/react-internal";
+
+/** @type {import("eslint").Linter.Config} */
+export default config;
+```
+
+### JS Projects
+
+Use in your `eslint.config.mjs`:
+
+```js
+import { config } from "@becklyn/eslint/base";
+
+/** @type {import("eslint").Linter.Config} */
+export default config;
 ```
