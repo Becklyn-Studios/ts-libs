@@ -1,5 +1,12 @@
 # @becklyn/eslint
 
+## 1.0.4
+
+### Patch Changes
+
+- 380d95c: Fix turborepo integration
+- 380d95c: Use react/jsx-curly-brace-presence
+
 ## 1.0.3
 
 ### Patch Changes
