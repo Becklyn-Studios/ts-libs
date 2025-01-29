@@ -37,3 +37,25 @@ import { config } from "@becklyn/eslint/base";
 /** @type {import("eslint").Linter.Config} */
 export default config;
 ```
+
+
+## Turborepo
+
+When using turborepo you might want to check for undeclared env variables.
+
+Install `eslint-plugin-turbo`: `npm install -D eslint-plugin-turbo`
+
+```js
+import { config } from "@becklyn/eslint/base";
+import turboPlugin from "eslint-plugin-turbo";
+
+/** @type {import("eslint").Linter.Config} */
+export default [...nextJsConfig, {
+  plugins: {
+    turbo: turboPlugin,
+  },
+  rules: {
+      "turbo/no-undeclared-env-vars": "warn",
+  },
+}];
+```
