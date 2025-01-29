@@ -9,18 +9,27 @@
         "url": "git+https://github.com/Becklyn-Studios/ts-libs.git",
         "directory": "packages/eslint-config"
     },
-    "files": [
-        "**/*"
-    ],
+    "type": "module",
+    "expo<rts": {
+        "./base": "./base.js",
+        "./next-js": "./next.js",
+        "./react-internal": "./react-internal.js"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 0"
     },
     "dependencies": {
-        "@dword-design/eslint-plugin-import-alias": "^5.1.1",
-        "@next/eslint-plugin-next": "^14.1.1",
-        "eslint": "^8.57.1",
-        "eslint-config-next": "^14.2.17",
-        "eslint-plugin-react": "^7.37.2",
-        "eslint-plugin-storybook": "^0.8.0"
+        "@eslint/js": "^9.19.0",
+        "@limegrass/eslint-plugin-import-alias": "^1.5.0",
+        "@next/eslint-plugin-next": "^15.1.6",
+        "eslint": "^9.19.0",
+        "eslint-config-prettier": "^10.0.1",
+        "eslint-plugin-only-warn": "^1.1.0",
+        "eslint-plugin-react": "^7.37.4",
+        "eslint-plugin-react-hooks": "^5.1.0",
+        "eslint-plugin-turbo": "^2.3.4",
+        "globals": "^15.14.0",
+        "typescript": "^5.7.3",
+        "typescript-eslint": "^8.22.0"
     }
 }
