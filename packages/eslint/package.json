@@ -1,6 +1,6 @@
 {
     "name": "@becklyn/eslint",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "license": "MIT",
     "description": "the eslint-config base we use for our TypeScript apps",
     "homepage": "https://github.com/Becklyn-Studios/ts-libs",
@@ -22,7 +22,7 @@
         "@eslint/js": "^9.20.0",
         "@limegrass/eslint-plugin-import-alias": "^1.5.0",
         "@next/eslint-plugin-next": "^15.1.6",
-        "eslint": "^9.19.0",
+        "eslint": "^9.20.0",
         "eslint-config-prettier": "^10.0.1",
         "eslint-plugin-only-warn": "^1.1.0",
         "eslint-plugin-react": "^7.37.4",
