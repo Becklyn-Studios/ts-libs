@@ -1,0 +1,17 @@
+#!/bin/sh
+
+COMMIT_MSG_FILE=$1
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+# Extrahiere die Ticketnummer aus dem Branch-Namen
+if [[ $BRANCH_NAME =~ ^([0-9]+)- ]]; then
+  TICKET_NUMBER=${BASH_REMATCH[1]}
+  # Prüfe, ob die Commit-Nachricht bereits die Ticketnummer enthält
+  if ! grep -q "(Issue-$TICKET_NUMBER)" "$COMMIT_MSG_FILE"; then
+    # Füge die Ticketnummer zur Commit-Nachricht hinzu
+    sed -i.bak -e "1s/^/(Issue-$TICKET_NUMBER) /" "$COMMIT_MSG_FILE"
+  fi
+fi
+
+# Entferne die Standard-Commit-Nachricht
+/usr/bin/perl -i.bak -ne 'print unless(m/^. Please enter the commit message/..m/^#$/)' "$COMMIT_MSG_FILE"
