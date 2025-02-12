@@ -1,0 +1,26 @@
+{
+    "name": "@becklyn/prettier",
+    "version": "2.1.1",
+    "license": "MIT",
+    "description": "The commonly used prettier configuration for projects at Becklyn",
+    "homepage": "https://github.com/Becklyn/prettier",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Becklyn/prettier.git",
+        "directory": "packages/prettier"
+    },
+    "files": [
+        "**/*"
+    ],
+    "scripts": {
+        "test": "echo 'no tests defined' && exit 0",
+        "format": "prettier --write \"**/*.{ts,tsx,js,mjs,json,scss,css}\""
+    },
+    "dependencies": {
+        "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+        "postcss": "^8.4.38",
+        "prettier": "^3.2.5",
+        "prettier-plugin-css-order": "^2.1.2"
+    },
+    "prettier": "index.json"
+}
