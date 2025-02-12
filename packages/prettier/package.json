@@ -2,7 +2,7 @@
     "name": "@becklyn/prettier",
     "version": "2.1.1",
     "description": "The commonly used prettier configuration for projects at Becklyn",
-    "license": "BSD-3-Clause",
+    "license": "MIT",
     "homepage": "https://github.com/Becklyn/prettier",
     "repository": {
         "type": "git",
