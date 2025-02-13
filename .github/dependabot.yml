@@ -20,3 +20,4 @@ updates:
     labels:
       - "UI"
       - "needs-review"
+      - "dependabot"
