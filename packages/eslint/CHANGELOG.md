@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.1.0
+
+### Minor Changes
+
+- 2a8814f: Added "eslint-plugin-unused-imports" as plugin
+
 ## 1.0.5
 
 ### Patch Changes
