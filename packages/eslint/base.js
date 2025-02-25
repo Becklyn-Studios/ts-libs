@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import tseslint from "typescript-eslint";
 import importAlias from "@limegrass/eslint-plugin-import-alias";
+import unusedImports from "eslint-plugin-unused-imports";
 
 /**
  * A shared ESLint configuration for the repository.
@@ -23,6 +24,14 @@ export const config = [
                     relativeImportOverrides: [{ path: ".", depth: 0 }],
                 },
             ],
+        },
+    },
+    {
+        plugins: {
+            "unused-imports": unusedImports,
+        },
+        rules: {
+            "unused-imports/no-unused-imports": "error",
         },
     },
     {
