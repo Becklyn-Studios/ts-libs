@@ -1,0 +1,15 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:recommended"],
+    "reviewers": ["team:Becklyn-Studios/user-interface"],
+    "packageRules": [
+        {
+            "groupName": "all dependencies",
+            "description": "for the first Monday of each month at between 00:00 and 01:00",
+            "schedule": ["* 0-1 * * 1#1"],
+            "labels": ["UI", "needs-review", "renovate"],
+            "matchPackageNames": ["*"]
+        }
+    ]
+}
+
