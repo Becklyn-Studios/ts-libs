@@ -1,0 +1,24 @@
+{
+    "extends": "@becklyn/tsconfig/nextjs.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@next-lib/*": ["./*"]
+        },
+        "plugins": [
+            {
+                "name": "@0no-co/graphqlsp",
+                "schema": {
+                    "url": "https://graphql.contentful.com/content/v1/spaces/wu7zw851qggz/environments/master",
+                    "headers": {
+                        "Accept": "application/graphql-response+json",
+                        "Authorization": "Bearer JKvO5-RyfUTMDHpNBbPDU10LSVfS7jZH91m7RKBW-co"
+                    }
+                },
+                "tadaOutputLocation": "./contentful/graphql-env.d.ts"
+            }
+        ]
+    },
+    "include": ["."],
+    "exclude": ["node_modules", "dist"]
+}
