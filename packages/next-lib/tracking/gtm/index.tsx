@@ -2,6 +2,7 @@
 
 import {
     DependencyList,
+    FC,
     PropsWithChildren,
     createContext,
     useContext,
@@ -23,7 +24,7 @@ export interface GtmProviderData {
 
 const Context = createContext<GtmProviderData>({} as GtmProviderData);
 
-export const GtmProvider: React.FC<PropsWithChildren<GtmProviderProps>> = ({
+export const GtmProvider: FC<PropsWithChildren<GtmProviderProps>> = ({
     hasConsent,
     onBeforeGtmSetup,
     onAfterGtmSetup,
@@ -70,7 +71,7 @@ export const GtmProvider: React.FC<PropsWithChildren<GtmProviderProps>> = ({
 
 export const useGtm = () => useContext(Context);
 
-export const withGtm = <P extends {} & GtmProviderProps>(Component: React.FC<P>) => {
+export const withGtm = <P extends {} & GtmProviderProps>(Component: FC<P>) => {
     return (props: P) => (
         <GtmProvider {...props}>
             <Component {...props} />

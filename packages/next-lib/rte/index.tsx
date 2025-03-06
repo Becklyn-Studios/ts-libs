@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import { Options, documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Document } from "@contentful/rich-text-types";
-import { isString } from "@tmbw/next-lib/lib/typeChecks";
-import { PropsWithClassName } from "@tmbw/next-lib/types/style";
+import { isString } from "@next-lib/lib/typeChecks";
+import { PropsWithClassName } from "@next-lib/types/style";
 
 export type RteJSON = Document;
 export type RteLinks = {
@@ -28,7 +28,7 @@ export interface RteProps {
     options?: Options;
 }
 
-export const Rte: React.FC<PropsWithClassName<RteProps>> = ({ data, options, ...props }) => {
+export const Rte: FC<PropsWithClassName<RteProps>> = ({ data, options, ...props }) => {
     if (!data) {
         return null;
     }

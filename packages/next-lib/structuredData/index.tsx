@@ -1,11 +1,11 @@
-import React from "react";
-import { StructuredData as Data } from "@tmbw/next-lib/types/structuredData";
+import React, { FC } from "react";
+import { StructuredData as Data } from "@next-lib/types/structuredData";
 
 export interface StructuredDataProps {
     data?: Data.Index | null | false;
 }
 
-export const StructuredData: React.FC<StructuredDataProps> = ({ data }) => {
+export const StructuredData: FC<StructuredDataProps> = ({ data }) => {
     if (!data) {
         return null;
     }

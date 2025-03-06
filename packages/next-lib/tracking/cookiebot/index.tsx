@@ -1,6 +1,6 @@
 "use client";
 
-import React, { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
+import React, { FC, PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 import Script from "next/script";
 import { CookiebotConsent } from "./types";
 
@@ -36,7 +36,7 @@ export interface CookiebotProviderProps {
     locale: string;
 }
 
-export const CookiebotProvider: React.FC<PropsWithChildren<CookiebotProviderProps>> = ({
+export const CookiebotProvider: FC<PropsWithChildren<CookiebotProviderProps>> = ({
     locale,
     cookieBotId,
     children,
@@ -130,7 +130,7 @@ export const CookiebotProvider: React.FC<PropsWithChildren<CookiebotProviderProp
 
 export const useCookiebot = () => useContext(CookiebotProviderContext);
 
-export const withCookiebot = <P extends {}>(Component: React.FC<P & CookiebotProviderProps>) => {
+export const withCookiebot = <P extends object>(Component: FC<P & CookiebotProviderProps>) => {
     return (props: P & CookiebotProviderProps) => (
         <CookiebotProvider {...props}>
             <Component {...props} />
