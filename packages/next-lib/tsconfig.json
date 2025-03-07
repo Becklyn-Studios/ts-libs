@@ -1,0 +1,9 @@
+{
+    "extends": "@becklyn/tsconfig/react-library.json",
+    "compilerOptions": {
+        "baseUrl": ".",
+        "rootDir": ".",
+    },
+    "include": ["./**/*.ts", "./**/*.tsx", "./**/*.js", "./**/*.jsx"],
+    "exclude": ["./node_modules", "./dist"]
+}

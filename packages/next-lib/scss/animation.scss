@@ -1,0 +1,18 @@
+@mixin transition($properties, $duration: 0.15s, $easing: ease-in-out, $will-change: true) {
+    @if $will-change {
+        will-change: join($properties, (), "comma");
+    }
+
+    @if (1 == length($properties)) {
+        transition: #{$duration} #{$easing} #{$properties};
+    } @else {
+        transition: #{$duration} #{$easing};
+        transition-property: join($properties, (), "comma");
+    }
+}
+
+@mixin reduced {
+    @media (prefers-reduced-motion) {
+        @content;
+    }
+}

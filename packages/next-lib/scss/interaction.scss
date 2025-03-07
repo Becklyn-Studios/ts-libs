@@ -1,0 +1,55 @@
+@mixin hover {
+    @media (hover: hover) {
+        &:hover {
+            @content;
+        }
+    }
+}
+
+@mixin focus {
+    &:focus {
+        @content;
+    }
+}
+
+@mixin focus-visible {
+    &:focus-visible {
+        @content;
+    }
+}
+
+@mixin hover-focus {
+    @include hover {
+        @content;
+    }
+    @include focus {
+        @content;
+    }
+}
+
+@mixin focus-within {
+    &:focus-within {
+        @content;
+    }
+}
+
+@mixin hover-focus-visible {
+    @include hover {
+        @content;
+    }
+    @include focus-visible {
+        @content;
+    }
+}
+
+@mixin active {
+    &:active {
+        @content;
+    }
+}
+
+@mixin disabled {
+    &:disabled {
+        @content;
+    }
+}
