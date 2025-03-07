@@ -8,7 +8,7 @@ import {
     Text,
     TopLevelBlock,
 } from "@contentful/rich-text-types";
-import { RteData, RteJSON, RteLinks } from ".";
+import { RteData, RteJSON } from ".";
 
 export const generateRteText = (text: string, marks: Mark[] = []): Text => {
     return {
@@ -87,9 +87,8 @@ export const generateRteData = (children: TopLevelBlock[]): Document => {
     };
 };
 
-export const generateRte = (json: RteJSON, links?: RteLinks): RteData => {
+export const generateRte = (json: RteJSON): RteData => {
     return {
         json,
-        links,
     };
 };
