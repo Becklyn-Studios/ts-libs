@@ -1,6 +1,3 @@
-import * as gqlTada from "gql.tada";
-
-/* eslint-disable */
 /* prettier-ignore */
 
 export type introspection_types = {
