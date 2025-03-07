@@ -16,8 +16,8 @@
         "sass": "^1.82.0"
     },
     "devDependencies": {
-        "@becklyn/eslint": "^0.1.1",
-        "@becklyn/tsconfig": "^0.1.1",
+        "@becklyn/eslint": "*",
+        "@becklyn/tsconfig": "*",
         "@contentful/rich-text-types": "^16.8.5",
         "@types/node": "^20.17.9",
         "@types/react": "^18.3.13",
@@ -25,4 +25,3 @@
         "typescript": "^5.7.2"
     }
 }
-
