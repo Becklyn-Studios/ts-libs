@@ -95,7 +95,10 @@ export const useDropdown = ({
         }
 
         setIsOpen(false);
-        onClose && onClose();
+
+        if (onClose) {
+            onClose();
+        }
     };
 
     return {

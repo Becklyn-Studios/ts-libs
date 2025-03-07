@@ -60,6 +60,7 @@ declare global {
         ): void;
         removeEventListener<K extends keyof CookiebotEventMap>(
             type: K,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             listener: (this: HTMLElement, ev: CookiebotEventMap[K]) => any,
             options?: boolean | EventListenerOptions
         ): void;

@@ -39,11 +39,7 @@ export const GtmProvider: FC<PropsWithChildren<GtmProviderProps>> = ({
 
         window.dataLayer = window.dataLayer || [];
 
-        window.gtag =
-            window.gtag ||
-            ((...arg) =>
-                /* @ts-ignore */
-                window.dataLayer.push(arg));
+        window.gtag = window.gtag || ((...arg) => window.dataLayer!.push(arg));
 
         if (onAfterGtmSetup) {
             onAfterGtmSetup();

@@ -6,12 +6,12 @@ export const isObject = (value: unknown): value is { [key: string | number | sym
     return typeof value === "object" && !Array.isArray(value);
 };
 
-export const isDefined = <T>(value: any): value is NonNullable<T> => {
+export const isDefined = <T>(value: unknown): value is NonNullable<T> => {
     return value !== undefined && value !== null;
 };
 
-export const first = <T = any>(value?: T | T[] | null) =>
-    !!value ? (Array.isArray(value) ? value.at(0) : value) : undefined;
+export const first = <T = unknown>(value?: T | T[] | null) =>
+    value ? (Array.isArray(value) ? value.at(0) : value) : undefined;
 
-export const ensureArray = <T = any>(value?: T | T[] | null): Array<T> =>
-    !!value ? (Array.isArray(value) ? value : [value]) : [];
+export const ensureArray = <T = unknown>(value?: T | T[] | null): Array<T> =>
+    value ? (Array.isArray(value) ? value : [value]) : [];

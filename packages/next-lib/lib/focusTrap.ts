@@ -60,7 +60,7 @@ export const useTrapFocus = <T extends HTMLElement>(container?: T | null): UseTr
         const lastFocusableElement = nodes[nodes.length - 1] as HTMLElement;
 
         const onKeyDown = (e: KeyboardEvent) => {
-            let isTabPressed = e.key === "Tab" || e.keyCode === 9;
+            const isTabPressed = e.key === "Tab" || e.keyCode === 9;
 
             if (!isTabPressed) {
                 return;

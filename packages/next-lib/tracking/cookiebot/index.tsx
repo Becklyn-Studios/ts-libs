@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
+import { FC, PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
 import Script from "next/script";
 import { CookiebotConsent } from "./types";
 

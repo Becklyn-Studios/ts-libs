@@ -9,7 +9,15 @@ export interface InspectableField extends Partial<InspectableItem> {
     assetId?: string;
 }
 
-export const getInspectorProps = (data: any) => {
+interface InspectorProps {
+    entryId?: string;
+    fieldId?: string;
+    assetId?: string;
+    draftMode?: boolean;
+    locale?: string;
+}
+
+export const getInspectorProps = <T extends InspectorProps>(data: T) => {
     if (!data) {
         return {};
     }
@@ -18,12 +26,13 @@ export const getInspectorProps = (data: any) => {
     return { entryId, fieldId, assetId, draftMode, locale };
 };
 
-export const removeInspectorProps = (data: any) => {
+export const removeInspectorProps = <T extends InspectorProps>(data: T) => {
     if (!data) {
         return {};
     }
 
-    const { entryId: _1, fieldId: _2, assetId: _3, draftMode: _4, locale: _5, ...props } = data;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { entryId, fieldId, assetId, draftMode, locale, ...props } = data;
     return props;
 };
 
