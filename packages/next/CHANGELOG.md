@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 1.0.5
+
+### Patch Changes
+
+- d168eba: Fix structuredData
+
 ## 1.0.4
 
 ### Patch Changes
