@@ -1,6 +1,6 @@
 {
     "name": "@becklyn/next",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "MIT",
     "scripts": {
         "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
