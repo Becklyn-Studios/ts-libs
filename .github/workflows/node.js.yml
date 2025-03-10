@@ -7,7 +7,6 @@ on:
       - develop
   pull_request:
     branches:
-      - main
       - develop
 
 jobs:
@@ -31,7 +30,6 @@ jobs:
 
     - name: Install Dependencies
       run: npm ci
-      working-directory: packages/next-lib
 
     - name: Lint
       run: npm run lint
