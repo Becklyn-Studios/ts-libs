@@ -1,0 +1,7 @@
+@mixin support($property, $value, $fallback) {
+    #{$property}: $fallback;
+
+    @supports (#{$property}: $value) {
+        #{$property}: $value;
+    }
+}
