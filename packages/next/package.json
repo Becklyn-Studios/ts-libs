@@ -14,7 +14,7 @@
         "@popperjs/core": "^2.11.8",
         "keen-slider": "^6.8.6",
         "react-popper": "^2.3.0",
-        "sass": "^1.82.0"
+        "sass": "^1.85.1"
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
@@ -32,16 +32,69 @@
         "next": "^14.0.0 || ^15.0.0"
     },
     "files": [
-        "./dist"
+        "./dist",
+        "./scss"
     ],
-    "main": "./dist/cjs/index.js",
-    "module": "./dist/es/index.js",
     "exports": {
-        ".": {
-            "require": "./dist/cjs/index.js",
-            "import": "./dist/es/index.js",
-            "default": "./dist/cjs/index.js"
+        "./contentful/*": {
+            "types": "./dist/cjs/contentful/*.d.ts",
+            "require": "./dist/cjs/contentful/*.js",
+            "import": "./dist/es/contentful/*.js",
+            "default": "./dist/cjs/contentful/*.js"
         },
-        "./package.json": "./package.json"
+        "./format/*": {
+            "types": "./dist/cjs/format/*.d.ts",
+            "require": "./dist/cjs/format/*.js",
+            "import": "./dist/es/format/*.js",
+            "default": "./dist/cjs/format/*.js"
+        },
+        "./lib/*": {
+            "types": "./dist/cjs/lib/*.d.ts",
+            "require": "./dist/cjs/lib/*.js",
+            "import": "./dist/es/lib/*.js",
+            "default": "./dist/cjs/lib/*.js"
+        },
+        "./mock/*": {
+            "types": "./dist/cjs/mock/*.d.ts",
+            "require": "./dist/cjs/mock/*.js",
+            "import": "./dist/es/mock/*.js",
+            "default": "./dist/cjs/mock/*.js"
+        },
+        "./rte/*": {
+            "types": "./dist/cjs/rte/*.d.ts",
+            "require": "./dist/cjs/rte/*.js",
+            "import": "./dist/es/rte/*.js",
+            "default": "./dist/cjs/rte/*.js"
+        },
+        "./structuredData/*": {
+            "types": "./dist/cjs/structuredData/*.d.ts",
+            "require": "./dist/cjs/structuredData/*.js",
+            "import": "./dist/es/structuredData/*.js",
+            "default": "./dist/cjs/structuredData/*.js"
+        },
+        "./tracking/*": {
+            "types": "./dist/cjs/tracking/*.d.ts",
+            "require": "./dist/cjs/tracking/*.js",
+            "import": "./dist/es/tracking/*.js",
+            "default": "./dist/cjs/tracking/*.js"
+        },
+        "./tracking/cookiebot/*": {
+            "types": "./dist/cjs/tracking/cookiebot/*.d.ts",
+            "require": "./dist/cjs/tracking/cookiebot/*.js",
+            "import": "./dist/es/tracking/cookiebot/*.js",
+            "default": "./dist/cjs/tracking/cookiebot/*.js"
+        },
+        "./tracking/gtm/*": {
+            "types": "./dist/cjs/tracking/gtm/*.d.ts",
+            "require": "./dist/cjs/tracking/gtm/*.js",
+            "import": "./dist/es/tracking/gtm/*.js",
+            "default": "./dist/cjs/tracking/gtm/*.js"
+        },
+        "./types/*": {
+            "types": "./dist/cjs/types/*.d.ts",
+            "require": "./dist/cjs/types/*.js",
+            "import": "./dist/es/types/*.js",
+            "default": "./dist/cjs/types/*.js"
+        }
     }
 }
