@@ -1,0 +1,14 @@
+@mixin square($size) {
+    width: $size;
+    height: $size;
+}
+
+@mixin aspect-ratio($value) {
+    @if type-of($value) != "number" {
+        @error "The value parameter must be of type 'number'.";
+    }
+
+    padding-bottom: #{100 * $value}#{"%"};
+    width: 100%;
+    height: 0;
+}

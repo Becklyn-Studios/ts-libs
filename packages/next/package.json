@@ -1,0 +1,47 @@
+{
+    "name": "@becklyn/next",
+    "version": "0.0.0",
+    "license": "MIT",
+    "scripts": {
+        "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
+        "format": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
+        "build": "rm -rf ./dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
+        "prepublishOnly": "npm run lint && npm run build",
+        "migrate": "ts-node ./bin/migrate.ts"
+    },
+    "dependencies": {
+        "@contentful/rich-text-react-renderer": "^15.22.11",
+        "@popperjs/core": "^2.11.8",
+        "keen-slider": "^6.8.6",
+        "react-popper": "^2.3.0",
+        "sass": "^1.82.0"
+    },
+    "devDependencies": {
+        "@becklyn/eslint": "*",
+        "@becklyn/tsconfig": "*",
+        "@contentful/rich-text-types": "^16.8.5",
+        "@types/node": "^20.17.9",
+        "@types/react": "^18.3.13",
+        "@types/react-dom": "^18.3.1",
+        "next": "^14.2.20",
+        "react": "^18.3.1",
+        "typescript": "^5.8.2"
+    },
+    "peerDependencies": {
+        "react": "^18.3.1 || ^19.0.0",
+        "next": "^14.0.0 || ^15.0.0"
+    },
+    "files": [
+        "./dist"
+    ],
+    "main": "./dist/cjs/index.js",
+    "module": "./dist/es/index.js",
+    "exports": {
+        ".": {
+            "require": "./dist/cjs/index.js",
+            "import": "./dist/es/index.js",
+            "default": "./dist/cjs/index.js"
+        },
+        "./package.json": "./package.json"
+    }
+}
