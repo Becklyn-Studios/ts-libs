@@ -36,6 +36,7 @@
         "./scss"
     ],
     "exports": {
+        "./scss/*": "./scss/*.scss",
         "./contentful/*": {
             "types": "./dist/cjs/contentful/*.d.ts",
             "require": "./dist/cjs/contentful/*.js",
