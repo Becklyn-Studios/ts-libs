@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { Index } from "../types/structuredData";
+import { StructuredDataIndex } from "../types/structuredData";
 
 export interface StructuredDataProps {
-    data?: Index | null | false;
+    data?: StructuredDataIndex | null | false;
 }
 
 export const StructuredData: FC<StructuredDataProps> = ({ data }) => {
