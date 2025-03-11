@@ -1,6 +1,6 @@
 {
 	"name": "@becklyn/forms",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"license": "MIT",
 	"scripts": {
 		"lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
