@@ -1,0 +1,100 @@
+{
+	"name": "@becklyn/forms",
+	"version": "0.0.0",
+	"license": "MIT",
+	"scripts": {
+		"lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
+		"fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
+		"build": "rm -rf dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
+		"prepublishOnly": "npm run lint && npm run build"
+	},
+	"dependencies": {
+		"lodash.merge": "^4.6.2"
+	},
+	"devDependencies": {
+		"@becklyn/eslint": "*",
+		"@becklyn/tsconfig": "*",
+		"@types/lodash.merge": "^4.6.9",
+		"@types/react": "^18.3.18",
+		"@types/styled-components": "^5.1.34",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"styled-components": "^5.3.11"
+	},
+	"peerDependencies": {
+		"react": "^18.3.1 || ^19.0.0",
+		"react-dom": "^18.3.1 || ^19.0.0",
+		"styled-components": "^5.3.0 || ^6.0.0"
+	},
+	"files": [
+		"dist"
+	],
+	"exports": {
+		"./components/*": {
+			"types": "./dist/cjs/components/*.d.ts",
+			"require": "./dist/cjs/components/*.js",
+			"import": "./dist/es/components/*.js",
+			"default": "./dist/cjs/components/*.js"
+		},
+		"./condition/*": {
+			"types": "./dist/cjs/condition/*.d.ts",
+			"require": "./dist/cjs/condition/*.js",
+			"import": "./dist/es/condition/*.js",
+			"default": "./dist/cjs/condition/*.js"
+		},
+		"./context/*": {
+			"types": "./dist/cjs/context/*.d.ts",
+			"require": "./dist/cjs/context/*.js",
+			"import": "./dist/es/context/*.js",
+			"default": "./dist/cjs/context/*.js"
+		},
+		"./context/data/*": {
+			"types": "./dist/cjs/context/data/*.d.ts",
+			"require": "./dist/cjs/context/data/*.js",
+			"import": "./dist/es/context/data/*.js",
+			"default": "./dist/cjs/context/data/*.js"
+		},
+		"./guard/*": {
+			"types": "./dist/cjs/guard/*.d.ts",
+			"require": "./dist/cjs/guard/*.js",
+			"import": "./dist/es/guard/*.js",
+			"default": "./dist/cjs/guard/*.js"
+		},
+		"./hoc/*": {
+			"types": "./dist/cjs/hoc/*.d.ts",
+			"require": "./dist/cjs/hoc/*.js",
+			"import": "./dist/es/hoc/*.js",
+			"default": "./dist/cjs/hoc/*.js"
+		},
+		"./hook/*": {
+			"types": "./dist/cjs/hook/*.d.ts",
+			"require": "./dist/cjs/hook/*.js",
+			"import": "./dist/es/hook/*.js",
+			"default": "./dist/cjs/hook/*.js"
+		},
+		"./style/*": {
+			"types": "./dist/cjs/style/*.d.ts",
+			"require": "./dist/cjs/style/*.js",
+			"import": "./dist/es/style/*.js",
+			"default": "./dist/cjs/style/*.js"
+		},
+		"./type/*": {
+			"types": "./dist/cjs/type/*.d.ts",
+			"require": "./dist/cjs/type/*.js",
+			"import": "./dist/es/type/*.js",
+			"default": "./dist/cjs/type/*.js"
+		},
+		"./util/*": {
+			"types": "./dist/cjs/util/*.d.ts",
+			"require": "./dist/cjs/util/*.js",
+			"import": "./dist/es/util/*.js",
+			"default": "./dist/cjs/util/*.js"
+		},
+		"./validation/*": {
+			"types": "./dist/cjs/validation/*.d.ts",
+			"require": "./dist/cjs/validation/*.js",
+			"import": "./dist/es/validation/*.js",
+			"default": "./dist/cjs/validation/*.js"
+		}
+	}
+}

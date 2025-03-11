@@ -4,10 +4,9 @@
     "license": "MIT",
     "scripts": {
         "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
-        "format": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
+        "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
         "build": "rm -rf ./dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
-        "prepublishOnly": "npm run lint && npm run build",
-        "migrate": "ts-node ./bin/migrate.ts"
+        "prepublishOnly": "npm run lint && npm run build"
     },
     "dependencies": {
         "@contentful/rich-text-react-renderer": "^15.22.11",
