@@ -3,14 +3,14 @@ import { FormFieldConditions } from "./condition";
 import { FormData, FormInputFunc } from "./form";
 import { FieldValidations, FormValidationStrategy } from "./validation";
 
-export type CustomFormFieldConfig = object;
+// export type FormFieldConfig<T extends object> = T extends {
+//     [P in "fields"]: infer U;
+// }
+//     ? U
+//     : FormFieldBasicConfig<"placeholder", T>;
 
-export type FormFieldConfig = CustomFormFieldConfig extends { [P in "fields"]: infer U }
-    ? U
-    : FormFieldBasicConfig<"placeholder">;
-
-export interface FormFieldBasicConfig<
-    Type extends string,
+export interface FormFieldConfig<
+    Type extends string = string,
     FieldConfig = unknown,
     InitialValue = any,
 > {
@@ -31,7 +31,7 @@ export type FormFieldConfigFunc<FieldConfig = unknown> =
     | FieldConfig
     | ((props: { value: any; data: FormData }) => FieldConfig);
 
-export type ResolveFieldConfigFunc<T extends FormFieldBasicConfig<any>> = T extends {
+export type ResolveFieldConfigFunc<T extends FormFieldConfig> = T extends {
     fieldConfig: infer U;
 }
     ? U extends (...args: any[]) => any

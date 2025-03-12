@@ -1,9 +1,9 @@
+import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "guard";
 import merge from "lodash.merge";
 import {
     FormConfig,
     FormData,
     FormEntryConfig,
-    FormFieldBasicConfig,
     FormFieldConfig,
     ResolveFieldConfigFunc,
 } from "../type";
@@ -29,8 +29,7 @@ export function eitherOr(
 export const createFormConfig = <const T extends FormConfig>(config: T) =>
     mapFieldConfigs(config, entry => entry) as unknown as T;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const fieldConfigFromFormField = <T extends FormFieldBasicConfig<any>>(
+export const fieldConfigFromFormField = <T extends FormFieldConfig>(
     { name, fieldConfig }: T,
     data: FormData
 ): ResolveFieldConfigFunc<T>["fieldConfig"] => {
@@ -65,18 +64,17 @@ export const initialValuesFromConfig = (config: FormConfig): FormData => {
 
 export const mapFieldConfigs = (
     entries: FormConfig,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    callbackFn: <T extends FormFieldBasicConfig<any>>(field: T, index: number) => T
+    callbackFn: <T extends FormFieldConfig>(field: T, index: number) => T
 ): FormConfig => {
     return entries.flatMap((entry, index) => {
         if (!entry) {
             return [];
         }
 
-        switch (entry.type) {
-            case "custom":
-            case "section":
-            case "row":
+        switch (true) {
+            case isFormRowConfig(entry):
+            case isFormSectionConfig(entry):
+            case isFormCustomConfig(entry):
                 return {
                     ...entry,
                     content: mapFieldConfigs(entry.content, callbackFn),
@@ -89,14 +87,13 @@ export const mapFieldConfigs = (
 
 export const reduceFieldConfigs = <T extends Record<string | number, unknown>>(
     entries: readonly FormEntryConfig[],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    callbackFn: <F extends FormFieldBasicConfig<any>>(acc: T, field: F, index: number) => T
+    callbackFn: <F extends FormFieldConfig>(acc: T, field: F, index: number) => T
 ): T => {
     return entries.reduce((acc, entry, index) => {
-        switch (entry.type) {
-            case "custom":
-            case "section":
-            case "row":
+        switch (true) {
+            case isFormRowConfig(entry):
+            case isFormSectionConfig(entry):
+            case isFormCustomConfig(entry):
                 acc = { ...acc, ...reduceFieldConfigs(entry.content, callbackFn) };
                 break;
             default:
@@ -110,14 +107,13 @@ export const reduceFieldConfigs = <T extends Record<string | number, unknown>>(
 
 export const someFieldConfigs = (
     entries: readonly FormEntryConfig[],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    callbackFn: <T extends FormFieldBasicConfig<any>>(field: T, index: number) => boolean
+    callbackFn: <T extends FormFieldConfig>(field: T, index: number) => boolean
 ): boolean => {
     return entries.some((entry, index) => {
-        switch (entry.type) {
-            case "custom":
-            case "section":
-            case "row":
+        switch (true) {
+            case isFormRowConfig(entry):
+            case isFormSectionConfig(entry):
+            case isFormCustomConfig(entry):
                 return someFieldConfigs(entry.content, callbackFn);
             default:
                 return callbackFn(entry, index);

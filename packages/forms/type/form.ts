@@ -25,10 +25,10 @@ export interface FormBuilderProps {
     children(props: FormBuilderChildrenProps): ReactNode;
 }
 
-export interface FormInputFuncProps {
-    value: any;
-    field: FormFieldConfig;
+export interface FormInputFuncProps<T extends FormFieldConfig> {
+    value: T extends FormFieldConfig<any, any, infer V> ? V : any;
+    field: T;
     previousData: FormData;
 }
 
-export type FormInputFunc = (props: FormInputFuncProps) => FormData;
+export type FormInputFunc = <T extends FormFieldConfig>(props: FormInputFuncProps<T>) => FormData;

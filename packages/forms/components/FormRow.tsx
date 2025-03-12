@@ -1,14 +1,17 @@
-import React from "react";
-import { FormBuilderComponents, FormBuilderProps, FormRowConfig } from "../type";
+import { FormBuilderComponents, FormBuilderProps, FormFieldConfig, FormRowConfig } from "../type";
 import { FormEntry } from "./FormEntry";
 
-interface FormRowProps {
+interface FormRowProps<T extends FormFieldConfig> {
     Components: FormBuilderComponents;
-    row: FormRowConfig;
+    row: FormRowConfig<T>;
     children: FormBuilderProps["children"];
 }
 
-export const FormRow: React.FC<FormRowProps> = ({ Components, row, children }) => {
+export const FormRow = <T extends FormFieldConfig>({
+    Components,
+    row,
+    children,
+}: FormRowProps<T>) => {
     const { RowWrapper } = Components;
 
     if (!RowWrapper) {

@@ -1,14 +1,23 @@
 import React from "react";
-import { FormBuilderComponents, FormBuilderProps, FormCustomConfig } from "../type";
+import {
+    FormBuilderComponents,
+    FormBuilderProps,
+    FormCustomConfig,
+    FormFieldConfig,
+} from "../type";
 import { FormEntry } from "./FormEntry";
 
-interface FormCustomProps {
+interface FormCustomProps<T extends FormFieldConfig> {
     Components: FormBuilderComponents;
-    custom: FormCustomConfig;
+    custom: FormCustomConfig<T>;
     children: FormBuilderProps["children"];
 }
 
-export const FormCustom: React.FC<FormCustomProps> = ({ Components, custom, children }) => {
+export const FormCustom = <T extends FormFieldConfig>({
+    Components,
+    custom,
+    children,
+}: FormCustomProps<T>) => {
     return (
         <React.Fragment>
             {custom.wrapper(

@@ -1,6 +1,6 @@
 import { useCallback, useContext } from "react";
 import { FormDataContext } from "../context/data/context";
-import { FormConfig, FormError, FormErrors, FormFieldBasicConfig, FormFieldConfig } from "../type";
+import { FormConfig, FormError, FormErrors, FormFieldConfig } from "../type";
 import { handleValidateConfig, handleValidateField } from "../validation";
 import { useRefEffect } from "./useRefEffect";
 
@@ -61,8 +61,7 @@ export const useFormValidations = (
     );
 
     const validateField = useCallback(
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (field: FormFieldBasicConfig<any>, skipUpdate?: boolean): FormError | null => {
+        (field: FormFieldConfig, skipUpdate?: boolean): FormError | null => {
             const formErrors = handleValidateField(field, fieldConfigsRef.current, data.get());
 
             if (!skipUpdate) {

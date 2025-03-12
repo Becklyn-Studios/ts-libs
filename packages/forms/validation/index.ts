@@ -1,12 +1,6 @@
+import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "guard";
 import { fieldFulfillsConditions } from "../condition";
-import {
-    FormConfig,
-    FormData,
-    FormEntryConfig,
-    FormErrors,
-    FormFieldBasicConfig,
-    FormFieldConfig,
-} from "../type";
+import { FormConfig, FormData, FormEntryConfig, FormErrors, FormFieldConfig } from "../type";
 
 export const handleValidateConfig = (
     config: FormConfig,
@@ -31,10 +25,10 @@ const handleValidateEntry = (
     fieldConfigs: Record<string, FormFieldConfig>,
     data: FormData
 ): FormErrors => {
-    switch (entry.type) {
-        case "custom":
-        case "section":
-        case "row":
+    switch (true) {
+        case isFormRowConfig(entry):
+        case isFormSectionConfig(entry):
+        case isFormCustomConfig(entry):
             return handleValidateConfig(entry.content, fieldConfigs, data);
         default:
             return handleValidateField(entry, fieldConfigs, data);
@@ -42,8 +36,7 @@ const handleValidateEntry = (
 };
 
 export const handleValidateField = (
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    { name, validations, conditions, valueFn }: FormFieldBasicConfig<any>,
+    { name, validations, conditions, valueFn }: FormFieldConfig,
     fieldConfigs: Record<string, FormFieldConfig>,
     data: FormData
 ): FormErrors => {

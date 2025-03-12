@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
+import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "guard";
 import { fieldFulfillsConditions } from "../condition";
 import { useForm } from "../context";
 import { FormBuilderComponents, FormBuilderProps, FormData, FormEntryConfig } from "../type";
@@ -14,15 +15,15 @@ interface FormEntryProps {
     children: FormBuilderProps["children"];
 }
 
-export const FormEntry: React.FC<FormEntryProps> = ({ Components, entry, children }) => {
+export const FormEntry: FC<FormEntryProps> = ({ Components, entry, children }) => {
     const { data, fieldConfigs } = useForm();
 
     const getHasChildren = useCallback(
         (formData: FormData) => {
-            switch (entry.type) {
-                case "custom":
-                case "section":
-                case "row":
+            switch (true) {
+                case isFormRowConfig(entry):
+                case isFormSectionConfig(entry):
+                case isFormCustomConfig(entry):
                     return someFieldConfigs([entry], field =>
                         fieldFulfillsConditions(field, fieldConfigs, formData)
                     );
@@ -47,20 +48,20 @@ export const FormEntry: React.FC<FormEntryProps> = ({ Components, entry, childre
         return null;
     }
 
-    switch (entry.type) {
-        case "custom":
+    switch (true) {
+        case isFormCustomConfig(entry):
             return (
                 <FormCustom custom={entry} Components={Components}>
                     {children}
                 </FormCustom>
             );
-        case "section":
+        case isFormSectionConfig(entry):
             return (
                 <FormSection section={entry} Components={Components}>
                     {children}
                 </FormSection>
             );
-        case "row":
+        case isFormRowConfig(entry):
             return (
                 <FormRow row={entry} Components={Components}>
                     {children}
