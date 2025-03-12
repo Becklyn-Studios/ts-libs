@@ -31,4 +31,6 @@ export interface FormInputFuncProps<T extends FormFieldConfig> {
     previousData: FormData;
 }
 
-export type FormInputFunc = <T extends FormFieldConfig>(props: FormInputFuncProps<T>) => FormData;
+export type FormInputFunc<T extends FormFieldConfig = FormFieldConfig> = (
+    props: FormInputFuncProps<T>
+) => FormData;

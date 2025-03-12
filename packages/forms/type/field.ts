@@ -3,17 +3,11 @@ import { FormFieldConditions } from "./condition";
 import { FormData, FormInputFunc } from "./form";
 import { FieldValidations, FormValidationStrategy } from "./validation";
 
-// export type FormFieldConfig<T extends object> = T extends {
-//     [P in "fields"]: infer U;
-// }
-//     ? U
-//     : FormFieldBasicConfig<"placeholder", T>;
-
-export interface FormFieldConfig<
+export type FormFieldConfig<
     Type extends string = string,
     FieldConfig = unknown,
     InitialValue = any,
-> {
+> = {
     type: Type;
     name: string;
     initialValue?: InitialValue;
@@ -23,9 +17,11 @@ export interface FormFieldConfig<
     columns?: number;
     categories?: readonly string[];
     valueFn?: (data: FormData) => any;
-    onInput?: FormInputFunc;
+    onInput?: FormInputFunc<
+        FormFieldConfig<Type, FieldConfig, InitialValue extends infer U ? U : never>
+    >;
     fieldConfig: FormFieldConfigFunc<FieldConfig>;
-}
+};
 
 export type FormFieldConfigFunc<FieldConfig = unknown> =
     | FieldConfig
