@@ -1,14 +1,22 @@
-import React from "react";
-import { FormBuilderComponents, FormBuilderProps, FormSectionConfig } from "../type";
+import {
+    FormBuilderComponents,
+    FormBuilderProps,
+    FormFieldConfig,
+    FormSectionConfig,
+} from "../type";
 import { FormEntry } from "./FormEntry";
 
-interface FormSectionProps {
+interface FormSectionProps<T extends FormFieldConfig> {
     Components: FormBuilderComponents;
-    section: FormSectionConfig;
+    section: FormSectionConfig<T>;
     children: FormBuilderProps["children"];
 }
 
-export const FormSection: React.FC<FormSectionProps> = ({ Components, section, children }) => {
+export const FormSection = <T extends FormFieldConfig>({
+    Components,
+    section,
+    children,
+}: FormSectionProps<T>) => {
     const { SectionWrapper } = Components;
 
     if (!SectionWrapper) {

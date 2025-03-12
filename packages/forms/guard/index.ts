@@ -1,28 +1,31 @@
 import {
     FormCustomConfig,
     FormEntryConfig,
-    FormFieldBasicConfig,
+    FormFieldConfig,
     FormRowConfig,
     FormSectionConfig,
 } from "../type";
 
-export const entryIsSection = (
-    entry: Pick<FormEntryConfig, "type">
-): entry is FormSectionConfig => {
-    return entry.type === "section";
+export const isFormRowConfig = <T extends FormFieldConfig>(
+    config: FormEntryConfig<T>
+): config is FormRowConfig<T> => {
+    return config && config.type === "row";
 };
 
-export const entryIsRow = (entry: Pick<FormEntryConfig, "type">): entry is FormRowConfig => {
-    return entry.type === "row";
+export const isFormSectionConfig = <T extends FormFieldConfig>(
+    config: FormEntryConfig<T>
+): config is FormSectionConfig<T> => {
+    return config && config.type === "section";
 };
 
-export const entryIsCustom = (entry: Pick<FormEntryConfig, "type">): entry is FormCustomConfig => {
-    return entry.type === "custom";
+export const isFormCustomConfig = <T extends FormFieldConfig>(
+    config: FormEntryConfig<T>
+): config is FormCustomConfig<T> => {
+    return config && config.type === "custom";
 };
 
-export const entryIsField = (
-    entry: Pick<FormEntryConfig, "type">
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-): entry is FormFieldBasicConfig<any> => {
-    return !entryIsSection(entry) && !entryIsRow(entry) && !entryIsCustom(entry);
+export const isFormFieldConfig = <T extends FormFieldConfig>(
+    config: FormEntryConfig<T>
+): config is T => {
+    return !isFormRowConfig(config) && !isFormSectionConfig(config) && !isFormCustomConfig(config);
 };

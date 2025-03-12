@@ -173,18 +173,6 @@ export type FormFieldText = FormFieldBasicConfig<"text", TextFieldConfig>;
 
 The first parameter specifies to which field the fieldConfig will be applied. Here `"text"` means that in your config, if you add `type: "text"`, the `fieldConfig` will expect props specified in `TextFieldConfig`.
 
-#### 3. Patch form fields
-
-To overwrite the `FormFieldConfig` you can patch the interface using module augmentation:
-
-```typescript
-declare module "@becklyn/forms" {
-    interface CustomFormFieldConfig {
-        fields: FormFieldText | FormFieldNumber;
-    }
-}
-```
-
 ### Infer form config
 
 To be able to infer a form config's type <ins>it must be readonly</ins>. You can use the following helper to infer your config:

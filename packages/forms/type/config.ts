@@ -1,26 +1,26 @@
 import { ReactNode } from "react";
 import { FormFieldConfig } from "./field";
 
-export interface FormRowConfig {
+export interface FormRowConfig<T extends FormFieldConfig> {
     type: "row";
-    content: readonly FormEntryConfig[];
+    content: readonly FormEntryConfig<T>[];
 }
 
-export interface FormSectionConfig {
+export interface FormSectionConfig<T extends FormFieldConfig> {
     type: "section";
-    content: readonly FormEntryConfig[];
+    content: readonly FormEntryConfig<T>[];
 }
 
-export interface FormCustomConfig {
+export interface FormCustomConfig<T extends FormFieldConfig> {
     type: "custom";
     wrapper: (children: ReactNode) => ReactNode;
-    content: readonly FormEntryConfig[];
+    content: readonly FormEntryConfig<T>[];
 }
 
-export type FormEntryConfig =
-    | FormCustomConfig
-    | FormSectionConfig
-    | FormRowConfig
-    | FormFieldConfig;
+export type FormEntryConfig<T extends FormFieldConfig = FormFieldConfig> =
+    | FormCustomConfig<T>
+    | FormSectionConfig<T>
+    | FormRowConfig<T>
+    | T;
 
-export type FormConfig = readonly FormEntryConfig[];
+export type FormConfig<T extends FormFieldConfig = FormFieldConfig> = readonly FormEntryConfig<T>[];

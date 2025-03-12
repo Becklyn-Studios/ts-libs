@@ -1,6 +1,6 @@
 import { memo, useContext } from "react";
 import { FormConfigContext } from "../context/data/context";
-import { entryIsField } from "../guard";
+import { isFormFieldConfig } from "../guard";
 import {
     DefaultBuilderWrapper,
     DefaultFieldWrapper,
@@ -28,7 +28,7 @@ export const FormBuilder = memo<FormBuilderProps>(
             <Wrapper>
                 {config.map((entry, index) => (
                     <FormEntry
-                        key={index + (entryIsField(entry) ? entry.name : "")}
+                        key={index + (isFormFieldConfig(entry) ? entry.name : "")}
                         entry={entry}
                         Components={{ ...DefaultComponents, ...Components }}>
                         {children}
