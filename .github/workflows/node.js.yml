@@ -32,8 +32,6 @@ jobs:
 
     - name: Lint
       run: npm run lint
-      working-directory: packages/next
 
     - name: Build
       run: npm run build
-      working-directory: packages/next
