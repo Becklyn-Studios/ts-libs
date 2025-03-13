@@ -14,7 +14,7 @@ interface FormContext<TData = FormData> extends FormValidations {
     editData: FormStore<DeepPartial<TData>>;
     fieldConfigs: Record<string, FormFieldConfig>;
     validationStrategy: FormValidationStrategy;
-    onInput?: FormInputFunc;
+    onInput?: FormInputFunc<FormFieldConfig>;
 }
 
 export const FormContext = createContext<FormContext>(undefined as unknown as FormContext);

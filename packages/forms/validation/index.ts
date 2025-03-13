@@ -1,5 +1,5 @@
-import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "guard";
 import { fieldFulfillsConditions } from "../condition";
+import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "../guard";
 import { FormConfig, FormData, FormEntryConfig, FormErrors, FormFieldConfig } from "../type";
 
 export const handleValidateConfig = (

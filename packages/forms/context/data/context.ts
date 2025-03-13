@@ -2,12 +2,12 @@ import { createContext } from "react";
 import { FormStore } from "../../hook/useFormStore";
 import { FormConfig, FormData, FormErrors } from "../../type";
 
-export type FormConfigContext = {
+export type FormConfigContextProps = {
     config: FormConfig;
 };
 
-export const FormConfigContext = createContext<FormConfigContext>(
-    undefined as unknown as FormConfigContext
+export const FormConfigContext = createContext<FormConfigContextProps>(
+    undefined as unknown as FormConfigContextProps
 );
 
 export interface FormDataContext {

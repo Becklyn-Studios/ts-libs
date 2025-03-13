@@ -4,6 +4,7 @@ import {
     FormConfig,
     FormData,
     FormErrors,
+    FormFieldConfig,
     FormInputFunc,
     FormValidationStrategy,
 } from "../../type";
@@ -22,7 +23,7 @@ export interface FormProviderProps {
     /**
      * @deprecated Use the field config's 'onInput' callback instead
      */
-    onInput?: FormInputFunc;
+    onInput?: FormInputFunc<FormFieldConfig>;
 }
 
 export const FormDataProvider: React.FC<PropsWithChildren<FormProviderProps>> = ({
