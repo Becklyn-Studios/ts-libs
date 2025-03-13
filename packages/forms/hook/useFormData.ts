@@ -1,11 +1,11 @@
 import { useContext, useSyncExternalStore } from "react";
 import { FormDataContext } from "../context/data/context";
-import { FormData } from "../type";
+import { FormData, FormFieldConfig } from "../type";
 import { FormStore } from "./useFormStore";
 
-export const useFormData = <SelectorOutput>(
-    selector: (store: FormData) => SelectorOutput
-): [SelectorOutput, (value: Partial<FormData>) => void, () => FormData] => {
+export const useFormData = <SelectorOutput, T extends FormFieldConfig<string, any, any>>(
+    selector: (store: FormData<T>) => SelectorOutput
+): [SelectorOutput, (value: Partial<FormData<T>>) => void, () => FormData<T>] => {
     const { data } = useContext(FormDataContext);
 
     if (!data) {

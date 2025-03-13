@@ -1,48 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormFieldConditions } from "./condition";
-import { FormConfig } from "./config";
 import { FormData, FormInputFunc } from "./form";
 import { FieldValidations, FormValidationStrategy } from "./validation";
 
-export type FormFieldConfig<
-    Type extends string,
-    FieldConfig,
-    InitialValue,
-    AllFields extends FormFieldConfig<string, unknown, unknown, AllFields>,
-> = {
-    type: Type;
+export type FormFieldConfig<Type extends string, FieldConfig, InitialValue> = {
+    type: Type extends infer U ? U : never;
     name: string;
-    initialValue?: InitialValue;
+    initialValue?: InitialValue extends infer U ? U : never;
     conditions?: FormFieldConditions;
     validationStrategy?: FormValidationStrategy;
     validations?: readonly FieldValidations[];
     columns?: number;
     categories?: readonly string[];
-    valueFn?: (data: FormData<AllFields>) => any;
-    // onInput?: FormInputFunc<
-    //     FormFieldConfig<
-    //         Type extends infer U ? U : never,
-    //         Name extends infer V ? V : never,
-    //         FieldConfig,
-    //         InitialValue,
-    //         AllFields
-    //     >,
-    //     AllFields,
-    //     InitialValue
-    // >;
-    fieldConfig: FormFieldConfigFunc<AllFields, FieldConfig>;
+    valueFn?: (data: FormData<FormFieldConfig<string, any, any>>) => any;
+    onInput?: FormInputFunc<
+        FormFieldConfig<
+            Type extends infer U ? U : never,
+            FieldConfig extends infer U ? U : never,
+            InitialValue extends infer U ? U : never
+        >,
+        InitialValue extends infer U ? U : never
+    >;
+    fieldConfig: FormFieldConfigFunc<FieldConfig>;
 };
 
-export type FormFieldConfigFunc<
-    AllFields extends FormFieldConfig<string, unknown, unknown, AllFields>,
-    FieldConfig = unknown,
-> = FieldConfig | ((props: { value: any; data: FormData<AllFields> }) => FieldConfig);
+export type FormFieldConfigFunc<FieldConfig = unknown> =
+    | FieldConfig
+    | ((props: { value: any; data: FormData<FormFieldConfig<string, any, any>> }) => FieldConfig);
 
-export type ResolveFieldConfigFunc<T extends FormFieldConfig<string, unknown, unknown, T>> =
-    T extends {
-        fieldConfig: infer U;
-    }
-        ? U extends (...args: any[]) => any
-            ? never
-            : T & { fieldConfig: U }
-        : never;
+export type ResolveFieldConfigFunc<T extends FormFieldConfig<string, any, any>> = T extends {
+    fieldConfig: infer U;
+}
+    ? U extends (...args: any[]) => any
+        ? never
+        : T & { fieldConfig: U }
+    : never;

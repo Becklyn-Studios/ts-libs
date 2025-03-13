@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import merge from "lodash.merge";
 import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "../guard";
-import { FormConfig, FormData, FormFieldConfig } from "../type";
+import { FormConfig, FormData, FormEntryConfig, FormFieldConfig } from "../type";
 
 export function eitherOr<const T>(config: T | false | undefined | null | 0 | ""): T;
 export function eitherOr<const Either, const Or>(
@@ -8,7 +9,7 @@ export function eitherOr<const Either, const Or>(
     either: Either,
     or: Or
 ): Either | Or;
-export function eitherOr<T extends FormFieldConfig<string, unknown, unknown, T>>(
+export function eitherOr<T extends FormFieldConfig<string, any, any>>(
     configOrCondition: boolean | FormConfig<T>,
     either?: FormConfig<T>,
     or?: FormConfig<T>
@@ -20,56 +21,58 @@ export function eitherOr<T extends FormFieldConfig<string, unknown, unknown, T>>
     }
 }
 
-export const createFormConfig = <const T extends FormFieldConfig<string, unknown, unknown, T>>(
+export const createFormConfig = <const T extends FormFieldConfig<string, any, any>>(
     config: FormConfig<T>
 ) => mapFieldConfigs(config, entry => entry);
 
-export const fieldConfigFromFormField = <T extends FormFieldConfig<string, unknown, unknown, T>>(
+export const fieldConfigFromFormField = <T extends FormFieldConfig<string, any, any>>(
     { name, fieldConfig }: T,
-    data: FormData<FormConfig<T>>
+    data: FormData<T>
 ): T["fieldConfig"] => {
     return typeof fieldConfig === "function"
-        ? fieldConfig({ value: data[name], data })
+        ? // @ts-expect-error: ts does not understand this
+          fieldConfig({ value: data[name], data })
         : fieldConfig;
 };
 
-// export type FormData<T extends FormDataFieldConfig<string, unknown>[]> = {
-//     [K in T[number]["name"]]: Extract<T[number], { name: K }>["initialValue"];
-// };
-
-export const fieldsFromConfig = <T extends FormFieldConfig<string, unknown, unknown, T>>(
+export const fieldsFromConfig = <T extends FormFieldConfig<string, any, any>>(
     config: FormConfig<T>
 ): {
     [K in T["name"]]: Extract<T, { name: K }>;
 } => {
-    return reduceFieldConfigs<Record<string, T>, T>(config, (acc, field) => {
+    return reduceFieldConfigs<
+        {
+            [K in T["name"]]: Extract<T, { name: K }>;
+        },
+        T
+    >(config, (acc, field) => {
+        // @ts-expect-error: ts does not understand this
         acc[field.name] = field;
         return acc;
     });
 };
 
-// export const initialValuesFromConfig = <
-//     T extends FormFieldConfig<string, string, unknown, unknown>,
-// >(
-//     config: FormConfig<T>
-// ): FormData<FormConfig<T>> => {
-//     return reduceFieldConfigs(config, (acc, field) => {
-//         if (field.initialValue !== undefined) {
-//             if (field.onInput) {
-//                 acc = merge(
-//                     acc,
-//                     field.onInput({ field, value: field.initialValue, previousData: acc })
-//                 );
-//             } else {
-//                 acc[field.name] = field.initialValue;
-//             }
-//         }
+export const initialValuesFromConfig = <T extends FormFieldConfig<string, any, any>>(
+    config: FormConfig<T>
+): FormData<T> => {
+    return reduceFieldConfigs(config, (acc, field) => {
+        if (field.initialValue !== undefined) {
+            if (field.onInput) {
+                acc = merge(
+                    acc,
+                    field.onInput({ field, value: field.initialValue, previousData: acc })
+                );
+            } else {
+                // @ts-expect-error: ts does not understand this
+                acc[field.name] = field.initialValue;
+            }
+        }
 
-//         return acc;
-//     });
-// };
+        return acc;
+    });
+};
 
-export const mapFieldConfigs = <T extends FormFieldConfig<string, string, unknown, unknown, T>>(
+export const mapFieldConfigs = <T extends FormFieldConfig<string, any, any>>(
     entries: FormConfig<T>,
     callbackFn: (field: T, index: number) => T
 ): FormConfig<T> => {
@@ -93,8 +96,8 @@ export const mapFieldConfigs = <T extends FormFieldConfig<string, string, unknow
 };
 
 export const reduceFieldConfigs = <
-    T extends Record<string | number, unknown>,
-    U extends FormFieldConfig<string, string, unknown, unknown, never>,
+    T extends Record<string | number, any>,
+    U extends FormFieldConfig<string, any, any>,
 >(
     entries: FormConfig<U>,
     callbackFn: (acc: T, field: U, index: number) => T
@@ -115,18 +118,18 @@ export const reduceFieldConfigs = <
     }, {} as T);
 };
 
-// export const someFieldConfigs = (
-//     entries: readonly FormEntryConfig[],
-//     callbackFn: <T extends FormFieldConfig>(field: T, index: number) => boolean
-// ): boolean => {
-//     return entries.some((entry, index) => {
-//         switch (true) {
-//             case isFormRowConfig(entry):
-//             case isFormSectionConfig(entry):
-//             case isFormCustomConfig(entry):
-//                 return someFieldConfigs(entry.content, callbackFn);
-//             default:
-//                 return callbackFn(entry, index);
-//         }
-//     });
-// };
+export const someFieldConfigs = (
+    entries: readonly FormEntryConfig<any>[],
+    callbackFn: <T extends FormFieldConfig<string, any, any>>(field: T, index: number) => boolean
+): boolean => {
+    return entries.some((entry, index) => {
+        switch (true) {
+            case isFormRowConfig(entry):
+            case isFormSectionConfig(entry):
+            case isFormCustomConfig(entry):
+                return someFieldConfigs(entry.content, callbackFn);
+            default:
+                return callbackFn(entry, index);
+        }
+    });
+};

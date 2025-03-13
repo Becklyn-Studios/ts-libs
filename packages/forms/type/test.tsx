@@ -5,9 +5,9 @@ import { FormBuilderChildrenProps, FormData } from "./form";
 
 type FieldTypes = FormFieldText | FormFieldNumber | FormField2Number;
 
-type FormFieldText = FormFieldConfig<"text", { label: string }, string, never>;
-type FormFieldNumber = FormFieldConfig<"number", { label: string }, number, never>;
-type FormField2Number = FormFieldConfig<"number", { label: string }, number, never>;
+type FormFieldText = FormFieldConfig<"text", { label: string }, string>;
+type FormFieldNumber = FormFieldConfig<"number", { label: string }, number>;
+type FormField2Number = FormFieldConfig<"number", { label: string }, number>;
 
 const textFieldConfig: FormFieldText = {
     type: "text",
@@ -50,7 +50,7 @@ const a = fieldsFromConfig(userFormConfig);
 
 const x: FormData<FieldTypes> = {
     textName: "",
-    numberName: "",
+    numberName: true,
     g: "",
 };
 

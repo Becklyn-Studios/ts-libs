@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fieldFulfillsConditions } from "../condition";
 import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "../guard";
 import { FormConfig, FormData, FormEntryConfig, FormErrors, FormFieldConfig } from "../type";
 
 export const handleValidateConfig = (
-    config: FormConfig,
-    fieldConfigs: Record<string, FormFieldConfig>,
-    data: FormData
+    config: FormConfig<FormFieldConfig<string, any, any>>,
+    fieldConfigs: Record<string, FormFieldConfig<string, any, any>>,
+    data: FormData<FormFieldConfig<string, any, any>>
 ): FormErrors => {
     const errors: FormErrors = {};
 
@@ -21,9 +22,9 @@ export const handleValidateConfig = (
 };
 
 const handleValidateEntry = (
-    entry: FormEntryConfig,
-    fieldConfigs: Record<string, FormFieldConfig>,
-    data: FormData
+    entry: FormEntryConfig<FormFieldConfig<string, any, any>>,
+    fieldConfigs: Record<string, FormFieldConfig<string, any, any>>,
+    data: FormData<FormFieldConfig<string, any, any>>
 ): FormErrors => {
     switch (true) {
         case isFormRowConfig(entry):
@@ -36,9 +37,9 @@ const handleValidateEntry = (
 };
 
 export const handleValidateField = (
-    { name, validations, conditions, valueFn }: FormFieldConfig,
-    fieldConfigs: Record<string, FormFieldConfig>,
-    data: FormData
+    { name, validations, conditions, valueFn }: FormFieldConfig<string, any, any>,
+    fieldConfigs: Record<string, FormFieldConfig<string, any, any>>,
+    data: FormData<FormFieldConfig<string, any, any>>
 ): FormErrors => {
     if (
         !validations ||
