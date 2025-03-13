@@ -51,7 +51,7 @@ npm i --save @becklyn/forms
 Create a single component to handle rendering all of your different input components. It will be called by the `FormBuilder` including the respective field's props.
 
 ```tsx
-export const FieldComponent: React.FC<FormBuilderChildrenProps> = ({
+export const FieldComponent: React.FC<FormBuilderChildrenProps<FieldTypes>> = ({
     value,
     error,
     field,
@@ -116,8 +116,9 @@ export const forgotPasswordFormConfig = createFormConfig([
 To render your form config the FormBuilder needs to be a descendant of `FormProvider` (or a component using `withForm`). An implementation could look something like this where the majority can easily be abstracted.
 
 ```tsx
+// the form renderer can be reused to render all kinds of forms
 export const FormRenderer: React.FC = () => {
-    return <FormBuilder>{props => <WizardField {...props} />}</FormBuilder>;
+    return <FormBuilder>{props => <FieldComponent {...props} />}</FormBuilder>;
 };
 
 export const LoginFormHandler = withForm(() => {
@@ -168,10 +169,25 @@ export interface TextFieldConfig {
 Create an intermediate type that forms can consume:
 
 ```typescript
-export type FormFieldText = FormFieldBasicConfig<"text", TextFieldConfig>;
+export type FormFieldText = FormFieldConfig<"text", TextFieldConfig, string>;
 ```
 
 The first parameter specifies to which field the fieldConfig will be applied. Here `"text"` means that in your config, if you add `type: "text"`, the `fieldConfig` will expect props specified in `TextFieldConfig`.
+
+The third generic parameter in `FormFieldConfig` is the type of allowed values this field can handle.
+
+Its useful to build a type that unifies all your fields:
+
+```typescript
+export type FormFieldText = FormFieldConfig<"text", TextFieldConfig, string>;
+export type FormFieldNumber = FormFieldConfig<"number", NumberFieldConfig, number>;
+export type FormFieldSelect = FormFieldConfig<
+    "select",
+    SelectFieldConfig,
+    { id: string; value: string }
+>;
+export type FormField = FormFieldText | FormFieldNumber | FormFieldSelect;
+```
 
 ### Infer form config
 
@@ -191,7 +207,7 @@ While this is true using `createFormConfig`, parts of your config that are rende
 
 ```typescript
 useMemo(() => {
-    return createFormConfig([
+    return createFormConfig<FormField>([
         // Render a or b
         eitherOr(
             someCondition,
@@ -224,6 +240,14 @@ useMemo(() => {
 }, [someCondition]);
 ```
 
+The `FormBuilder` is generic, too:
+
+```typescript
+export const FormRenderer: React.FC = () => {
+    return <FormBuilder<FieldTypes>>{props => <FieldComponent {...props} />}</FormBuilder>;
+};
+```
+
 ## Guides
 
 ### Multistep
@@ -232,8 +256,8 @@ Multistep can be achieved easily and abstracted into a custom component. The con
 While this lib handles the data, validations etc., you must still handle the multistep logic yourself.
 
 ```tsx
-const Step = withForm(() => {
-    const { validateForm } = useForm();
+const Step = withForm<FormField>(() => {
+    const { validateForm } = useForm<FormField>();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -253,7 +277,7 @@ const Step = withForm(() => {
     );
 });
 
-const MultiStep = withForm(() => {
+const MultiStep = withForm<FormField>(() => {
     // your custom hook
     const { step } = useMultiStep();
 

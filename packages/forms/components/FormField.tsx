@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useForm } from "../context";
 import { useFormData } from "../hook/useFormData";
 import { useFormErrors } from "../hook/useFormErrors";
@@ -9,13 +9,19 @@ import {
     FormFieldConfig,
 } from "../type";
 
-interface FormFieldProps {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface FormFieldProps<T extends FormFieldConfig<string, any, any>> {
     Components: FormBuilderComponents;
-    field: FormFieldConfig;
-    children: FormBuilderProps["children"];
+    field: T;
+    children: FormBuilderProps<T>["children"];
 }
 
-export const FormField: React.FC<FormFieldProps> = ({ Components, field, children }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const FormField = <T extends FormFieldConfig<string, any, any>>({
+    Components,
+    field,
+    children,
+}: FormFieldProps<T>) => {
     const {
         editData,
         validationStrategy: contextValidationStrategy,
@@ -59,7 +65,7 @@ export const FormField: React.FC<FormFieldProps> = ({ Components, field, childre
         ? fieldConfigFunc({ value: normalizedValue, data })
         : fieldConfigFunc;
 
-    const handleInput = useCallback<FormBuilderChildrenProps["onInput"]>(
+    const handleInput = useCallback<FormBuilderChildrenProps<T>["onInput"]>(
         value => {
             let normalizedValue;
 
@@ -86,7 +92,7 @@ export const FormField: React.FC<FormFieldProps> = ({ Components, field, childre
         [field, setStore, getStore, onFieldInput, onInput]
     );
 
-    const handleBlur = useCallback<FormBuilderChildrenProps["onBlur"]>(() => {
+    const handleBlur = useCallback<FormBuilderChildrenProps<T>["onBlur"]>(() => {
         if (!validations || !validationStrategy.includes("blur")) {
             return;
         }
@@ -108,7 +114,7 @@ export const FormField: React.FC<FormFieldProps> = ({ Components, field, childre
         return validateField(field) ?? undefined;
     })();
 
-    const childrenProps: FormBuilderChildrenProps = {
+    const childrenProps: FormBuilderChildrenProps<T> = {
         value: normalizedValue,
         error: fieldError || fieldInputError,
         onInput: handleInput,

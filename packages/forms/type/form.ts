@@ -4,9 +4,10 @@ import { JSXElementConstructor, PropsWithChildren, ReactNode } from "react";
 import { FormFieldConfig } from "./field";
 import { FormError } from "./validation";
 
-export type FormData<T extends FormFieldConfig<string, any, any>> = {
-    [K in T["name"]]: Extract<T, { name: K }>["initialValue"];
-};
+export type FormData<T extends FormFieldConfig<string, any, any>> = Record<
+    string,
+    T extends { initialValue?: infer K } ? K : never
+>;
 
 export interface FormBuilderComponents {
     BuilderWrapper: JSXElementConstructor<PropsWithChildren>;

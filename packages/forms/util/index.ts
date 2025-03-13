@@ -30,8 +30,7 @@ export const fieldConfigFromFormField = <T extends FormFieldConfig<string, any, 
     data: FormData<T>
 ): T["fieldConfig"] => {
     return typeof fieldConfig === "function"
-        ? // @ts-expect-error: ts does not understand this
-          fieldConfig({ value: data[name], data })
+        ? fieldConfig({ value: data[name], data })
         : fieldConfig;
 };
 
@@ -63,7 +62,6 @@ export const initialValuesFromConfig = <T extends FormFieldConfig<string, any, a
                     field.onInput({ field, value: field.initialValue, previousData: acc })
                 );
             } else {
-                // @ts-expect-error: ts does not understand this
                 acc[field.name] = field.initialValue;
             }
         }

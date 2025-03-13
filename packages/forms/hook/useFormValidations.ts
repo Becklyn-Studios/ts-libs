@@ -6,16 +6,17 @@ import { useRefEffect } from "./useRefEffect";
 
 export type FormValidations = ReturnType<typeof useFormValidations>;
 
-export const useFormValidations = (
-    config: FormConfig,
-    fieldConfigs: Record<string, FormFieldConfig>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const useFormValidations = <T extends FormFieldConfig<string, any, any>>(
+    config: FormConfig<T>,
+    fieldConfigs: Record<string, T>
 ) => {
     const configRef = useRefEffect(config);
     const fieldConfigsRef = useRefEffect(fieldConfigs);
     const { data, errors } = useContext(FormDataContext);
 
     const validateForm = useCallback(
-        (input: FormConfig = configRef.current, skipUpdate?: boolean): FormErrors | null => {
+        (input: FormConfig<T> = configRef.current, skipUpdate?: boolean): FormErrors | null => {
             const formErrors = handleValidateConfig(input, fieldConfigsRef.current, data.get());
 
             if (!skipUpdate) {
@@ -61,7 +62,7 @@ export const useFormValidations = (
     );
 
     const validateField = useCallback(
-        (field: FormFieldConfig, skipUpdate?: boolean): FormError | null => {
+        (field: T, skipUpdate?: boolean): FormError | null => {
             const formErrors = handleValidateField(field, fieldConfigsRef.current, data.get());
 
             if (!skipUpdate) {

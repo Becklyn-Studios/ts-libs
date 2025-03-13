@@ -7,13 +7,15 @@ import {
 } from "../type";
 import { FormEntry } from "./FormEntry";
 
-interface FormCustomProps<T extends FormFieldConfig> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface FormCustomProps<T extends FormFieldConfig<string, any, any>> {
     Components: FormBuilderComponents;
     custom: FormCustomConfig<T>;
-    children: FormBuilderProps["children"];
+    children: FormBuilderProps<T>["children"];
 }
 
-export const FormCustom = <T extends FormFieldConfig>({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const FormCustom = <T extends FormFieldConfig<string, any, any>>({
     Components,
     custom,
     children,

@@ -1,11 +1,13 @@
 import { PropsWithChildren, useContext, useMemo } from "react";
+import { FormFieldConfig } from "type";
 import { withFormData } from "../hoc/withFormData";
 import { useFormValidations } from "../hook/useFormValidations";
 import { fieldsFromConfig } from "../util";
 import { FormContext, useForm } from "./context";
 import { FormDataContext } from "./data/context";
 
-export const FormProvider = withFormData<PropsWithChildren>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const FormProvider = withFormData<FormFieldConfig<string, any, any>, PropsWithChildren>(
     ({ config, validationStrategy = "blur", onInput: internalOnInput, inheritData, children }) => {
         const externalForm = useForm();
         const { data, editData } = useContext(FormDataContext);

@@ -7,7 +7,7 @@ import {
     DefaultRowWrapper,
     DefaultSectionWrapper,
 } from "../style";
-import { FormBuilderComponents, FormBuilderProps } from "../type";
+import { FormBuilderComponents, FormBuilderProps, FormFieldConfig } from "../type";
 import { FormEntry } from "./FormEntry";
 
 const DefaultComponents: FormBuilderComponents = {
@@ -17,8 +17,20 @@ const DefaultComponents: FormBuilderComponents = {
     FieldWrapper: DefaultFieldWrapper,
 };
 
-export const FormBuilder = memo<FormBuilderProps>(
-    ({ Components = DefaultComponents, children }: FormBuilderProps) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const FormBuilder = <T extends FormFieldConfig<string, any, any>>({
+    Components = DefaultComponents,
+    children,
+}: FormBuilderProps<T>) => {
+    return <FormBuilderComponent Components={Components}>{children}</FormBuilderComponent>;
+};
+
+const FormBuilderComponent = memo(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    <T extends FormFieldConfig<string, any, any>>({
+        Components = DefaultComponents,
+        children,
+    }: FormBuilderProps<T>) => {
         const { BuilderWrapper } = Components;
         const { config } = useContext(FormConfigContext);
 
@@ -39,4 +51,4 @@ export const FormBuilder = memo<FormBuilderProps>(
     }
 );
 
-FormBuilder.displayName = "FormBuilder";
+FormBuilderComponent.displayName = "FormBuilderComponent";

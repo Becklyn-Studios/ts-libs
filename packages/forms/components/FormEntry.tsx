@@ -1,25 +1,37 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fieldFulfillsConditions } from "../condition";
 import { useForm } from "../context";
 import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "../guard";
-import { FormBuilderComponents, FormBuilderProps, FormData, FormEntryConfig } from "../type";
+import {
+    FormBuilderComponents,
+    FormBuilderProps,
+    FormData,
+    FormEntryConfig,
+    FormFieldConfig,
+} from "../type";
 import { someFieldConfigs } from "../util";
 import { FormCustom } from "./FormCustom";
 import { FormField } from "./FormField";
 import { FormRow } from "./FormRow";
 import { FormSection } from "./FormSection";
 
-interface FormEntryProps {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface FormEntryProps<T extends FormFieldConfig<string, any, any>> {
     Components: FormBuilderComponents;
-    entry: FormEntryConfig;
-    children: FormBuilderProps["children"];
+    entry: FormEntryConfig<T>;
+    children: FormBuilderProps<T>["children"];
 }
 
-export const FormEntry: FC<FormEntryProps> = ({ Components, entry, children }) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const FormEntry = <T extends FormFieldConfig<string, any, any>>({
+    Components,
+    entry,
+    children,
+}: FormEntryProps<T>) => {
     const { data, fieldConfigs } = useForm();
 
     const getHasChildren = useCallback(
-        (formData: FormData) => {
+        (formData: FormData<T>) => {
             switch (true) {
                 case isFormRowConfig(entry):
                 case isFormSectionConfig(entry):

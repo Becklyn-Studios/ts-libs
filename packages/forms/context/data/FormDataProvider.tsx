@@ -1,4 +1,5 @@
-import React, { PropsWithChildren, useContext, useRef } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { PropsWithChildren, useContext, useRef } from "react";
 import { FormStore, useFormStore } from "../../hook/useFormStore";
 import {
     FormConfig,
@@ -11,32 +12,32 @@ import {
 import { initialValuesFromConfig } from "../../util";
 import { FormConfigContext, FormDataContext } from "./context";
 
-export interface FormProviderProps {
-    config: FormConfig;
-    data?: FormStore<FormData>;
-    errors?: FormStore<FormData>;
-    editData?: FormStore<FormData>;
-    initialData?: FormData;
+export interface FormProviderProps<T extends FormFieldConfig<string, any, any>> {
+    config: FormConfig<T>;
+    data?: FormStore<FormData<T>>;
+    errors?: FormStore<FormErrors>;
+    editData?: FormStore<FormData<T>>;
+    initialData?: FormData<T>;
     inheritData?: boolean;
     inheritErrors?: boolean;
     validationStrategy?: FormValidationStrategy;
     /**
      * @deprecated Use the field config's 'onInput' callback instead
      */
-    onInput?: FormInputFunc<FormFieldConfig>;
+    onInput?: FormInputFunc<T, any>;
 }
 
-export const FormDataProvider: React.FC<PropsWithChildren<FormProviderProps>> = ({
+export const FormDataProvider = <T extends FormFieldConfig<string, any, any>>({
     config,
     initialData,
     children,
     ...props
-}) => {
+}: PropsWithChildren<FormProviderProps<T>>) => {
     if (!config) {
         throw new Error("Config is undefined");
     }
 
-    const initialDataRef = useRef<FormData | undefined>({
+    const initialDataRef = useRef<FormData<T> | undefined>({
         ...initialValuesFromConfig(config),
         ...(initialData ?? {}),
     });
@@ -50,7 +51,7 @@ export const FormDataProvider: React.FC<PropsWithChildren<FormProviderProps>> = 
     );
 };
 
-const FormDataReadyProvider: React.FC<PropsWithChildren<Omit<FormProviderProps, "config">>> = ({
+const FormDataReadyProvider = <T extends FormFieldConfig<string, any, any>>({
     initialData,
     inheritData,
     inheritErrors,
@@ -58,11 +59,11 @@ const FormDataReadyProvider: React.FC<PropsWithChildren<Omit<FormProviderProps, 
     data: inputData,
     editData: inputEditData,
     errors: inputErrors,
-}) => {
+}: PropsWithChildren<Omit<FormProviderProps<T>, "config">>) => {
     const externalContext = useContext(FormDataContext);
 
-    const internalData = useFormStore<FormData>(initialData ?? {});
-    const internalEditData = useFormStore<FormData>({});
+    const internalData = useFormStore<FormData<T>>(initialData ?? {});
+    const internalEditData = useFormStore<FormData<T>>({});
     const internalErrors = useFormStore<FormErrors>({});
 
     const data =

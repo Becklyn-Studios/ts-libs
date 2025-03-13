@@ -9,7 +9,13 @@ export type FormFieldConfig<Type extends string, FieldConfig, InitialValue> = {
     initialValue?: InitialValue extends infer U ? U : never;
     conditions?: FormFieldConditions;
     validationStrategy?: FormValidationStrategy;
-    validations?: readonly FieldValidations[];
+    validations?: readonly FieldValidations<
+        FormFieldConfig<
+            Type extends infer U ? U : never,
+            FieldConfig extends infer U ? U : never,
+            InitialValue extends infer U ? U : never
+        >
+    >[];
     columns?: number;
     categories?: readonly string[];
     valueFn?: (data: FormData<FormFieldConfig<string, any, any>>) => any;
