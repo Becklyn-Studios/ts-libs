@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 2.0.1
+
+### Patch Changes
+
+- f2d6669: Fix onInput types
+
 ## 2.0.0
 
 ### Major Changes

@@ -2,4 +2,4 @@
 "@becklyn/forms": patch
 ---
 
-Fix onInput types
+Fix type system
