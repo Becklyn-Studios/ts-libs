@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 2.0.3
+
+### Patch Changes
+
+- 674de8c: add optional editStep for FormFieldConfig for MultiStepConfigs
+
 ## 2.0.2
 
 ### Patch Changes
