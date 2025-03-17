@@ -28,6 +28,7 @@ export type FormFieldConfig<Type extends string, FieldConfig, InitialValue> = {
         InitialValue extends infer U ? U : never
     >;
     fieldConfig: FormFieldConfigFunc<FieldConfig>;
+    editStep?: number;
 };
 
 export type FormFieldConfigFunc<FieldConfig = unknown> =
