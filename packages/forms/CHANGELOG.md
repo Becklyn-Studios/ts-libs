@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 2.0.4
+
+### Patch Changes
+
+- 8108809: Fix type system
+
 ## 2.0.3
 
 ### Patch Changes
