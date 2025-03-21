@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JSXElementConstructor, PropsWithChildren, ReactNode } from "react";
-// import { FormConfig } from "./config";
 import { FormFieldConfig } from "./field";
 import { FormError } from "./validation";
 
@@ -38,13 +37,3 @@ export interface FormInputFuncProps<Field extends FormFieldConfig<string, any, a
 export type FormInputFunc<Field extends FormFieldConfig<string, any, any>, InitialValue> = (
     props: FormInputFuncProps<Field, InitialValue>
 ) => FormData<FormFieldConfig<string, any, any>>;
-
-// Type 'FormFieldText' is not assignable to type 'FormEntryConfig<FormFieldConfig<string, unknown, unknown, FormFieldText | FormFieldNumber>>'.
-//   Type 'FormFieldText' is not assignable to type 'FormFieldConfig<string, unknown, unknown, FormFieldText | FormFieldNumber>'.
-//     Types of property 'onInput' are incompatible.
-//       Type 'FormInputFunc<FormFieldConfig<"text", { label: string; }, string, never>, never, string> | undefined' is not assignable to type 'FormInputFunc<FormFieldConfig<string, unknown, unknown, FormFieldText | FormFieldNumber>, FormFieldText | FormFieldNumber, unknown> | undefined'.
-//         Type 'FormInputFunc<FormFieldConfig<"text", { label: string; }, string, never>, never, string>' is not assignable to type 'FormInputFunc<FormFieldConfig<string, unknown, unknown, FormFieldText | FormFieldNumber>, FormFieldText | FormFieldNumber, unknown>'.
-//           Types of parameters 'props' and 'props' are incompatible.
-//             Type 'FormInputFuncProps<FormFieldConfig<string, unknown, unknown, FormFieldText | FormFieldNumber>, FormFieldText | FormFieldNumber, unknown>' is not assignable to type 'FormInputFuncProps<FormFieldConfig<"text", { label: string; }, string, never>, never, string>'.
-//               Types of property 'value' are incompatible.
-//                 Type 'unknown' is not assignable to type 'string'.ts(2322)
