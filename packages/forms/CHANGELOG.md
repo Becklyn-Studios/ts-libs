@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 3.0.1
+
+### Patch Changes
+
+- d2cdb55: Fix form provider
+
 ## 3.0.0
 
 ### Major Changes
