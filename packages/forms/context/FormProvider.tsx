@@ -15,6 +15,22 @@ export const FormProvider = <
     children,
     ...props
 }: PropsWithChildren<FormProviderProps<T, GlobalFormData>>) => {
+    return (
+        <FormDataProvider<T, GlobalFormData> {...props}>
+            <FormProviderInner {...props}>{children}</FormProviderInner>
+        </FormDataProvider>
+    );
+};
+
+export const FormProviderInner = <
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+>({
+    children,
+    ...props
+}: PropsWithChildren<FormProviderProps<T, GlobalFormData>>) => {
     const externalForm = useForm<T, GlobalFormData>();
     const { data, editData } = useContext(FormDataContext);
     const { config, validationStrategy = "blur", onInput: internalOnInput, inheritData } = props;
@@ -28,19 +44,17 @@ export const FormProvider = <
     const formValidations = useFormValidations(config, fieldConfigs);
 
     return (
-        <FormDataProvider<T, GlobalFormData> {...props}>
-            <FormContext.Provider
-                value={{
-                    ...formValidations,
-                    data,
-                    editData,
-                    fieldConfigs,
-                    validationStrategy,
-                    // @ts-expect-error - ts is not able to infer the correct type
-                    onInput,
-                }}>
-                {children}
-            </FormContext.Provider>
-        </FormDataProvider>
+        <FormContext.Provider
+            value={{
+                ...formValidations,
+                data,
+                editData,
+                fieldConfigs,
+                validationStrategy,
+                // @ts-expect-error - ts is not able to infer the correct type
+                onInput,
+            }}>
+            {children}
+        </FormContext.Provider>
     );
 };
