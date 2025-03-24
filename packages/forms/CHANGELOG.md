@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 3.0.0
+
+### Major Changes
+
+- fc7bf8f: Defnitly typed forms
+
 ## 2.0.4
 
 ### Patch Changes
