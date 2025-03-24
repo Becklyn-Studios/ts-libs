@@ -3,42 +3,49 @@ import { PropsWithChildren, useContext, useRef } from "react";
 import { FormStore, useFormStore } from "../../hook/useFormStore";
 import {
     FormConfig,
-    FormData,
     FormErrors,
     FormFieldConfig,
     FormInputFunc,
     FormValidationStrategy,
 } from "../../type";
-import { initialValuesFromConfig } from "../../util";
 import { FormConfigContext, FormDataContext } from "./context";
 
-export interface FormProviderProps<T extends FormFieldConfig<string, any, any>> {
-    config: FormConfig<T>;
-    data?: FormStore<FormData<T>>;
+export interface FormProviderProps<
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+> {
+    config: FormConfig<T, GlobalFormData>;
+    initialData: GlobalFormData;
+    data?: FormStore<GlobalFormData>;
     errors?: FormStore<FormErrors>;
-    editData?: FormStore<FormData<T>>;
-    initialData?: FormData<T>;
+    editData?: FormStore<GlobalFormData>;
     inheritData?: boolean;
     inheritErrors?: boolean;
     validationStrategy?: FormValidationStrategy;
     /**
      * @deprecated Use the field config's 'onInput' callback instead
      */
-    onInput?: FormInputFunc<T, any>;
+    onInput?: FormInputFunc<
+        T,
+        T extends FormFieldConfig<string, any, infer V, any> ? V : never,
+        GlobalFormData
+    >;
 }
 
-export const FormDataProvider = <T extends FormFieldConfig<string, any, any>>({
+export const FormDataProvider = <
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+>({
     config,
     initialData,
     children,
     ...props
-}: PropsWithChildren<FormProviderProps<T>>) => {
+}: PropsWithChildren<FormProviderProps<T, GlobalFormData>>) => {
     if (!config) {
         throw new Error("Config is undefined");
     }
 
-    const initialDataRef = useRef<FormData<T> | undefined>({
-        ...initialValuesFromConfig(config),
+    const initialDataRef = useRef<GlobalFormData>({
         ...(initialData ?? {}),
     });
 
@@ -51,7 +58,10 @@ export const FormDataProvider = <T extends FormFieldConfig<string, any, any>>({
     );
 };
 
-const FormDataReadyProvider = <T extends FormFieldConfig<string, any, any>>({
+const FormDataReadyProvider = <
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+>({
     initialData,
     inheritData,
     inheritErrors,
@@ -59,11 +69,11 @@ const FormDataReadyProvider = <T extends FormFieldConfig<string, any, any>>({
     data: inputData,
     editData: inputEditData,
     errors: inputErrors,
-}: PropsWithChildren<Omit<FormProviderProps<T>, "config">>) => {
+}: PropsWithChildren<Omit<FormProviderProps<T, GlobalFormData>, "config">>) => {
     const externalContext = useContext(FormDataContext);
 
-    const internalData = useFormStore<FormData<T>>(initialData ?? {});
-    const internalEditData = useFormStore<FormData<T>>({});
+    const internalData = useFormStore<Partial<GlobalFormData>>(initialData ?? {});
+    const internalEditData = useFormStore<Partial<GlobalFormData>>({});
     const internalErrors = useFormStore<FormErrors>({});
 
     const data =

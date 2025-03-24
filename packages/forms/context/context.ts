@@ -2,26 +2,28 @@
 import { Context, createContext, useContext } from "react";
 import { FormStore } from "../hook/useFormStore";
 import { FormValidations } from "../hook/useFormValidations";
-import {
-    DeepPartial,
-    FormData,
-    FormFieldConfig,
-    FormInputFunc,
-    FormValidationStrategy,
-} from "../type";
+import { FormFieldConfig, FormInputFunc, FormValidationStrategy } from "../type";
 
-interface FormContextProps<U extends FormFieldConfig<string, any, any>, TData = FormData<U>>
-    extends FormValidations {
-    data: FormStore<TData>;
-    editData: FormStore<DeepPartial<TData>>;
-    fieldConfigs: Record<string, U>;
+interface FormContextProps<
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+> extends FormValidations<T, GlobalFormData> {
+    data: FormStore<GlobalFormData>;
+    editData: FormStore<Partial<GlobalFormData>>;
+    fieldConfigs: Record<string, T>;
     validationStrategy: FormValidationStrategy;
-    onInput?: FormInputFunc<U, U extends { initialValue?: infer V } ? V : never>;
+    onInput?: FormInputFunc<
+        T,
+        T extends FormFieldConfig<string, any, infer V, any> ? V : never,
+        GlobalFormData
+    >;
 }
 
-export const FormContext = createContext<FormContextProps<FormFieldConfig<string, any, any>>>(
-    undefined as unknown as FormContextProps<FormFieldConfig<string, any, any>>
+export const FormContext = createContext<FormContextProps<FormFieldConfig<string, any, any>, any>>(
+    undefined as unknown as FormContextProps<FormFieldConfig<string, any, any>, any>
 );
 
-export const useForm = <U extends FormFieldConfig<string, any, any>, TData = FormData<U>>() =>
-    useContext(FormContext as unknown as Context<FormContextProps<U, TData>>);
+export const useForm = <
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+>() => useContext(FormContext as unknown as Context<FormContextProps<T, GlobalFormData>>);

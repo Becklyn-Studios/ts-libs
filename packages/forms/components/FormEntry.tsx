@@ -2,36 +2,38 @@ import { useCallback, useEffect, useState } from "react";
 import { fieldFulfillsConditions } from "../condition";
 import { useForm } from "../context";
 import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "../guard";
-import {
-    FormBuilderComponents,
-    FormBuilderProps,
-    FormData,
-    FormEntryConfig,
-    FormFieldConfig,
-} from "../type";
+import { FormBuilderComponents, FormBuilderProps, FormEntryConfig, FormFieldConfig } from "../type";
 import { someFieldConfigs } from "../util";
 import { FormCustom } from "./FormCustom";
 import { FormField } from "./FormField";
 import { FormRow } from "./FormRow";
 import { FormSection } from "./FormSection";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface FormEntryProps<T extends FormFieldConfig<string, any, any>> {
+interface FormEntryProps<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+> {
     Components: FormBuilderComponents;
-    entry: FormEntryConfig<T>;
-    children: FormBuilderProps<T>["children"];
+    entry: FormEntryConfig<T, GlobalFormData>;
+    children: FormBuilderProps<T, GlobalFormData>["children"];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const FormEntry = <T extends FormFieldConfig<string, any, any>>({
+export const FormEntry = <
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+>({
     Components,
     entry,
     children,
-}: FormEntryProps<T>) => {
-    const { data, fieldConfigs } = useForm();
+}: FormEntryProps<T, GlobalFormData>) => {
+    const { data, fieldConfigs } = useForm<T, GlobalFormData>();
 
     const getHasChildren = useCallback(
-        (formData: FormData<T>) => {
+        (formData: GlobalFormData) => {
             switch (true) {
                 case isFormRowConfig(entry):
                 case isFormSectionConfig(entry):

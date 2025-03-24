@@ -3,7 +3,7 @@ import { FormFieldConfig } from "./field";
 
 export type FormFieldValue<Type, Config = FormFieldConfig<string, any, any>> = Config extends {
     type: Type;
-    initialValue?: infer InitialValue;
+    initialValue?: infer DataType;
 }
-    ? InitialValue
+    ? DataType
     : never;

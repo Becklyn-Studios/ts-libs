@@ -7,19 +7,27 @@ import {
 } from "../type";
 import { FormEntry } from "./FormEntry";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface FormCustomProps<T extends FormFieldConfig<string, any, any>> {
+interface FormCustomProps<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+> {
     Components: FormBuilderComponents;
-    custom: FormCustomConfig<T>;
-    children: FormBuilderProps<T>["children"];
+    custom: FormCustomConfig<T, GlobalFormData>;
+    children: FormBuilderProps<T, GlobalFormData>["children"];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const FormCustom = <T extends FormFieldConfig<string, any, any>>({
+export const FormCustom = <
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+>({
     Components,
     custom,
     children,
-}: FormCustomProps<T>) => {
+}: FormCustomProps<T, GlobalFormData>) => {
     return (
         <React.Fragment>
             {custom.wrapper(

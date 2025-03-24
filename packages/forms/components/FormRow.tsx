@@ -1,19 +1,27 @@
 import { FormBuilderComponents, FormBuilderProps, FormFieldConfig, FormRowConfig } from "../type";
 import { FormEntry } from "./FormEntry";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface FormRowProps<T extends FormFieldConfig<string, any, any>> {
+interface FormRowProps<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+> {
     Components: FormBuilderComponents;
-    row: FormRowConfig<T>;
-    children: FormBuilderProps<T>["children"];
+    row: FormRowConfig<T, GlobalFormData>;
+    children: FormBuilderProps<T, GlobalFormData>["children"];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const FormRow = <T extends FormFieldConfig<string, any, any>>({
+export const FormRow = <
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+>({
     Components,
     row,
     children,
-}: FormRowProps<T>) => {
+}: FormRowProps<T, GlobalFormData>) => {
     const { RowWrapper } = Components;
 
     if (!RowWrapper) {

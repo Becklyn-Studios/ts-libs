@@ -1,12 +1,11 @@
 import { useContext, useSyncExternalStore } from "react";
 import { FormDataContext } from "../context/data/context";
-import { FormData, FormFieldConfig } from "../type";
 import { FormStore } from "./useFormStore";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const useFormData = <SelectorOutput, T extends FormFieldConfig<string, any, any>>(
-    selector: (store: FormData<T>) => SelectorOutput
-): [SelectorOutput, (value: Partial<FormData<T>>) => void, () => FormData<T>] => {
+export const useFormData = <GlobalFormData extends Record<string, any>>(
+    selector: (store: GlobalFormData) => GlobalFormData
+): [GlobalFormData, (value: Partial<GlobalFormData>) => void, () => GlobalFormData] => {
     const { data } = useContext(FormDataContext);
 
     if (!data) {

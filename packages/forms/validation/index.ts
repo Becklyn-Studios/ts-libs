@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fieldFulfillsConditions } from "../condition";
 import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "../guard";
-import { FormConfig, FormData, FormEntryConfig, FormErrors, FormFieldConfig } from "../type";
+import { FormConfig, FormEntryConfig, FormErrors, FormFieldConfig } from "../type";
 
-export const handleValidateConfig = (
-    config: FormConfig<FormFieldConfig<string, any, any>>,
-    fieldConfigs: Record<string, FormFieldConfig<string, any, any>>,
-    data: FormData<FormFieldConfig<string, any, any>>
+export const handleValidateConfig = <GlobalFormData extends Record<string, any>>(
+    config: FormConfig<FormFieldConfig<string, any, any, GlobalFormData>, GlobalFormData>,
+    fieldConfigs: Record<string, FormFieldConfig<string, any, any, GlobalFormData>>,
+    data: GlobalFormData
 ): FormErrors => {
     const errors: FormErrors = {};
 
@@ -21,10 +21,10 @@ export const handleValidateConfig = (
     return errors;
 };
 
-const handleValidateEntry = (
-    entry: FormEntryConfig<FormFieldConfig<string, any, any>>,
-    fieldConfigs: Record<string, FormFieldConfig<string, any, any>>,
-    data: FormData<FormFieldConfig<string, any, any>>
+const handleValidateEntry = <GlobalFormData extends Record<string, any>>(
+    entry: FormEntryConfig<FormFieldConfig<string, any, any, GlobalFormData>, GlobalFormData>,
+    fieldConfigs: Record<string, FormFieldConfig<string, any, any, GlobalFormData>>,
+    data: GlobalFormData
 ): FormErrors => {
     switch (true) {
         case isFormRowConfig(entry):
@@ -36,10 +36,10 @@ const handleValidateEntry = (
     }
 };
 
-export const handleValidateField = (
-    { name, validations, conditions, valueFn }: FormFieldConfig<string, any, any>,
-    fieldConfigs: Record<string, FormFieldConfig<string, any, any>>,
-    data: FormData<FormFieldConfig<string, any, any>>
+export const handleValidateField = <GlobalFormData extends Record<string, any>>(
+    { name, validations, conditions, valueFn }: FormFieldConfig<string, any, any, GlobalFormData>,
+    fieldConfigs: Record<string, FormFieldConfig<string, any, any, GlobalFormData>>,
+    data: GlobalFormData
 ): FormErrors => {
     if (
         !validations ||

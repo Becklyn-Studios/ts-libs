@@ -1,7 +1,43 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import merge from "lodash.merge";
 import { isFormCustomConfig, isFormRowConfig, isFormSectionConfig } from "../guard";
-import { FormConfig, FormData, FormEntryConfig, FormFieldConfig } from "../type";
+import { FormConfig, FormEntryConfig, FormFieldConfig, FormInputFunc } from "../type";
+
+export const generateInitialValue = <T>(
+    value: Extract<T, { initialValue?: any }>["initialValue"]
+): Extract<T, { initialValue?: any }>["initialValue"] => {
+    return value;
+};
+
+export const generateOnInput = <
+    T extends FormFieldConfig<string, any, any, any>,
+    GlobalFormData extends Record<string, any>,
+>(
+    inputFunction: FormInputFunc<
+        T,
+        Extract<T, { initialValue?: any }>["initialValue"],
+        GlobalFormData
+    >
+) => {
+    return inputFunction;
+};
+
+export const generateFormFieldConfigFn = <
+    T extends FormFieldConfig<string, any, any, any>,
+    GlobalFormData extends Record<string, any>,
+>(
+    fieldConfig: (props: {
+        value: Extract<T, { initialValue?: any }>["initialValue"];
+        data: GlobalFormData;
+    }) => T extends FormFieldConfig<string, infer U, any, any> ? U : never
+) => {
+    return fieldConfig;
+};
+
+export const generateValueFn = <GlobalFormData extends Record<string, any>>(
+    valueFn: (data: GlobalFormData) => any
+) => {
+    return valueFn;
+};
 
 export function eitherOr<const T>(config: T | false | undefined | null | 0 | ""): T;
 export function eitherOr<const Either, const Or>(
@@ -9,10 +45,13 @@ export function eitherOr<const Either, const Or>(
     either: Either,
     or: Or
 ): Either | Or;
-export function eitherOr<T extends FormFieldConfig<string, any, any>>(
-    configOrCondition: boolean | FormConfig<T>,
-    either?: FormConfig<T>,
-    or?: FormConfig<T>
+export function eitherOr<
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+>(
+    configOrCondition: boolean | FormConfig<T, GlobalFormData>,
+    either?: FormConfig<T, GlobalFormData>,
+    or?: FormConfig<T, GlobalFormData>
 ) {
     if (typeof configOrCondition === "boolean") {
         return configOrCondition ? either : or;
@@ -21,21 +60,23 @@ export function eitherOr<T extends FormFieldConfig<string, any, any>>(
     }
 }
 
-export const createFormConfig = <const T extends FormFieldConfig<string, any, any>>(
-    config: FormConfig<T>
-) => mapFieldConfigs(config, entry => entry);
-
-export const fieldConfigFromFormField = <T extends FormFieldConfig<string, any, any>>(
+export const fieldConfigFromFormField = <
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+>(
     { name, fieldConfig }: T,
-    data: FormData<T>
+    data: GlobalFormData
 ): T["fieldConfig"] => {
     return typeof fieldConfig === "function"
         ? fieldConfig({ value: data[name], data })
         : fieldConfig;
 };
 
-export const fieldsFromConfig = <T extends FormFieldConfig<string, any, any>>(
-    config: FormConfig<T>
+export const fieldsFromConfig = <
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+>(
+    config: FormConfig<T, GlobalFormData>
 ): {
     [K in T["name"]]: Extract<T, { name: K }>;
 } => {
@@ -43,7 +84,8 @@ export const fieldsFromConfig = <T extends FormFieldConfig<string, any, any>>(
         {
             [K in T["name"]]: Extract<T, { name: K }>;
         },
-        T
+        T,
+        GlobalFormData
     >(config, (acc, field) => {
         // @ts-expect-error: ts does not understand this
         acc[field.name] = field;
@@ -51,29 +93,13 @@ export const fieldsFromConfig = <T extends FormFieldConfig<string, any, any>>(
     });
 };
 
-export const initialValuesFromConfig = <T extends FormFieldConfig<string, any, any>>(
-    config: FormConfig<T>
-): FormData<T> => {
-    return reduceFieldConfigs(config, (acc, field) => {
-        if (field.initialValue !== undefined) {
-            if (field.onInput) {
-                acc = merge(
-                    acc,
-                    field.onInput({ field, value: field.initialValue, previousData: acc })
-                );
-            } else {
-                acc[field.name] = field.initialValue;
-            }
-        }
-
-        return acc;
-    });
-};
-
-export const mapFieldConfigs = <T extends FormFieldConfig<string, any, any>>(
-    entries: FormConfig<T>,
+export const mapFieldConfigs = <
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+>(
+    entries: FormConfig<T, GlobalFormData>,
     callbackFn: (field: T, index: number) => T
-): FormConfig<T> => {
+): FormConfig<T, GlobalFormData> => {
     return entries.flatMap((entry, index) => {
         if (!entry) {
             return [];
@@ -96,8 +122,9 @@ export const mapFieldConfigs = <T extends FormFieldConfig<string, any, any>>(
 export const reduceFieldConfigs = <
     T extends Record<string | number, any>,
     U extends FormFieldConfig<string, any, any>,
+    GlobalFormData extends Record<string, any>,
 >(
-    entries: FormConfig<U>,
+    entries: FormConfig<U, GlobalFormData>,
     callbackFn: (acc: T, field: U, index: number) => T
 ): T => {
     return entries.reduce((acc, entry, index) => {
@@ -116,9 +143,15 @@ export const reduceFieldConfigs = <
     }, {} as T);
 };
 
-export const someFieldConfigs = (
-    entries: readonly FormEntryConfig<any>[],
-    callbackFn: <T extends FormFieldConfig<string, any, any>>(field: T, index: number) => boolean
+export const someFieldConfigs = <
+    T extends FormFieldConfig<string, any, any>,
+    GlobalFormData extends Record<string, any>,
+>(
+    entries: readonly FormEntryConfig<T, GlobalFormData>[],
+    callbackFn: <T extends FormFieldConfig<string, any, any, GlobalFormData>>(
+        field: T,
+        index: number
+    ) => boolean
 ): boolean => {
     return entries.some((entry, index) => {
         switch (true) {

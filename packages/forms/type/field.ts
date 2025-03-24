@@ -1,41 +1,42 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormFieldConditions } from "./condition";
-import { FormData, FormInputFunc } from "./form";
+import { FormInputFunc } from "./form";
 import { FieldValidations, FormValidationStrategy } from "./validation";
 
-export type FormFieldConfig<Type extends string, FieldConfig, InitialValue> = {
+export type FormFieldConfig<
+    Type extends string,
+    FieldConfig,
+    DataType,
+    GlobalFormData extends Record<string, any> = any,
+> = {
     type: Type extends infer U ? U : never;
     name: string;
-    initialValue?: InitialValue extends infer U ? U : never;
+    initialValue?: DataType;
     conditions?: FormFieldConditions;
     validationStrategy?: FormValidationStrategy;
-    validations?: readonly FieldValidations<
-        FormFieldConfig<
-            Type extends infer U ? U : never,
-            FieldConfig extends infer U ? U : never,
-            InitialValue extends infer U ? U : never
-        >
-    >[];
+    validations?: readonly FieldValidations<GlobalFormData>[];
     columns?: number;
     categories?: readonly string[];
-    valueFn?: (data: FormData<FormFieldConfig<string, any, any>>) => any;
+    valueFn?: (data: GlobalFormData) => any;
     onInput?: FormInputFunc<
-        FormFieldConfig<
-            Type extends infer U ? U : never,
-            FieldConfig extends infer U ? U : never,
-            InitialValue extends infer U ? U : never
-        >,
-        InitialValue extends infer U ? U : never
+        FormFieldConfig<Type, FieldConfig, DataType, GlobalFormData>,
+        DataType,
+        GlobalFormData
     >;
-    fieldConfig: FormFieldConfigFunc<FieldConfig>;
+    fieldConfig: FormFieldConfigFunc<GlobalFormData, DataType, FieldConfig>;
     editStep?: number;
 };
 
-export type FormFieldConfigFunc<FieldConfig = unknown> =
-    | FieldConfig
-    | ((props: { value: any; data: FormData<FormFieldConfig<string, any, any>> }) => FieldConfig);
+export type FormFieldConfigFunc<
+    GlobalFormData extends Record<string, any>,
+    DataType,
+    FieldConfig,
+> = FieldConfig | ((props: { value: DataType; data: GlobalFormData }) => FieldConfig);
 
-export type ResolveFieldConfigFunc<T extends FormFieldConfig<string, any, any>> = T extends {
+export type ResolveFieldConfigFunc<
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+> = T extends {
     fieldConfig: infer U;
 }
     ? U extends (...args: any[]) => any

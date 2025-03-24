@@ -6,19 +6,27 @@ import {
 } from "../type";
 import { FormEntry } from "./FormEntry";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface FormSectionProps<T extends FormFieldConfig<string, any, any>> {
+interface FormSectionProps<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+> {
     Components: FormBuilderComponents;
-    section: FormSectionConfig<T>;
-    children: FormBuilderProps<T>["children"];
+    section: FormSectionConfig<T, GlobalFormData>;
+    children: FormBuilderProps<T, GlobalFormData>["children"];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const FormSection = <T extends FormFieldConfig<string, any, any>>({
+export const FormSection = <
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+>({
     Components,
     section,
     children,
-}: FormSectionProps<T>) => {
+}: FormSectionProps<T, GlobalFormData>) => {
     const { SectionWrapper } = Components;
 
     if (!SectionWrapper) {

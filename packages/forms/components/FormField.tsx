@@ -9,25 +9,33 @@ import {
     FormFieldConfig,
 } from "../type";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface FormFieldProps<T extends FormFieldConfig<string, any, any>> {
+interface FormFieldProps<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+> {
     Components: FormBuilderComponents;
     field: T;
-    children: FormBuilderProps<T>["children"];
+    children: FormBuilderProps<T, GlobalFormData>["children"];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const FormField = <T extends FormFieldConfig<string, any, any>>({
+export const FormField = <
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+>({
     Components,
     field,
     children,
-}: FormFieldProps<T>) => {
+}: FormFieldProps<T, GlobalFormData>) => {
     const {
         editData,
         validationStrategy: contextValidationStrategy,
         validateField,
         onInput,
-    } = useForm();
+    } = useForm<T, GlobalFormData>();
 
     const {
         name,
@@ -53,7 +61,7 @@ export const FormField = <T extends FormFieldConfig<string, any, any>>({
 
     const rerenderWithData = hasValueFn || hasConditions || hasFieldConfigFunc || hasValidationFunc;
 
-    const [data, setStore, getStore] = useFormData(
+    const [data, setStore, getStore] = useFormData<GlobalFormData>(
         rerenderWithData ? store => store : store => store[name]
     );
 
@@ -65,9 +73,9 @@ export const FormField = <T extends FormFieldConfig<string, any, any>>({
         ? fieldConfigFunc({ value: normalizedValue, data })
         : fieldConfigFunc;
 
-    const handleInput = useCallback<FormBuilderChildrenProps<T>["onInput"]>(
+    const handleInput = useCallback<FormBuilderChildrenProps<T, GlobalFormData>["onInput"]>(
         value => {
-            let normalizedValue;
+            let normalizedValue: Partial<GlobalFormData>;
 
             if (onFieldInput) {
                 normalizedValue = onFieldInput({
@@ -82,7 +90,7 @@ export const FormField = <T extends FormFieldConfig<string, any, any>>({
                     previousData: getStore(),
                 });
             } else {
-                normalizedValue = { [field.name]: value };
+                normalizedValue = { [field.name]: value } as Partial<GlobalFormData>;
             }
 
             editData.set(normalizedValue);
@@ -92,7 +100,7 @@ export const FormField = <T extends FormFieldConfig<string, any, any>>({
         [field, setStore, getStore, onFieldInput, onInput]
     );
 
-    const handleBlur = useCallback<FormBuilderChildrenProps<T>["onBlur"]>(() => {
+    const handleBlur = useCallback<FormBuilderChildrenProps<T, GlobalFormData>["onBlur"]>(() => {
         if (!validations || !validationStrategy.includes("blur")) {
             return;
         }
@@ -114,7 +122,7 @@ export const FormField = <T extends FormFieldConfig<string, any, any>>({
         return validateField(field) ?? undefined;
     })();
 
-    const childrenProps: FormBuilderChildrenProps<T> = {
+    const childrenProps: FormBuilderChildrenProps<T, GlobalFormData> = {
         value: normalizedValue,
         error: fieldError || fieldInputError,
         onInput: handleInput,

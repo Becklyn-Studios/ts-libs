@@ -1,24 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormFieldConfig } from "./field";
-import { FormData } from "./form";
-
 export type FormValidationStrategy = "blur" | "input" | "manual";
 
 export type FormError = string | boolean;
 
 export type FormErrors = Record<string, FormError>;
 
-export type FormFieldValidationFunction<T extends FormFieldConfig<string, any, any>> = (props: {
+export type FormFieldValidationFunction<GlobalFormData extends Record<string, any>> = (props: {
     value: any;
-    data: FormData<T>;
+    data: GlobalFormData;
 }) => boolean;
 
-export type FormFieldValidation<T extends FormFieldConfig<string, any, any>> =
+export type FormFieldValidation<GlobalFormData extends Record<string, any>> =
     | boolean
     | RegExp
-    | FormFieldValidationFunction<T>;
+    | FormFieldValidationFunction<GlobalFormData>;
 
-export interface FieldValidations<T extends FormFieldConfig<string, any, any>> {
-    validation: FormFieldValidation<T>;
+export interface FieldValidations<GlobalFormData extends Record<string, any>> {
+    validation: FormFieldValidation<GlobalFormData>;
     message?: string;
 }

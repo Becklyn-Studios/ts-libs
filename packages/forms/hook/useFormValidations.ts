@@ -2,21 +2,39 @@ import { useCallback, useContext } from "react";
 import { FormDataContext } from "../context/data/context";
 import { FormConfig, FormError, FormErrors, FormFieldConfig } from "../type";
 import { handleValidateConfig, handleValidateField } from "../validation";
+import { FormStore } from "./useFormStore";
 import { useRefEffect } from "./useRefEffect";
 
-export type FormValidations = ReturnType<typeof useFormValidations>;
+export interface FormValidations<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+> {
+    errors: FormStore<FormErrors>;
+    validateField: (field: T, skipUpdate?: boolean) => FormError | null;
+    validateCategory: (category: string) => FormErrors;
+    validateForm: (input?: FormConfig<T, GlobalFormData>) => FormErrors | null;
+}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const useFormValidations = <T extends FormFieldConfig<string, any, any>>(
-    config: FormConfig<T>,
+export const useFormValidations = <
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    GlobalFormData extends Record<string, any>,
+>(
+    config: FormConfig<T, GlobalFormData>,
     fieldConfigs: Record<string, T>
-) => {
+): FormValidations<T, GlobalFormData> => {
     const configRef = useRefEffect(config);
     const fieldConfigsRef = useRefEffect(fieldConfigs);
     const { data, errors } = useContext(FormDataContext);
 
     const validateForm = useCallback(
-        (input: FormConfig<T> = configRef.current, skipUpdate?: boolean): FormErrors | null => {
+        (
+            input: FormConfig<T, GlobalFormData> = configRef.current,
+            skipUpdate?: boolean
+        ): FormErrors | null => {
             const formErrors = handleValidateConfig(input, fieldConfigsRef.current, data.get());
 
             if (!skipUpdate) {

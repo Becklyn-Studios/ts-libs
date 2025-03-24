@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormConditions, FormData, FormFieldConfig } from "../type";
+import { FormConditions, FormFieldConfig } from "../type";
 
-export const fieldFulfillsConditions = <T extends FormFieldConfig<string, any, any>>(
+export const fieldFulfillsConditions = <
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+>(
     { conditions }: Pick<T, "conditions">,
     fieldConfigs: Record<string, T>,
-    data: FormData<T>
+    data: GlobalFormData
 ): boolean => {
     if (!conditions) {
         return true;
@@ -17,10 +20,13 @@ export const fieldFulfillsConditions = <T extends FormFieldConfig<string, any, a
     });
 };
 
-const fulfillsConditions = <T extends FormFieldConfig<string, any, any>>(
+const fulfillsConditions = <
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+>(
     conditions: FormConditions,
     fieldConfigs: Record<string, T>,
-    data: FormData<T>
+    data: GlobalFormData
 ) => {
     return Object.entries(conditions).every(([key, condition]) => {
         const { valueFn } = fieldConfigs[key] ?? {};
