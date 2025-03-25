@@ -10,6 +10,13 @@ export interface FormBuilderComponents {
     FieldWrapper: JSXElementConstructor<PropsWithChildren<{ columns?: number }>>;
 }
 
+type FormBuilderChildrenFieldConfig<
+    T extends FormFieldConfig<string, any, any, GlobalFormData>,
+    GlobalFormData extends Record<string, any>,
+> = Omit<T, "fieldConfig"> & {
+    fieldConfig: T extends FormFieldConfig<string, infer F, any, GlobalFormData> ? F : never;
+};
+
 export interface FormBuilderChildrenProps<
     T extends FormFieldConfig<string, any, any, GlobalFormData>,
     GlobalFormData extends Record<string, any>,
@@ -18,7 +25,7 @@ export interface FormBuilderChildrenProps<
     error: FormError | undefined;
     onInput: (value: any) => void;
     onBlur: () => void;
-    field: T;
+    field: FormBuilderChildrenFieldConfig<T, GlobalFormData>;
 }
 
 export interface FormBuilderProps<

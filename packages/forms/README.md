@@ -37,48 +37,48 @@ type StringFieldConfig = FormFieldConfig<"string", BaseFieldConfig, string | nul
 type NumberFieldConfig = FormFieldConfig<"number", BaseFieldConfig, number>;
 type AllConfigs = StringFieldConfig | NumberFieldConfig;
 
-interface TextProps {
+interface TextProps extends BaseFieldConfig {
     id: string;
-    value?: string | null;
-    onBlur: () => void;
     name: string;
-    onInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    fieldConfig: FormFieldConfigFunc<GlobalFormData, string | null, BaseFieldConfig>;
+    value?: string | null;
+    onBlur?: () => void;
+    onValueChanged?: (value: string) => void;
 }
 
-const Text = ({ id, value, onBlur, name, onInput, fieldConfig }: TextProps) => {
+const Text = ({ id, value, name, onBlur, onValueChanged, ...attributes }: TextProps) => {
     return (
         <input
-            {...fieldConfig}
+            {...attributes}
             id={id}
             value={value ?? ""}
-            onBlur={onBlur}
             name={name}
+            onBlur={onBlur}
             type="text"
-            onChange={onInput}
+            onInput={e => onValueChanged && onValueChanged((e.target as HTMLInputElement).value)}
         />
     );
 };
 
-interface NumberProps {
+interface NumberProps extends BaseFieldConfig {
     id: string;
-    value?: number;
-    onBlur: () => void;
     name: string;
-    onInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    fieldConfig: FormFieldConfigFunc<GlobalFormData, number, BaseFieldConfig>;
+    value?: number;
+    onBlur?: () => void;
+    onValueChanged?: (value: number) => void;
 }
 
-const Number = ({ id, value, onBlur, name, onInput, fieldConfig }: NumberProps) => {
+const Number = ({ id, value, name, onBlur, onValueChanged, ...attributes }: NumberProps) => {
     return (
         <input
-            {...fieldConfig}
+            {...attributes}
             id={id}
             value={value ?? ""}
-            onBlur={onBlur}
             name={name}
+            onBlur={onBlur}
             type="number"
-            onChange={onInput}
+            onInput={e =>
+                onValueChanged && onValueChanged(parseFloat((e.target as HTMLInputElement).value))
+            }
         />
     );
 };
@@ -103,12 +103,12 @@ const FieldComponent: FC<FormBuilderChildrenProps<AllConfigs, Record<string, any
 
             return (
                 <Text
+                    {...fieldConfig}
                     id={id}
                     value={value}
-                    onBlur={onBlur}
                     name={name}
-                    onInput={onInput}
-                    fieldConfig={fieldConfig}
+                    onBlur={onBlur}
+                    onValueChanged={onInput}
                 />
             );
         }
@@ -117,12 +117,12 @@ const FieldComponent: FC<FormBuilderChildrenProps<AllConfigs, Record<string, any
 
             return (
                 <Number
+                    {...fieldConfig}
                     id={id}
                     value={value}
-                    onBlur={onBlur}
                     name={name}
-                    onInput={onInput}
-                    fieldConfig={fieldConfig}
+                    onBlur={onBlur}
+                    onValueChanged={onInput}
                 />
             );
         }
@@ -239,6 +239,26 @@ export const Component = () => {
 ```
 
 ## Advanced usecases
+
+### Usage without styled components
+
+You can instantiate the `FormBuilder` with your custom components that do not rely on `styled-components`:
+
+```typescript
+export const FormRenderer: React.FC = () => {
+    return (
+        <FormBuilder<AllConfigs, FormData>
+            Components={{
+                BuilderWrapper: ({ children }: PropsWithChildren) => <div>{children}</div>,
+                FieldWrapper: ({ children }: PropsWithChildren) => <div>{children}</div>,
+                RowWrapper: ({ children }: PropsWithChildren) => <div>{children}</div>,
+                SectionWrapper: ({ children }: PropsWithChildren) => <div>{children}</div>,
+            }}>
+            {props => <FieldComponent {...props} />}
+        </FormBuilder>
+    );
+};
+```
 
 ### Conditional fields
 
