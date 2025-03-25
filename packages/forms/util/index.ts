@@ -39,7 +39,9 @@ export const generateValueFn = <GlobalFormData extends Record<string, any>>(
     return valueFn;
 };
 
-export function eitherOr<const T>(config: T | false | undefined | null | 0 | ""): T;
+export type NotRenderedElement = false | undefined | null | 0 | "";
+
+export function eitherOr<const T>(config: T | NotRenderedElement): T | NotRenderedElement;
 export function eitherOr<const Either, const Or>(
     condition: boolean,
     either: Either,
@@ -87,8 +89,10 @@ export const fieldsFromConfig = <
         T,
         GlobalFormData
     >(config, (acc, field) => {
-        // @ts-expect-error: ts does not understand this
-        acc[field.name] = field;
+        if (field) {
+            // @ts-expect-error: ts does not understand this
+            acc[field.name] = field;
+        }
         return acc;
     });
 };
@@ -125,7 +129,7 @@ export const reduceFieldConfigs = <
     GlobalFormData extends Record<string, any>,
 >(
     entries: FormConfig<U, GlobalFormData>,
-    callbackFn: (acc: T, field: U, index: number) => T
+    callbackFn: (acc: T, field: U | NotRenderedElement, index: number) => T
 ): T => {
     return entries.reduce((acc, entry, index) => {
         switch (true) {
@@ -149,7 +153,7 @@ export const someFieldConfigs = <
 >(
     entries: readonly FormEntryConfig<T, GlobalFormData>[],
     callbackFn: <T extends FormFieldConfig<string, any, any, GlobalFormData>>(
-        field: T,
+        field: T | NotRenderedElement,
         index: number
     ) => boolean
 ): boolean => {

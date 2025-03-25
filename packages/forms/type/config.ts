@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode } from "react";
+import { NotRenderedElement } from "../util";
 import { FormFieldConfig } from "./field";
 
 export interface FormRowConfig<
@@ -41,7 +42,8 @@ export type FormEntryConfig<
     | FormCustomConfig<T, GlobalFormData>
     | FormSectionConfig<T, GlobalFormData>
     | FormRowConfig<T, GlobalFormData>
-    | T;
+    | T
+    | NotRenderedElement;
 
 export type FormConfig<
     T extends FormFieldConfig<string, any, any, GlobalFormData>,

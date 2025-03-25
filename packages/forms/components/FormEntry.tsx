@@ -39,10 +39,10 @@ export const FormEntry = <
                 case isFormSectionConfig(entry):
                 case isFormCustomConfig(entry):
                     return someFieldConfigs([entry], field =>
-                        fieldFulfillsConditions(field, fieldConfigs, formData)
+                        field ? fieldFulfillsConditions(field, fieldConfigs, formData) : false
                     );
                 default:
-                    return fieldFulfillsConditions(entry, fieldConfigs, formData);
+                    return entry ? fieldFulfillsConditions(entry, fieldConfigs, formData) : false;
             }
         },
         [entry, fieldConfigs]
@@ -83,9 +83,11 @@ export const FormEntry = <
             );
         default:
             return (
-                <FormField field={entry} Components={Components}>
-                    {children}
-                </FormField>
+                entry && (
+                    <FormField field={entry} Components={Components}>
+                        {children}
+                    </FormField>
+                )
             );
     }
 };
