@@ -32,6 +32,9 @@ const handleValidateEntry = <GlobalFormData extends Record<string, any>>(
         case isFormCustomConfig(entry):
             return handleValidateConfig(entry.content, fieldConfigs, data);
         default:
+            if (!entry) {
+                return {};
+            }
             return handleValidateField(entry, fieldConfigs, data);
     }
 };

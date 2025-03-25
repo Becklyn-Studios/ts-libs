@@ -13,7 +13,7 @@ export const isFormRowConfig = <
 >(
     config: FormEntryConfig<T, GlobalFormData>
 ): config is FormRowConfig<T, GlobalFormData> => {
-    return config && config.type === "row";
+    return !!config && config.type === "row";
 };
 
 export const isFormSectionConfig = <
@@ -22,7 +22,7 @@ export const isFormSectionConfig = <
 >(
     config: FormEntryConfig<T, GlobalFormData>
 ): config is FormSectionConfig<T, GlobalFormData> => {
-    return config && config.type === "section";
+    return !!config && config.type === "section";
 };
 
 export const isFormCustomConfig = <
@@ -31,7 +31,7 @@ export const isFormCustomConfig = <
 >(
     config: FormEntryConfig<T, GlobalFormData>
 ): config is FormCustomConfig<T, GlobalFormData> => {
-    return config && config.type === "custom";
+    return !!config && config.type === "custom";
 };
 
 export const isFormFieldConfig = <

@@ -89,7 +89,7 @@ const Number = ({ id, value, onBlur, name, onInput, fieldConfig }: NumberProps) 
 Create a single component to handle rendering all of your different input components. It will be called by the `FormBuilder` including the respective field's props.
 
 ```tsx
-const FieldComponent: FC<FormBuilderChildrenProps<AllConfigs, GlobalFormData>> = ({
+const FieldComponent: FC<FormBuilderChildrenProps<AllConfigs, Record<string, any>>> = ({
     value,
     field,
     onBlur,
@@ -136,10 +136,9 @@ After defining all fields that your forms may use you can define the initial sta
 
 ```typescript
 const initialState = {
-    foo: generateInitialValue<StringFieldConfig>(""),
-    bar: generateInitialValue<NumberFieldConfig>(123),
-    f1: generateInitialValue<StringFieldConfig>(undefined),
-    f2: generateInitialValue<StringFieldConfig>(null),
+    Firstname: generateInitialValue<StringFieldConfig>(""),
+    Lastname: generateInitialValue<StringFieldConfig>(""),
+    Age: generateInitialValue<NumberFieldConfig>(0),
 };
 ```
 
