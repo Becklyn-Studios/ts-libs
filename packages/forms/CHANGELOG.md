@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 3.0.2
+
+### Patch Changes
+
+- bfb7704: Fix type system and update readme
+
 ## 3.0.1
 
 ### Patch Changes
