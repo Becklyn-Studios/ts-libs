@@ -43,7 +43,7 @@ interface TextProps {
     onBlur: () => void;
     name: string;
     onInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    fieldConfig: FormFieldConfigFunc<GlobalFormData, string | null, BaseFieldConfig>;
+    fieldConfig: FormFieldConfigFunc<FormData, string | null, BaseFieldConfig>;
 }
 
 const Text = ({ id, value, onBlur, name, onInput, fieldConfig }: TextProps) => {
@@ -66,7 +66,7 @@ interface NumberProps {
     onBlur: () => void;
     name: string;
     onInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    fieldConfig: FormFieldConfigFunc<GlobalFormData, number, BaseFieldConfig>;
+    fieldConfig: FormFieldConfigFunc<FormData, number, BaseFieldConfig>;
 }
 
 const Number = ({ id, value, onBlur, name, onInput, fieldConfig }: NumberProps) => {
@@ -140,6 +140,8 @@ const initialState = {
     Lastname: generateInitialValue<StringFieldConfig>(""),
     Age: generateInitialValue<NumberFieldConfig>(0),
 };
+
+type FormData = typeof initialState;
 ```
 
 ### 5. Create a form config
