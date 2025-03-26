@@ -14,7 +14,10 @@ export interface FormValidations<
     errors: FormStore<FormErrors>;
     validateField: (field: T, skipUpdate?: boolean) => FormError | null;
     validateCategory: (category: string) => FormErrors;
-    validateForm: (input?: FormConfig<T, GlobalFormData>) => FormErrors | null;
+    validateForm: (
+        input?: FormConfig<T, GlobalFormData>,
+        skipUpdate?: boolean
+    ) => FormErrors | null;
 }
 
 export const useFormValidations = <
