@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 3.0.3
+
+### Patch Changes
+
+- f4271ee: Fix validateForm function signature
+
 ## 3.0.2
 
 ### Patch Changes
