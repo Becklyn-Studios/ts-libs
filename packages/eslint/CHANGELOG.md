@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.1.1
+
+### Patch Changes
+
+- b34893b: added a rule to suppress "@typescript-eslint/no-unused-vars" for vars prefixed by "\_"
+
 ## 1.1.0
 
 ### Minor Changes
