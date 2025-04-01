@@ -1,8 +1,8 @@
-import js from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
-import tseslint from "typescript-eslint";
-import importAlias from "@limegrass/eslint-plugin-import-alias";
 import unusedImports from "eslint-plugin-unused-imports";
+import tseslint from "typescript-eslint";
+import js from "@eslint/js";
+import importAlias from "@limegrass/eslint-plugin-import-alias";
 
 /**
  * A shared ESLint configuration for the repository.
@@ -32,6 +32,14 @@ export const config = [
         },
         rules: {
             "unused-imports/no-unused-imports": "error",
+        },
+    },
+    {
+        rules: {
+            "@typescript-eslint/no-unused-vars": [
+                "error",
+                { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+            ],
         },
     },
     {
