@@ -11,7 +11,7 @@
         "@becklyn/prettier": "^2.1.1",
         "@changesets/cli": "^2.27.12",
         "turbo": "^2.4.2",
-        "typescript": "5.8.3"
+        "typescript": "5.7.3"
     },
     "engines": {
         "node": ">=18"
