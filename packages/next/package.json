@@ -13,18 +13,18 @@
         "@popperjs/core": "^2.11.8",
         "keen-slider": "^6.8.6",
         "react-popper": "^2.3.0",
-        "sass": "^1.85.1"
+        "sass": "^1.86.3"
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
         "@contentful/rich-text-types": "^16.8.5",
-        "@types/node": "^20.17.9",
-        "@types/react": "^18.3.13",
-        "@types/react-dom": "^18.3.1",
-        "next": "^14.2.26",
+        "@types/node": "^20.17.30",
+        "@types/react": "^18.3.20",
+        "@types/react-dom": "^18.3.6",
+        "next": "^14.2.27",
         "react": "^18.3.1",
-        "typescript": "^5.8.2"
+        "typescript": "^5.8.3"
     },
     "peerDependencies": {
         "next": "^14.0.0 || ^15.0.0",
