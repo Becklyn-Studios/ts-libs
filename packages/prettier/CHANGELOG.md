@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.2
+
+### Patch Changes
+
+- cc87667: update dependencies and packageManager
+
 ## 2.1.1
 
 ### Patch Changes
