@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 3.0.4
+
+### Patch Changes
+
+- cc87667: update dependencies and packageManager
+
 ## 3.0.3
 
 ### Patch Changes

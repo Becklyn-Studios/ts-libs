@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 1.0.6
+
+### Patch Changes
+
+- cc87667: update dependencies and packageManager
+
 ## 1.0.5
 
 ### Patch Changes

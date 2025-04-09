@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.1.2
+
+### Patch Changes
+
+- cc87667: update dependencies and packageManager
+
 ## 1.1.1
 
 ### Patch Changes
