@@ -2,6 +2,11 @@
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": ["config:recommended", ":gitSignOff"],
     "reviewers": ["team:Becklyn-Studios/user-interface"],
+    "automergeStrategy": "merge-commit",
+    "platformCommit": "enabled",
+    "updatePinnedDependencies": false,
+    "dependencyDashboard": true,
+    "rangeStrategy": "bump",
     "packageRules": [
         {
             "groupName": "all dependencies",
