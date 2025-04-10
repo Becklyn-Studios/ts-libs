@@ -1,12 +1,17 @@
 # @becklyn/react-usercentrics
 
+## 3.0.0
+
+### Major Changes
+
+- 3eb3553: change name of package and add support for react@19
+
 ## 2.1.2
 
 ### Patch Changes
 
 - 8556683: (internal) Move export of "types" from root into "exports"-object
 - 8556683: (internal) update github-actions-packages to newest version. Old ones were deprecated
-
 
 ## 2.1.1
 
@@ -16,7 +21,6 @@
 - 54c8238: (internal) Update code owners.
 - 54c8238: (internal) Add additional node version to ci.
 
-
 ## 2.1.0
 
 ### Minor Changes
@@ -25,13 +29,11 @@
 - d142d55: (improvement) Add usercentrics types and events to window to improve autocompletion.
 - d142d55: (feature) Add `consentUpdate` variable to track possible consent changes.
 
-
 ## 2.0.3
 
 ### Patch Changes
 
 - b92ee7d: (bug) Fix force reload.
-
 
 ## 2.0.2
 
@@ -39,20 +41,17 @@
 
 - ea421ae: (bug) Export types.
 
-
 ## 2.0.1
 
 ### Patch Changes
 
 - d460335: (bug) Fix types.
 
-
 ## 2.0.0
 
 ### Major Changes
 
 - 6a55a5d: (bc) Improve api.
-
 
 ## 1.1.2
 
@@ -61,20 +60,17 @@
 - 4715eff: (improvement) Remove `@becklyn/prettier` from dependencies.
 - 4715eff: (improvement) Make react a peer dependency.
 
-
 ## 1.1.1
 
 ### Patch Changes
 
 - 809814b: (improvement) Make initialize true if debug.
 
-
 ## 1.1.0
 
 ### Minor Changes
 
 - b807df5: (feature) Always return service to be accepted if debug.
-
 
 ## 1.0.0
 
@@ -83,7 +79,6 @@
 - 83cba2c: (bc) Rename project.
 - 83cba2c: (improvement) Also return cmp object from hook.
 
-
 ## 0.2.0
 
 ### Minor Changes
@@ -91,20 +86,17 @@
 - 455e3f5: (feature) Add debug mode.
 - 455e3f5: (feature) Allow custom service IDs.
 
-
 ## 0.1.0
 
 ### Minor Changes
 
 - fd80ecf: (feature) Add hook.
 
-
 ## 0.0.2
 
 ### Patch Changes
 
 - c8ddb2e: (improvement) Export from `index.ts`.
-
 
 ## 0.0.1
 
