@@ -22,5 +22,5 @@
         "prettier": "^3.5.3",
         "prettier-plugin-css-order": "^2.1.2"
     },
-    "prettier": "index.json"
+    "prettier": "./index.json"
 }
