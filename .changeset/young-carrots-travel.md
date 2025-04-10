@@ -1,5 +1,5 @@
 ---
-"@becklyn/react-usercentrics": patch
+"@becklyn/react-usercentrics": major
 ---
 
-add support for react@19
+change name of package and add support for react@19
