@@ -53,6 +53,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
         }
 
         setCmp(window.__ucCmp);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [consentUpdate]);
 
     useEffect(() => {
@@ -75,6 +76,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
         cmp.isInitialized().then(v => {
             setInitialized(v);
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cmp]);
 
     const showFirstLayer = useCallback((): void => {
@@ -95,6 +97,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
         }
 
         cmp.showFirstLayer();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cmp, isInitialized]);
 
     const showSecondLayer = useCallback((): void => {
@@ -111,6 +114,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
         }
 
         cmp.showSecondLayer();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cmp, isInitialized]);
 
     const showServiceDetails = useCallback(
@@ -136,6 +140,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
 
             cmp.showServiceDetails(serviceId);
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [cmp, isInitialized]
     );
 
@@ -170,6 +175,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
 
             acceptServices([serviceId]);
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [acceptServices]
     );
 
@@ -199,6 +205,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
 
             return !!service?.consent?.given;
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [debug, cmp, isInitialized, consentDetails.current]
     );
 
