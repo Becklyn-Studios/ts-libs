@@ -1,5 +1,19 @@
 # @becklyn/react-usercentrics
 
+## 4.0.0-0
+
+### Major Changes
+
+*   477d490: (bc) Compatibility for usercentrics v2 was removed.
+*   477d490: (bc) Compatibility for usercentrics v3 was added instead.
+*   477d490: (bc) Update all types.
+*   477d490: (bc) `cmp` type changed from `UC` to `UCCmp`.
+*   477d490: (bc) `showSecondLayer()` no longer supports the `serviceId` as a parameter.
+*   477d490: (bc) removed `forceReload` from the props of `UsercentricsProvider`.
+*   477d490: (feature) Add `showServiceDetails()` with `serviceId` as a parameter which shows the details of a specific service. However unlike the old way of doing it with `showSecondLayer()` you don't get the option to accept that service in this window. 
+*   477d490: (improvement) Update version of @becklyn/prettier
+*   477d490: (improvement) Add more debugging logs to `console` when `debug` is set to `true` in the props of `UsercentricsProvider` e.g.: `<UsercentricsProvider debug={true}></UsercentricsProvider>`.
+
 ## 3.0.1
 
 ### Patch Changes
