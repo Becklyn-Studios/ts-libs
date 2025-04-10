@@ -3,12 +3,7 @@
     "version": "2.1.2",
     "license": "MIT",
     "description": "The commonly used prettier configuration for projects at Becklyn",
-    "homepage": "https://github.com/Becklyn/prettier",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Becklyn/prettier.git",
-        "directory": "packages/prettier"
-    },
+    "main": "index.js",
     "files": [
         "**/*"
     ],
@@ -21,6 +16,5 @@
         "postcss": "^8.5.3",
         "prettier": "^3.5.3",
         "prettier-plugin-css-order": "^2.1.2"
-    },
-    "prettier": "./index.json"
+    }
 }
