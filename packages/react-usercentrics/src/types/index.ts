@@ -394,6 +394,7 @@ type Letter =
 export type UcLanguage = `${Letter}${Letter}`;
 
 // Docs don't specify what these types are.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Spacing = any;
 
 export interface UCConsent {
@@ -401,7 +402,7 @@ export interface UCConsent {
     consent: boolean;
 }
 
-export interface ServiceConsent extends UCConsent {}
+export type ServiceConsent = UCConsent;
 
 export interface CategoryConsent extends UCConsent {
     id: "marketing" | "functional" | "essential";
@@ -447,7 +448,7 @@ export type UCActionType =
 
 export type ServiceStates = Record<string, string | boolean>;
 
-export interface UCCustomEventBase<T = {}>
+export interface UCCustomEventBase<T = object>
     extends CustomEvent<
         {
             action: UCActionType;

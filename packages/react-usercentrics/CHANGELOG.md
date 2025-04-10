@@ -1,110 +1,111 @@
-3.0.1
-=====
+# @becklyn/react-usercentrics
 
-*   (internal) Move export of "types" from root into "exports"-object
-*   (internal) update github-actions-packages to newest version. Old ones were deprecated
+## 3.0.1
 
+### Patch Changes
 
-3.0.0
-=====
+- 2c5fd1f: update README and add license
 
-*   (bc) Compatibility for usercentrics v2 was removed.
-*   (bc) Compatibility for usercentrics v3 was added instead.
-*   (bc) Update all types.
-*   (bc) `cmp` type changed from `UC` to `UCCmp`.
-*   (bc) `showSecondLayer()` no longer supports the `serviceId` as a parameter.
-*   (bc) removed `forceReload` from the props of `UsercentricsProvider`.
-*   (feature) Add `showServiceDetails()` with `serviceId` as a parameter which shows the details of a specific service. However unlike the old way of doing it with `showSecondLayer()` you don't get the option to accept that service in this window. 
-*   (improvement) Update version of @becklyn/prettier
-*   (improvement) Add more debugging logs to `console` when `debug` is set to `true` in the props of `UsercentricsProvider` e.g.: `<UsercentricsProvider debug={true}></UsercentricsProvider>`.
+## 3.0.0
 
+### Major Changes
 
-2.1.1
-=====
+- 3eb3553: change name of package and add support for react@19
 
-*   (bug) Fix `consentUpdate` to update it's value.
-*   (internal) Update code owners.
-*   (internal) Add additional node version to ci.
+## 2.1.2
 
+### Patch Changes
 
-2.1.0
-=====
+- 8556683: (internal) Move export of "types" from root into "exports"-object
+- 8556683: (internal) update github-actions-packages to newest version. Old ones were deprecated
 
-*   (improvement) Add `@trivago/prettier-plugin-sort-imports` for import sorting.
-*   (improvement) Add usercentrics types and events to window to improve autocompletion.
-*   (feature) Add `consentUpdate` variable to track possible consent changes.
+## 2.1.1
 
+### Patch Changes
 
-2.0.3
-=====
+- 54c8238: (bug) Fix `consentUpdate` to update it's value.
+- 54c8238: (internal) Update code owners.
+- 54c8238: (internal) Add additional node version to ci.
 
-*   (bug) Fix force reload.
+## 2.1.0
 
+### Minor Changes
 
-2.0.2
-=====
+- d142d55: (improvement) Add `@trivago/prettier-plugin-sort-imports` for import sorting.
+- d142d55: (improvement) Add usercentrics types and events to window to improve autocompletion.
+- d142d55: (feature) Add `consentUpdate` variable to track possible consent changes.
 
-*   (bug) Export types.
+## 2.0.3
 
+### Patch Changes
 
-2.0.1
-=====
+- b92ee7d: (bug) Fix force reload.
 
-*   (bug) Fix types.
+## 2.0.2
 
+### Patch Changes
 
-2.0.0
-=====
+- ea421ae: (bug) Export types.
 
-*   (bc) Improve api.
+## 2.0.1
 
+### Patch Changes
 
-1.1.2
-=====
+- d460335: (bug) Fix types.
 
-*   (improvement) Remove `@becklyn/prettier` from dependencies.
-*   (improvement) Make react a peer dependency.
+## 2.0.0
 
+### Major Changes
 
-1.1.1
-=====
+- 6a55a5d: (bc) Improve api.
 
-*   (improvement) Make initialize true if debug.
+## 1.1.2
 
+### Patch Changes
 
-1.1.0
-=====
+- 4715eff: (improvement) Remove `@becklyn/prettier` from dependencies.
+- 4715eff: (improvement) Make react a peer dependency.
 
-*   (feature) Always return service to be accepted if debug.
+## 1.1.1
 
+### Patch Changes
 
-1.0.0
-=====
+- 809814b: (improvement) Make initialize true if debug.
 
-*   (bc) Rename project.
-*   (improvement) Also return cmp object from hook.
+## 1.1.0
 
+### Minor Changes
 
-0.2.0
-=====
+- b807df5: (feature) Always return service to be accepted if debug.
 
-*   (feature) Add debug mode.
-*   (feature) Allow custom service IDs.
+## 1.0.0
 
+### Major Changes
 
-0.1.0
-=====
+- 83cba2c: (bc) Rename project.
+- 83cba2c: (improvement) Also return cmp object from hook.
 
-*   (feature) Add hook.
+## 0.2.0
 
+### Minor Changes
 
-0.0.2
-=====
+- 455e3f5: (feature) Add debug mode.
+- 455e3f5: (feature) Allow custom service IDs.
 
-*   (improvement) Export from `index.ts`.
+## 0.1.0
 
+### Minor Changes
 
-0.0.1
-=====
+- fd80ecf: (feature) Add hook.
 
-*   (feature) Initial release.
+## 0.0.2
+
+### Patch Changes
+
+- c8ddb2e: (improvement) Export from `index.ts`.
+
+## 0.0.1
+
+### Patch Changes
+
+- 1f09446: (feature) Initial release.

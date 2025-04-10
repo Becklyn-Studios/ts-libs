@@ -189,7 +189,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
 
             if (debug) {
                 console.debug(
-                    `serviceId('${serviceId}') consent is ${!!service?.consent?.given ? "true" : "false"}`
+                    `serviceId('${serviceId}') consent is ${service?.consent?.given ? "true" : "false"}`
                 );
 
                 if (!service) {

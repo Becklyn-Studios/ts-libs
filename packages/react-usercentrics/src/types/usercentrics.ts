@@ -39,26 +39,31 @@ declare global {
 
         removeEventListener(
             type: "ucEvent",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             listener: (event: UCCustomEvent) => any,
             options?: boolean | EventListenerOptions
         ): void;
         removeEventListener(
             type: "UC_UI_INITIALIZED",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             listener: (event: UCInitializedEvent) => any,
             options?: boolean | EventListenerOptions
         ): void;
         removeEventListener(
             type: "UC_UI_CMP_EVENT",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             listener: (event: UCCMPEvent) => any,
             options?: boolean | EventListenerOptions
         ): void;
         removeEventListener(
             type: "UC_UI_VIEW_CHANGED",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             listener: (event: UCViewChangedEvent) => any,
             options?: boolean | EventListenerOptions
         ): void;
         removeEventListener(
             type: "UC_CONSENT",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             listener: (event: UCConsentEvent) => any,
             options?: boolean | EventListenerOptions
         ): void;
