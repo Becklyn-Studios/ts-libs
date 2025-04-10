@@ -1,5 +1,11 @@
 # @becklyn/react-usercentrics
 
+## 3.0.1
+
+### Patch Changes
+
+- 2c5fd1f: update README and add license
+
 ## 3.0.0
 
 ### Major Changes
