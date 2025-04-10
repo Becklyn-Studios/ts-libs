@@ -1,0 +1,54 @@
+{
+    "name": "@mayd/react-usercentrics",
+    "version": "2.1.2",
+    "license": "UNLICENSED",
+    "homepage": "https://github.com/Becklyn-Studios/react-usercentrics",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Becklyn-Studios/react-usercentrics.git"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 0",
+        "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+        "lint": "prettier --check \"src/**/*.{ts,tsx}\"",
+        "build": "npm run clean && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
+        "clean": "rm -rf build",
+        "prepublishOnly": "npm test && npm run lint && npm run build",
+        "preversion": "npm run lint"
+    },
+    "files": [
+        "dist"
+    ],
+    "main": "dist/cjs/index.js",
+    "module": "dist/es/index.js",
+    "exports": {
+        ".": {
+            "require": "./dist/cjs/index.js",
+            "import": "./dist/es/index.js",
+            "default": "./dist/cjs/index.js",
+            "types": "./dist/types/index.d.ts"
+        },
+        "./package.json": "./package.json"
+    },
+    "sideEffects": false,
+    "peerDependencies": {
+        "@types/react": "^17.0.0 || ^18.0.0",
+        "react": "^17.0.0 || ^18.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0"
+    },
+    "peerDependenciesMeta": {
+        "@types/react": {
+            "optional": true
+        }
+    },
+    "devDependencies": {
+        "@becklyn/prettier": "^2.1.1",
+        "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+        "@types/react": "^18.2.14",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "tslib": "^2.3.1",
+        "typescript": "^4.6.3"
+    },
+    "prettier": "@becklyn/prettier"
+}
