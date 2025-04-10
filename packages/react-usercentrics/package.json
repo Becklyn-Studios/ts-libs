@@ -1,7 +1,7 @@
 {
     "name": "@becklyn/react-usercentrics",
     "version": "3.0.0",
-    "license": "UNLICENSED",
+    "license": "MIT",
     "homepage": "https://github.com/Becklyn-Studios/react-usercentrics",
     "repository": {
         "type": "git",
