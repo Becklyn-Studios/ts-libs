@@ -28,7 +28,7 @@ export type UCActionType =
 
 export type ServiceStates = Record<string, string | boolean>;
 
-export interface UCCustomEventBase<T = {}>
+export interface UCCustomEventBase<T = object>
     extends CustomEvent<
         {
             action: UCActionType;

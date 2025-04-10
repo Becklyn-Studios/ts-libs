@@ -9,12 +9,32 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 0",
-        "format": "prettier --write \"src/**/*.{ts,tsx}\"",
-        "lint": "prettier --check \"src/**/*.{ts,tsx}\"",
+        "format": "eslint . --fix && prettier --write \"src/**/*.{ts,tsx}\"",
+        "lint": "eslint . --max-warnings 0 && prettier --check \"src/**/*.{ts,tsx}\"",
         "build": "npm run clean && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
-        "clean": "rm -rf build",
+        "clean": "rm -rf dist",
         "prepublishOnly": "npm test && npm run lint && npm run build",
         "preversion": "npm run lint"
+    },
+    "devDependencies": {
+        "@becklyn/prettier": "*",
+        "@becklyn/eslint": "*",
+        "@becklyn/tsconfig": "*",
+        "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+        "@types/react": "^18.2.14",
+        "react": "^16.8.6",
+        "react-dom": "^16.8.6",
+        "typescript": "^5.8.3"
+    },
+    "peerDependencies": {
+        "@types/react": "^17.0.0 || ^18.0.0",
+        "react": "^17.0.0 || ^18.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0"
+    },
+    "peerDependenciesMeta": {
+        "@types/react": {
+            "optional": true
+        }
     },
     "files": [
         "dist"
@@ -31,24 +51,5 @@
         "./package.json": "./package.json"
     },
     "sideEffects": false,
-    "peerDependencies": {
-        "@types/react": "^17.0.0 || ^18.0.0",
-        "react": "^17.0.0 || ^18.0.0",
-        "react-dom": "^17.0.0 || ^18.0.0"
-    },
-    "peerDependenciesMeta": {
-        "@types/react": {
-            "optional": true
-        }
-    },
-    "devDependencies": {
-        "@becklyn/prettier": "^2.1.1",
-        "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-        "@types/react": "^18.2.14",
-        "react": "^16.8.6",
-        "react-dom": "^16.8.6",
-        "tslib": "^2.3.1",
-        "typescript": "^4.6.3"
-    },
     "prettier": "@becklyn/prettier"
 }
