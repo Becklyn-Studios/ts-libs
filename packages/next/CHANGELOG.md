@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 2.0.0
+
+### Major Changes
+
+- b07c64d: Remove dropdown.ts and popper in order to support react 19
+
 ## 1.0.7
 
 ### Patch Changes
