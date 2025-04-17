@@ -10,9 +10,7 @@
     },
     "dependencies": {
         "@contentful/rich-text-react-renderer": "^16.0.1",
-        "@popperjs/core": "^2.11.8",
         "keen-slider": "^6.8.6",
-        "react-popper": "^2.3.0",
         "sass": "^1.86.3"
     },
     "devDependencies": {
