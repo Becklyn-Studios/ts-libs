@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 1.0.7
+
+### Patch Changes
+
+- c2d9735: Update dependencies
+
 ## 1.0.6
 
 ### Patch Changes
