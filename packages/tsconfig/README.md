@@ -44,6 +44,25 @@ Use in your `tsconfig.json`:
 }
 ```
 
+## Usage for js projects:
+
+Use in your `tsconfig.json`:
+
+```json
+{
+    "extends": "@becklyn/tsconfig/base.json",
+    "compilerOptions": {
+        "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./*"]
+        }
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["node_modules", "dist"]
+}
+```
+
 ## Storybook
 
 If you use storybook you will need to use the `TsconfigPathsPlugin` plugin.
