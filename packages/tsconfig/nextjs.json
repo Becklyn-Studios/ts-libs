@@ -8,7 +8,7 @@
             }
         ],
         "module": "ESNext",
-        "moduleResolution": "Bundler",
+        "moduleResolution": "bundler",
         "allowJs": true,
         "jsx": "preserve",
         "noEmit": true

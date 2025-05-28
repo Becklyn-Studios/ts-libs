@@ -7,14 +7,10 @@
         "forceConsistentCasingInFileNames": true,
         "incremental": false,
         "isolatedModules": true,
-        "lib": [
-            "es2024",
-            "DOM",
-            "DOM.Iterable"
-        ],
+        "lib": ["es2024", "DOM", "DOM.Iterable"],
         "module": "NodeNext",
         "moduleDetection": "force",
-        "moduleResolution": "NodeNext",
+        "moduleResolution": "nodenext",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noUncheckedIndexedAccess": true,
