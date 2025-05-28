@@ -8,7 +8,7 @@
         "incremental": false,
         "isolatedModules": true,
         "lib": [
-            "es2022",
+            "es2024",
             "DOM",
             "DOM.Iterable"
         ],
@@ -22,6 +22,6 @@
         "skipLibCheck": true,
         "strict": true,
         "strictNullChecks": true,
-        "target": "ES2022"
+        "target": "ES2024"
     }
 }
