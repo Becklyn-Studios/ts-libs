@@ -1,5 +1,11 @@
 # @becklyn/tsconfig
 
+## 1.1.0
+
+### Minor Changes
+
+- 3f729f7: Update target to ES2024
+
 ## 1.0.0
 
 ### Major Changes
