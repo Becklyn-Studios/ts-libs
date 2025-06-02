@@ -1,5 +1,11 @@
 # @becklyn/tsconfig
 
+## 1.1.1
+
+### Patch Changes
+
+- 46b99be: Fix moduleResolution to correct values
+
 ## 1.1.0
 
 ### Minor Changes
