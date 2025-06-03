@@ -21,9 +21,9 @@
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
         "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-        "@types/react": "^18.3.23",
-        "react": "^16.14.0",
-        "react-dom": "^16.14.0",
+        "@types/react": "^19.1.6",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
         "typescript": "^5.8.3"
     },
     "peerDependencies": {
