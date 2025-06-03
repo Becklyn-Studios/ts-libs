@@ -1,5 +1,13 @@
 # @becklyn/next
 
+## 2.0.1
+
+### Patch Changes
+
+- d926849: update dependencies
+
+    forms: remove default components for FormBuilder. Legacy for react 19
+
 ## 2.0.0
 
 ### Major Changes

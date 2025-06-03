@@ -1,6 +1,6 @@
 {
     "name": "@becklyn/prettier",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "license": "MIT",
     "description": "The commonly used prettier configuration for projects at Becklyn",
     "main": "index.js",
