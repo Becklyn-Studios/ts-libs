@@ -1,5 +1,12 @@
 # @becklyn/forms
 
+## 3.0.5
+
+### Patch Changes
+
+- d926849: update dependencies
+- d926849: remove default components for FormBuilder. Legacy for react 19
+
 ## 3.0.4
 
 ### Patch Changes
