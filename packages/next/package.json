@@ -11,7 +11,7 @@
     "dependencies": {
         "@contentful/rich-text-react-renderer": "^16.0.1",
         "keen-slider": "^6.8.6",
-        "sass": "^1.86.3"
+        "sass": "^1.89.1"
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
