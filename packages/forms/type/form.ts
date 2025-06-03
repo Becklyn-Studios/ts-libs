@@ -32,7 +32,7 @@ export interface FormBuilderProps<
     T extends FormFieldConfig<string, any, any, GlobalFormData>,
     GlobalFormData extends Record<string, any>,
 > {
-    Components?: Partial<FormBuilderComponents>;
+    Components: FormBuilderComponents;
     children(props: FormBuilderChildrenProps<T, GlobalFormData>): ReactNode;
 }
 
