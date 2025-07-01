@@ -1,5 +1,11 @@
 # @becklyn/tsconfig
 
+## 1.1.3
+
+### Patch Changes
+
+- d8b104f: Add/update homepage and repsitory urls for all packages
+
 ## 1.1.2
 
 ### Patch Changes

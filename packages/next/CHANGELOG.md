@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 2.1.1
+
+### Patch Changes
+
+- d8b104f: Add/update homepage and repsitory urls for all packages
+
 ## 2.1.0
 
 ### Minor Changes

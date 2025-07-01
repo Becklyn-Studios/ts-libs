@@ -1,5 +1,11 @@
 # @becklyn/react-usercentrics
 
+## 3.0.4
+
+### Patch Changes
+
+- d8b104f: Add/update homepage and repsitory urls for all packages
+
 ## 3.0.3
 
 ### Patch Changes
