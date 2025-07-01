@@ -9,14 +9,14 @@
         "prepublishOnly": "npm run lint && npm run build"
     },
     "dependencies": {
-        "@contentful/rich-text-react-renderer": "^16.0.1",
+        "@contentful/rich-text-react-renderer": "^16.0.2",
         "keen-slider": "^6.8.6",
         "sass": "^1.89.1"
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
-        "@contentful/rich-text-types": "^17.0.0",
+        "@contentful/rich-text-types": "^17.0.1",
         "@types/node": "^22.15.29",
         "@types/react": "^19.1.6",
         "@types/react-dom": "^19.1.5",
