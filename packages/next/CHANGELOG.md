@@ -1,5 +1,15 @@
 # @becklyn/next
 
+## 2.1.0
+
+### Minor Changes
+
+- bf4e17d: Add possibility to use keyboard shortcuts
+
+### Patch Changes
+
+- c6d3fce: Update dependencies
+
 ## 2.0.1
 
 ### Patch Changes

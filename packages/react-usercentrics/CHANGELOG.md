@@ -1,5 +1,11 @@
 # @becklyn/react-usercentrics
 
+## 3.0.3
+
+### Patch Changes
+
+- c6d3fce: Update dependencies
+
 ## 3.0.2
 
 ### Patch Changes
