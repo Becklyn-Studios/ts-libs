@@ -7,6 +7,10 @@
         "test": "turbo test",
         "release": "turbo run build lint test && changeset version && changeset publish"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Becklyn-Studios/ts-libs.git"
+    },
     "devDependencies": {
         "@becklyn/prettier": "^2.1.1",
         "@changesets/cli": "^2.29.5",
