@@ -8,7 +8,7 @@
     "dependencyDashboard": true,
     "timezone": "Europe/Berlin",
     "description": "for the first Monday of each month at between 00:00 and 03:59",
-    "schedule": ["* 7-9 1 */1 *"],
+    "schedule": ["* 0-3 1 * *"],
     "labels": ["UI", "needs-review", "renovate"],
     "packageRules": [
         {
