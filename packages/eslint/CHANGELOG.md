@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.1.5
+
+### Patch Changes
+
+- d8b104f: Add/update homepage and repsitory urls for all packages
+
 ## 1.1.4
 
 ### Patch Changes

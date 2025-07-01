@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 3.0.6
+
+### Patch Changes
+
+- d8b104f: Add/update homepage and repsitory urls for all packages
+
 ## 3.0.5
 
 ### Patch Changes
