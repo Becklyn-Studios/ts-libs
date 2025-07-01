@@ -2,10 +2,10 @@
     "name": "@becklyn/react-usercentrics",
     "version": "3.0.3",
     "license": "MIT",
-    "homepage": "https://github.com/Becklyn-Studios/react-usercentrics",
+    "homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/react-usercentrics",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Becklyn-Studios/react-usercentrics.git"
+        "url": "git+https://github.com/Becklyn-Studios/ts-libs.git"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 0",

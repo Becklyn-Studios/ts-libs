@@ -2,6 +2,11 @@
 	"name": "@becklyn/forms",
 	"version": "3.0.5",
 	"license": "MIT",
+	"homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/forms",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Becklyn-Studios/ts-libs.git"
+	},
 	"scripts": {
 		"lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
 		"fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
