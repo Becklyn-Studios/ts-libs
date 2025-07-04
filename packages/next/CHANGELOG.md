@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 2.1.2
+
+### Patch Changes
+
+- 1047848: Remove debug output from useShortcut
+
 ## 2.1.1
 
 ### Patch Changes
