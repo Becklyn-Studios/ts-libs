@@ -26,7 +26,6 @@ export const useShortcut = (
             }
 
             input += e.key;
-            console.log(input);
 
             if (Array.isArray(key) ? key.includes(input) : input === key) {
                 callback(e);
