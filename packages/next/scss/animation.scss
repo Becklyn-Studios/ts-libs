@@ -1,13 +1,15 @@
+@use "sass:list";
+
 @mixin transition($properties, $duration: 0.15s, $easing: ease-in-out, $will-change: true) {
     @if $will-change {
-        will-change: join($properties, (), "comma");
+        will-change: list.join($properties, (), "comma");
     }
 
-    @if (1 == length($properties)) {
+    @if (1 == list.length($properties)) {
         transition: #{$duration} #{$easing} #{$properties};
     } @else {
         transition: #{$duration} #{$easing};
-        transition-property: join($properties, (), "comma");
+        transition-property: list.join($properties, (), "comma");
     }
 }
 
