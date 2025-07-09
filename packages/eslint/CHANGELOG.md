@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.1.6
+
+### Patch Changes
+
+- 1bda154: Update dependencies
+
 ## 1.1.5
 
 ### Patch Changes
