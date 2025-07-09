@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 2.1.4
+
+### Patch Changes
+
+- 1bda154: Update dependencies
+
 ## 2.1.3
 
 ### Patch Changes
