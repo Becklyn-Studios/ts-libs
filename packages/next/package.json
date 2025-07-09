@@ -22,7 +22,7 @@
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
         "@contentful/rich-text-types": "^17.0.1",
-        "@types/node": "^22.15.34",
+        "@types/node": "^22.16.2",
         "@types/react": "^19.1.8",
         "@types/react-dom": "^19.1.6",
         "next": "^15.3.4",
