@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 2.1.3
+
+### Patch Changes
+
+- bfd12d1: Fix list function usage in transition mixin for SCSS animations
+
 ## 2.1.2
 
 ### Patch Changes
