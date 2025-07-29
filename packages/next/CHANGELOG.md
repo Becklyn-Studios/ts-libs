@@ -1,5 +1,12 @@
 # @becklyn/next
 
+## 3.0.0
+
+### Major Changes
+
+- 7cf20f4: The breakpoints mixins have been removed as this is always project-specific. Be aware to create your own mixins for
+  that.
+
 ## 2.2.0
 
 ### Minor Changes
