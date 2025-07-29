@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 2.2.0
+
+### Minor Changes
+
+- 2971958: add hook useMediaQuery to get viewport in js
+
 ## 2.1.4
 
 ### Patch Changes
