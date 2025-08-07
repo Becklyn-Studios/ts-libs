@@ -5,6 +5,10 @@ import { promisify } from "util";
 
 const execAsync = promisify(exec);
 
+const requiredPeerDependencies = ["next", "react", "react-dom", "@types/react", "@types/react-dom"];
+const devDependencies = ["sass", "typescript"];
+const dependencies = ["zod", "clsx", "@becklyn/next"];
+
 export async function init() {
     console.log("🚀 Initializing @becklyn/components in your project...\n");
 
@@ -20,29 +24,15 @@ export async function init() {
 
         // Check if Next.js is installed
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
-        const hasNextJs =
-            (packageJson.dependencies && packageJson.dependencies.next) ||
-            (packageJson.devDependencies && packageJson.devDependencies.next);
 
-        if (!hasNextJs) {
-            console.error("❌ Next.js is not installed in this project");
-            console.error("💡 Please install Next.js first");
-            process.exit(1);
-        }
+        assertDependencies(packageJson, requiredPeerDependencies);
 
-        console.log("✅ Next.js detected");
+        console.log("✅ All required dependencies detected");
+        console.log("📦 Installing dependencies...");
 
-        // Add dependencies
-        if (fs.existsSync(packageJsonPath)) {
-            console.log("📦 Installing dependencies...");
+        ensureDependencies(packageJson, dependencies, devDependencies);
 
-            // Install required dependencies
-            await execAsync("npm install --save-dev sass typescript @types/react @types/react-dom");
-            await execAsync("npm install react react-dom zod clsx @becklyn/next");
-
-            console.log("✅ Dependencies installed!");
-        }
-
+        console.log("✅ Dependencies installed!");
         console.log("✅ Project initialized successfully!");
         console.log(`
 🎉 You can now add components with:
@@ -53,3 +43,71 @@ export async function init() {
         process.exit(1);
     }
 }
+
+const assertDependencies = async (
+    packageJson: {
+        dependencies?: Record<string, string>;
+        devDependencies?: Record<string, string>;
+    },
+    dependencies: string[]
+) => {
+    for (const dependency of dependencies) {
+        if (!hasAnyDependency(packageJson, dependency)) {
+            console.error(`❌ Dependency ${dependency} is not installed in this project`);
+            console.error(`💡 Please install ${dependency} first`);
+            process.exit(1);
+        }
+    }
+};
+
+const ensureDependencies = async (
+    packageJson: {
+        dependencies?: Record<string, string>;
+        devDependencies?: Record<string, string>;
+    },
+    dependencies: string[],
+    devDependencies: string[]
+) => {
+    for (const dependency of dependencies) {
+        if (!hasDependency(packageJson, dependency)) {
+            await execAsync(`npm install ${dependency}`);
+        }
+    }
+
+    for (const devDependency of devDependencies) {
+        if (!hasDevDependency(packageJson, devDependency)) {
+            await execAsync(`npm install --save-dev ${devDependency}`);
+        }
+    }
+};
+
+const hasAnyDependency = (
+    packageJson: {
+        dependencies?: Record<string, string>;
+        devDependencies?: Record<string, string>;
+    },
+    dependency: string
+) => {
+    return (
+        (packageJson.dependencies && packageJson.dependencies[dependency]) ||
+        (packageJson.devDependencies && packageJson.devDependencies[dependency])
+    );
+};
+
+const hasDevDependency = (
+    packageJson: {
+        devDependencies?: Record<string, string>;
+    },
+    dependency: string
+) => {
+    return packageJson.devDependencies && packageJson.devDependencies[dependency];
+};
+
+const hasDependency = (
+    packageJson: {
+        dependencies?: Record<string, string>;
+    },
+    dependency: string
+) => {
+    return packageJson.dependencies && packageJson.dependencies[dependency];
+};
