@@ -9,8 +9,6 @@ export type ButtonVariant = z.input<typeof ButtonVariantSchema>;
  * Zod schema for Button component props validation
  */
 export const ButtonSchema = z.looseObject({
-    // Button content
-    children: z.any(),
     // Visual style variant
     variant: ButtonVariantSchema.optional().default("primary"),
     // Full width button

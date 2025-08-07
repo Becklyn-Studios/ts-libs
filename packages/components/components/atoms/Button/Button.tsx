@@ -1,10 +1,10 @@
-import React, { AnchorHTMLAttributes, FC } from "react";
+import React, { AnchorHTMLAttributes, FC, PropsWithChildren } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 import styles from "./Button.module.scss";
 import { ButtonProps, ButtonSchema } from "./ButtonSchema";
 
-const ButtonWrapperComponent: FC<ButtonProps> = ({ children, ...props }) => {
+const ButtonWrapperComponent: FC<PropsWithChildren<ButtonProps>> = ({ children, ...props }) => {
     return props.href ? (
         <Link href={props.href} {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}>
             {children}
@@ -18,20 +18,14 @@ const ButtonWrapperComponent: FC<ButtonProps> = ({ children, ...props }) => {
     );
 };
 
-export const Button: FC<ButtonProps> = props => {
+export const Button: FC<PropsWithChildren<ButtonProps>> = props => {
     const validatedProps = ButtonSchema.safeParse(props);
 
     if (!validatedProps.data) {
         return undefined;
     }
 
-    const {
-        children,
-        variant = "primary",
-        disabled = false,
-        className = "",
-        ...restProps
-    } = validatedProps.data;
+    const { variant, disabled, className, ...restProps } = validatedProps.data;
 
     return (
         <ButtonWrapperComponent
@@ -42,7 +36,7 @@ export const Button: FC<ButtonProps> = props => {
                 disabled && styles.disabled,
                 className
             )}>
-            {children}
+            {props.children}
         </ButtonWrapperComponent>
     );
 };
