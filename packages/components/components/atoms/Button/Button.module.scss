@@ -1,0 +1,32 @@
+@use "@becklyn/next/scss/mixins" as *;
+
+.button {
+    display: inline-flex;
+    
+    &.disabled {
+        pointer-events: none;
+        color: #777;
+    }
+}
+
+.primary {
+    @include hover {
+        background-color: #000;
+        color: #fff;
+    }
+}
+
+.secondary {
+    @include hover {
+        background-color: #00f;
+        color: #fff;
+    }
+}
+
+.tertiary {
+    text-decoration: underline;
+
+    @include hover {
+        text-decoration: none;
+    }
+}

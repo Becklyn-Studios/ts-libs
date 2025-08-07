@@ -8,7 +8,7 @@
         "release": "turbo run build lint test && changeset version && changeset publish"
     },
     "devDependencies": {
-        "@becklyn/prettier": "^2.1.1",
+        "@becklyn/prettier": "^2.1.5",
         "@changesets/cli": "^2.29.5",
         "turbo": "^2.5.5"
     },
