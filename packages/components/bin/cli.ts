@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-
-const { program } = require("commander");
-const { init } = require("../dist/cli/init");
-const { add } = require("../dist/cli/add");
-const { getAvailableComponents } = require("../dist/cli/registry");
+import { program } from "commander";
+import { add } from "../cli/add";
+import { init } from "../cli/init";
+import { getAvailableComponents } from "../cli/registry";
 
 program
     .name("becklyn-components")
