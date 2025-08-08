@@ -3,10 +3,10 @@ import localFont from "next/font/local";
 export const CUSTOM_FONT = localFont({
     src: [
         {
-            path: "./Arial.woff",
+            path: "./Go-Mono.woff",
         },
         {
-            path: "./Arial.woff2",
+            path: "./Go-Mono.woff2",
         },
     ],
     display: "swap",
