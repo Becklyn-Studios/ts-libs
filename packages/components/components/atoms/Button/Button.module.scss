@@ -1,8 +1,9 @@
-@use "@becklyn/next/scss/mixins" as *;
+@use "@becklyn/components/styles/mixins.scss" as *;
 
 .button {
     display: inline-flex;
-    
+    color: $text-primary;
+
     &.disabled {
         pointer-events: none;
         color: #777;
