@@ -1,0 +1,45 @@
+@mixin global-grid {
+    $padding-inline: 16px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 8px;
+    padding-inline: $padding-inline;
+    width: 100%;
+}
+
+@mixin global-grid-desktop {
+    $padding-inline: 64px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 16px;
+    padding-inline: $padding-inline;
+    width: 100%;
+}
+
+@mixin span-from-to($from, $to) {
+    @if $to >= $from {
+        grid-column: $from / span ($to - $from + 1);
+    } @else {
+        grid-column: $from / $to;
+    }
+}
+
+@mixin width-in-grid($col-span) {
+    $GRID_COLUMNS: 6;
+    $GRID_GAP: 8px;
+
+    width: calc(
+        ((100% - ($GRID_COLUMNS - 1) * $GRID_GAP) / $GRID_COLUMNS) * $col-span + ($col-span - 1) *
+            $GRID_GAP
+    );
+}
+
+@mixin width-in-grid-desktop($col-span) {
+    $GRID_COLUMNS: 12;
+    $GRID_GAP: 16px;
+
+    width: calc(
+        ((100% - ($GRID_COLUMNS - 1) * $GRID_GAP) / $GRID_COLUMNS) * $col-span + ($col-span - 1) *
+            $GRID_GAP
+    );
+}

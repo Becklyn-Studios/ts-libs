@@ -1,0 +1,59 @@
+@use "sass:map";
+
+// Font families
+$text-font-family-headline: Arial, sans-serif;
+$text-font-family-body: Arial, sans-serif;
+
+// Font weights
+$text-font-weight-400: 400;
+$text-font-weight-700: 700;
+
+$font-size-map: (
+    "mobile": (
+        "M": 1rem,
+    ),
+    "desktop": (
+        "M": 1rem,
+        "L": 1.125rem,
+    ),
+);
+
+// Line heights
+$line-height-map: (
+    "mobile": (
+        "M": 1.375rem,
+    ),
+    "desktop": (
+        "M": 1.375rem,
+        "L": 1.5rem,
+    ),
+);
+
+// Letter spacing
+$text-letter-spacing-map: (
+    "mobile": (
+        "M": 0.005rem,
+    ),
+    "desktop": (
+        "M": 0.005rem,
+        "L": 0.005625rem,
+    ),
+);
+
+// Colors - Basic
+$color-basic-black: #000;
+$color-basic-white: #fff;
+
+// Border radius
+$border-radius-map: (
+    "mobile": (
+        "S": 10px,
+        "M": 11px,
+        "L": 12px,
+    ),
+    "desktop": (
+        "S": 16px,
+        "M": 18px,
+        "L": 20px,
+    ),
+);

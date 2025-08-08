@@ -1,0 +1,18 @@
+@use "sass:map";
+
+@use "./breakpoints.scss" as *;
+@use "./variables.scss" as *;
+
+@mixin border-radius($border-radius) {
+    @if not map.has-key($border-radius-map, "mobile", $border-radius) {
+        @error "The radius key '#{$border-radius}' does not exist in the radius map.";
+    }
+
+    & {
+        border-radius: map.get($border-radius-map, "mobile", $border-radius);
+
+        @include large-tablet {
+            border-radius: map.get($border-radius-map, "desktop", $border-radius);
+        }
+    }
+}

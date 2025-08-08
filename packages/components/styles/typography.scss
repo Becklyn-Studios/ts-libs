@@ -1,0 +1,81 @@
+@use "sass:map";
+@use "./variables.scss" as *;
+
+@mixin getTypeface($base, $size, $weight) {
+    $font-weight: inherit;
+
+    @if $weight == "regular" {
+        $font-weight: $text-font-weight-400;
+    } @else if $weight == "bold" {
+        $font-weight: $text-font-weight-700;
+    } @else {
+        @error "Invalid weight: #{$weight}. Valid weights are regular and bold.";
+    }
+
+    font-style: normal;
+    font-weight: $font-weight;
+
+    @if $base == "body" {
+        @if $size not in ("M") {
+            @error "Invalid size: #{$size}. Valid sizes for body are M.";
+        }
+        font-family: $text-font-family-body;
+
+        @include font-size($size);
+        @include line-height($size);
+        @include letter-spacing($size);
+    } @else if $base == "heading" {
+        @if $size not in ("M", "L") {
+            @error "Invalid size: #{$size}. Valid sizes for heading are M and L.";
+        }
+        font-family: $text-font-family-headline;
+
+        @include font-size($size, $base);
+        @include line-height($size, $base);
+        @include letter-spacing($size, $base);
+    } @else {
+        @error "Invalid base: #{$base}. Valid bases are body and heading.";
+    }
+}
+
+@mixin font-size($font-size) {
+    @if not map.has-key($font-size-map, "mobile", $font-size) {
+        @error "The font size key '#{$font-size}' does not exist in the font size map.";
+    }
+
+    & {
+        font-size: map.get($font-size-map, "mobile", $font-size);
+
+        @include large-tablet {
+            font-size: map.get($font-size-map, "desktop", $font-size);
+        }
+    }
+}
+
+@mixin line-height($line-height) {
+    @if not map.has-key($line-height-map, "mobile", $line-height) {
+        @error "The line height key '#{$line-height}' does not exist in the line height map.";
+    }
+
+    & {
+        line-height: map.get($line-height-map, "mobile", $line-height);
+
+        @include large-tablet {
+            line-height: map.get($line-height-map, "desktop", $line-height);
+        }
+    }
+}
+
+@mixin letter-spacing($letter-spacing) {
+    @if not map.has-key($text-letter-spacing-map, "mobile", $letter-spacing) {
+        @error "The letter spacing key '#{$letter-spacing}' does not exist in the letter spacing map.";
+    }
+
+    & {
+        letter-spacing: map.get($text-letter-spacing-map, "mobile", $letter-spacing);
+
+        @include large-tablet {
+            letter-spacing: map.get($text-letter-spacing-map, "desktop", $letter-spacing);
+        }
+    }
+}
