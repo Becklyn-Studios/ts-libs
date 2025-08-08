@@ -3,7 +3,7 @@ import { ThemedWrapper } from "@becklyn/components/components/atoms/ThemedWrappe
 import { ThemeProvider, useTheme } from "@becklyn/components/contexts/theme/ThemeContext";
 import "@becklyn/next/scss/reset";
 import type { Decorator, Preview } from "@storybook/nextjs";
-// @ts-ignore - ts does not find the file in the .storybook directory
+// @ts-expect-error - ts does not find the file in the .storybook directory
 import styles from "./preview.module.scss";
 import "./preview.scss";
 

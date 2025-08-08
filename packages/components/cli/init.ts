@@ -34,8 +34,8 @@ export const init = async () => {
 
         console.log("✅ Dependencies installed!");
 
-        console.log("📄 Copying styles files...");
-        await copyStylesFiles(cwd);
+        await copyFiles(cwd, "styles");
+        await copyFiles(cwd, "contexts");
 
         console.log("✅ Project initialized successfully!");
         console.log(`
@@ -51,36 +51,38 @@ export const init = async () => {
 /**
  * Get the path to the styles directory relative to this file
  */
-const getStylesPath = (): string => {
+const getSourceDir = (dir: string): string => {
     const currentDir = __dirname;
 
     // Check if we're running from compiled code in the published package
     if (currentDir.includes("/dist/")) {
         // From node_modules/@becklyn/components/dist/cli/ -> ../../styles/
         // The styles directory is at the package root level
-        return path.join(__dirname, "../../styles");
+        return path.join(__dirname, `../../${dir}`);
     } else {
         // Running from source code during development
-        return path.join(__dirname, "../styles");
+        return path.join(__dirname, `../${dir}`);
     }
 };
 
-const copyStylesFiles = async (targetDir: string) => {
-    const stylesSourceDir = getStylesPath();
-    const stylesTargetDir = path.join(targetDir, "styles");
+const copyFiles = async (target: string, dir: string) => {
+    console.log(`📄 Copying ${dir} files...`);
+
+    const sourceDir = getSourceDir(dir);
+    const targetDir = path.join(target, dir);
 
     try {
-        // Create the styles directory if it doesn't exist
-        if (!fs.existsSync(stylesTargetDir)) {
-            fs.mkdirSync(stylesTargetDir, { recursive: true });
+        // Create the target directory if it doesn't exist
+        if (!fs.existsSync(targetDir)) {
+            fs.mkdirSync(targetDir, { recursive: true });
         }
 
-        // Recursively copy all contents from styles directory
-        await copyDirectoryContents(stylesSourceDir, stylesTargetDir, "");
+        // Recursively copy all contents from source directory
+        await copyDirectoryContents(sourceDir, targetDir, "");
 
-        console.log("✅ Styles files copied successfully!");
+        console.log(`✅ ${dir} files copied successfully!`);
     } catch (error) {
-        console.error("❌ Error copying styles files:", error);
+        console.error(`❌ Error copying ${dir} files:`, error);
         throw error;
     }
 };
