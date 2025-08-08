@@ -9,7 +9,7 @@ const requiredPeerDependencies = ["next", "react", "react-dom", "@types/react", 
 const devDependencies = ["sass", "typescript"];
 const dependencies = ["zod", "clsx", "@becklyn/next"];
 
-export async function init() {
+export const init = async () => {
     console.log("🚀 Initializing @becklyn/components in your project...\n");
 
     const cwd = process.cwd();
@@ -33,6 +33,10 @@ export async function init() {
         ensureDependencies(packageJson, dependencies, devDependencies);
 
         console.log("✅ Dependencies installed!");
+
+        console.log("📄 Copying styles files...");
+        await copyStylesFiles(cwd);
+
         console.log("✅ Project initialized successfully!");
         console.log(`
 🎉 You can now add components with:
@@ -42,7 +46,76 @@ export async function init() {
         console.error("❌ Error during initialization:", error);
         process.exit(1);
     }
-}
+};
+
+/**
+ * Get the path to the styles directory relative to this file
+ */
+const getStylesPath = (): string => {
+    const currentDir = __dirname;
+
+    // Check if we're running from compiled code in the published package
+    if (currentDir.includes("/dist/")) {
+        // From node_modules/@becklyn/components/dist/cli/ -> ../../styles/
+        // The styles directory is at the package root level
+        return path.join(__dirname, "../../styles");
+    } else {
+        // Running from source code during development
+        return path.join(__dirname, "../styles");
+    }
+};
+
+const copyStylesFiles = async (targetDir: string) => {
+    const stylesSourceDir = getStylesPath();
+    const stylesTargetDir = path.join(targetDir, "styles");
+
+    try {
+        // Create the styles directory if it doesn't exist
+        if (!fs.existsSync(stylesTargetDir)) {
+            fs.mkdirSync(stylesTargetDir, { recursive: true });
+        }
+
+        // Recursively copy all contents from styles directory
+        await copyDirectoryContents(stylesSourceDir, stylesTargetDir, "");
+
+        console.log("✅ Styles files copied successfully!");
+    } catch (error) {
+        console.error("❌ Error copying styles files:", error);
+        throw error;
+    }
+};
+
+const copyDirectoryContents = async (
+    sourceDir: string,
+    targetDir: string,
+    relativePath: string
+) => {
+    const items = fs.readdirSync(sourceDir);
+
+    for (const item of items) {
+        const sourcePath = path.join(sourceDir, item);
+        const targetPath = path.join(targetDir, item);
+        const displayPath = relativePath ? path.join(relativePath, item) : item;
+        const stat = fs.statSync(sourcePath);
+
+        if (stat.isDirectory()) {
+            // Create directory if it doesn't exist
+            if (!fs.existsSync(targetPath)) {
+                fs.mkdirSync(targetPath, { recursive: true });
+            }
+            // Recursively copy directory contents
+            await copyDirectoryContents(sourcePath, targetPath, displayPath);
+        } else if (stat.isFile()) {
+            // Check if file already exists at target location
+            if (fs.existsSync(targetPath)) {
+                console.log(`   ⏭️  Skipped ${displayPath} (already exists)`);
+            } else {
+                fs.copyFileSync(sourcePath, targetPath);
+                console.log(`   ✅  Copied ${displayPath}`);
+            }
+        }
+    }
+};
 
 const assertDependencies = async (
     packageJson: {

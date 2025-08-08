@@ -1,15 +1,4 @@
 {
-    "extends": "@becklyn/tsconfig/react-library.json",
-    "compilerOptions": {
-        "baseUrl": ".",
-        "rootDir": ".",
-        "outDir": "./dist",
-        "target": "es2015",
-        "paths": {
-            "@becklyn/components/*": ["./*"]
-        },
-        "strict": true
-    },
-    "include": ["./**/*.ts", "./**/*.tsx"],
+    "extends": "./tsconfig-build.json",
     "exclude": ["./node_modules", "./dist", "./.storybook"]
 }

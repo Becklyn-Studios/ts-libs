@@ -13,7 +13,7 @@ export interface ComponentConfig {
 /**
  * Get the path to the components directory relative to this registry file
  */
-function getComponentsPath(): string {
+const getComponentsPath = (): string => {
     // When running from compiled code in dist/, we need to go up more levels
     // From dist/cjs/cli/ or dist/es/cli/ to the components/ directory
     const currentDir = __dirname;
@@ -27,27 +27,27 @@ function getComponentsPath(): string {
         // Running from source code
         return path.join(__dirname, "../components");
     }
-}
+};
 
 /**
  * Check if a directory is a valid component directory
  */
-function isValidComponentDir(dirPath: string): boolean {
+const isValidComponentDir = (dirPath: string): boolean => {
     try {
         const tsxFile = fs.readdirSync(dirPath).find(file => file.endsWith(".tsx"));
         return tsxFile !== undefined;
     } catch {
         return false;
     }
-}
+};
 
 /**
  * Recursively scan for components in nested directories (atoms, molecules, organisms, etc.)
  */
-function scanComponentsRecursively(
+const scanComponentsRecursively = (
     basePath: string,
     relativePath: string = ""
-): Array<{ name: string; path: string }> {
+): Array<{ name: string; path: string }> => {
     const components: Array<{ name: string; path: string }> = [];
 
     try {
@@ -93,16 +93,16 @@ function scanComponentsRecursively(
     }
 
     return components;
-}
+};
 
 /**
  * Read all files in a component directory and return them as file objects
  */
-function readComponentFiles(
+const readComponentFiles = (
     componentName: string,
     componentDir: string,
     relativePath?: string
-): Array<{ path: string; content: string }> {
+): Array<{ path: string; content: string }> => {
     const files: Array<{ path: string; content: string }> = [];
 
     try {
@@ -128,9 +128,9 @@ function readComponentFiles(
     }
 
     return files;
-}
+};
 
-export function getAvailableComponents(): string[] {
+export const getAvailableComponents = (): string[] => {
     try {
         const componentsPath = getComponentsPath();
 
@@ -145,9 +145,9 @@ export function getAvailableComponents(): string[] {
         console.error("Error reading components directory:", error);
         return [];
     }
-}
+};
 
-export function getComponent(name: string): ComponentConfig | undefined {
+export const getComponent = (name: string): ComponentConfig | undefined => {
     try {
         const componentsPath = getComponentsPath();
         const componentName = name.toLowerCase();
@@ -184,4 +184,4 @@ export function getComponent(name: string): ComponentConfig | undefined {
         console.error(`Error reading component "${name}":`, error);
         return undefined;
     }
-}
+};

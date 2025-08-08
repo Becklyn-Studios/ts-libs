@@ -10,7 +10,7 @@
 	"scripts": {
 		"lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
 		"fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
-		"build": "rm -rf dist && tsc && chmod +x dist/bin/cli.js",
+		"build": "rm -rf dist && tsc -p tsconfig-build.json && chmod +x dist/bin/cli.js",
 		"prepublishOnly": "npm run lint && npm run build",
 		"storybook": "storybook dev -p 6006",
 		"storybook-build": "storybook build"
@@ -45,6 +45,8 @@
 		"becklyn-components": "dist/bin/cli.js"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"components",
+		"styles"
 	]
 }

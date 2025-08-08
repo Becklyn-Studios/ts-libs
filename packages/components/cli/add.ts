@@ -8,7 +8,7 @@ interface AddOptions {
     components?: string;
 }
 
-export async function add(components: string[], options: AddOptions) {
+export const add = async (components: string[], options: AddOptions) => {
     console.log(`🔥 Adding components: ${components.join(", ")}\n`);
 
     const cwd = process.cwd();
@@ -55,4 +55,4 @@ export async function add(components: string[], options: AddOptions) {
         console.error("❌ Error adding components:", error);
         process.exit(1);
     }
-}
+};
