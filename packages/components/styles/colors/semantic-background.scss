@@ -1,1 +1,3 @@
+@use "../variables.scss" as *;
+
 $background-primary: light-dark($color-basic-white, $color-basic-black);

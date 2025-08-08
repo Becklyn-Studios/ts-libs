@@ -1,0 +1,16 @@
+@use "../styles/colors/semantic-colors.scss" as *;
+
+body,
+.docs-story {
+    background-color: $background-primary;
+}
+
+body:has(.light),
+.docs-story:has(.light) {
+    color-scheme: light;
+}
+
+body:has(.dark),
+.docs-story:has(.dark) {
+    color-scheme: dark;
+}
