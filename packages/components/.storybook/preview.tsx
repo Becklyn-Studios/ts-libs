@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react";
 import { ThemedWrapper } from "@becklyn/components/components/atoms/ThemedWrapper/ThemedWrapper";
-import { ThemeProvider, useTheme } from "@becklyn/components/contexts/ThemeContext";
+import { ThemeProvider, useTheme } from "@becklyn/components/contexts/theme/ThemeContext";
 import "@becklyn/next/scss/reset";
 import type { Decorator, Preview } from "@storybook/nextjs";
 // @ts-ignore - ts does not find the file in the .storybook directory
