@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 3.0.1
+
+### Patch Changes
+
+- 41a0fd4: update dependencies
+
 ## 3.0.0
 
 ### Major Changes
