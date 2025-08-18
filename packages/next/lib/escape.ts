@@ -15,8 +15,8 @@ export const useEscapeListener = (
 
             document.addEventListener("keydown", onKeyDown, { capture });
             return () => document.removeEventListener("keydown", onKeyDown, { capture });
-            // eslint-disable-next-line react-hooks/exhaustive-deps
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         deps ? [...deps, capture] : undefined
     );
 };
