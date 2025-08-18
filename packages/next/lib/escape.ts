@@ -5,15 +5,18 @@ export const useEscapeListener = (
     deps?: DependencyList,
     capture = false
 ) => {
-    useEffect(() => {
-        const onKeyDown = (e: KeyboardEvent) => {
-            if (e.key === "Escape") {
-                callback(e);
-            }
-        };
+    useEffect(
+        () => {
+            const onKeyDown = (e: KeyboardEvent) => {
+                if (e.key === "Escape") {
+                    callback(e);
+                }
+            };
 
-        document.addEventListener("keydown", onKeyDown, { capture });
-        return () => document.removeEventListener("keydown", onKeyDown, { capture });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, deps);
+            document.addEventListener("keydown", onKeyDown, { capture });
+            return () => document.removeEventListener("keydown", onKeyDown, { capture });
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        },
+        deps ? [...deps, capture] : undefined
+    );
 };
