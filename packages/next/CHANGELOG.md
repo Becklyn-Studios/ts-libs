@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 3.1.0
+
+### Minor Changes
+
+- ad9f0a0: Enable useEscapeListener callback to stop event propagation
+
 ## 3.0.1
 
 ### Patch Changes
