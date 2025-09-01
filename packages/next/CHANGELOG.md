@@ -1,5 +1,15 @@
 # @becklyn/next
 
+## 3.2.0
+
+### Minor Changes
+
+- 8c37ad6: add zod and zod schemas to Inspector types
+
+### Patch Changes
+
+- a65ba39: update next dependency
+
 ## 3.1.0
 
 ### Minor Changes
