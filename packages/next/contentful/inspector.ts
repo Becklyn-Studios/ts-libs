@@ -1,21 +1,29 @@
-export interface InspectableItem {
-    entryId?: string;
-    draftMode?: boolean;
-    locale?: string;
-}
+import { z } from "zod";
 
-export interface InspectableField extends Partial<InspectableItem> {
-    fieldId?: string;
-    assetId?: string;
-}
+export const InspectableItemSchema = z.object({
+    entryId: z.string().optional(),
+    draftMode: z.boolean().optional(),
+    locale: z.string().optional(),
+});
 
-interface InspectorProps {
-    entryId?: string;
-    fieldId?: string;
-    assetId?: string;
-    draftMode?: boolean;
-    locale?: string;
-}
+export const InspectableFieldSchema = z
+    .object({
+        fieldId: z.string().optional(),
+        assetId: z.string().optional(),
+    })
+    .extend(InspectableItemSchema.shape);
+
+export const InspectorPropsSchema = z.object({
+    entryId: z.string().optional(),
+    draftMode: z.boolean().optional(),
+    locale: z.string().optional(),
+    fieldId: z.string().optional(),
+    assetId: z.string().optional(),
+});
+
+export type InspectableItem = z.infer<typeof InspectableItemSchema>;
+export type InspectableField = z.infer<typeof InspectableFieldSchema>;
+export type InspectorProps = z.infer<typeof InspectorPropsSchema>;
 
 export const getInspectorProps = <T extends InspectorProps>(data: T) => {
     if (!data) {
