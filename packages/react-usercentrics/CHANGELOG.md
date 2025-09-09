@@ -1,5 +1,11 @@
 # @becklyn/react-usercentrics
 
+## 3.0.6
+
+### Patch Changes
+
+- 42f2b79: update dependencies
+
 ## 3.0.5
 
 ### Patch Changes

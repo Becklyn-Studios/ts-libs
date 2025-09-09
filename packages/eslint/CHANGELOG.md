@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.1.8
+
+### Patch Changes
+
+- 42f2b79: update dependencies
+
 ## 1.1.7
 
 ### Patch Changes
