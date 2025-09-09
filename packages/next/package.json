@@ -14,18 +14,18 @@
         "prepublishOnly": "npm run lint && npm run build"
     },
     "dependencies": {
-        "@contentful/rich-text-react-renderer": "^16.1.0",
+        "@contentful/rich-text-react-renderer": "^16.1.1",
         "keen-slider": "^6.8.6",
-        "sass": "^1.90.0",
+        "sass": "^1.92.1",
         "zod": "^4.1.5"
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
-        "@contentful/rich-text-types": "^17.1.0",
+        "@contentful/rich-text-types": "^17.2.0",
         "@types/node": "^24.2.1",
-        "@types/react": "^19.1.10",
-        "@types/react-dom": "^19.1.7",
+        "@types/react": "^19.1.12",
+        "@types/react-dom": "^19.1.9",
         "next": "^15.4.7",
         "react": "^19.1.1",
         "typescript": "^5.9.2"
