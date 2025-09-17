@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.2.0
+
+### Minor Changes
+
+- 9431692: Ignore @typescript-eslint/triple-slash-reference rule in next-env.d.ts
+
 ## 1.1.8
 
 ### Patch Changes
