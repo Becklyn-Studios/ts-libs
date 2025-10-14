@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 3.2.2
+
+### Patch Changes
+
+- 94e9217: update dependencies
+
 ## 3.2.1
 
 ### Patch Changes
