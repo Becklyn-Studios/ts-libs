@@ -12,7 +12,7 @@
     "labels": ["UI", "needs-review", "renovate"],
     "packageRules": [
         {
-            "matchDatasources": ["npm"],
+            "groupName": "all dependencies",
             "matchPackageNames": ["*"],
             "rangeStrategy": "bump"
         }
