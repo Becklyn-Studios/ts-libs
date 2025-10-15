@@ -16,8 +16,8 @@ export interface GtmProviderProps {
     hasConsent: boolean;
     onBeforeGtmSetup?: () => void;
     onAfterGtmSetup?: () => void;
-    gtmId: string;
     gtmDomain: string;
+    gtmId: string;
 }
 
 export interface GtmProviderData {
@@ -30,8 +30,8 @@ export const GtmProvider: FC<PropsWithChildren<GtmProviderProps>> = ({
     hasConsent,
     onBeforeGtmSetup,
     onAfterGtmSetup,
-    gtmId,
     gtmDomain,
+    gtmId,
     children,
 }) => {
     useDataEventForwarder(hasConsent);
