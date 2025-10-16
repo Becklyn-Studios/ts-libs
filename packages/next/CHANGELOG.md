@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 4.1.0
+
+### Minor Changes
+
+- 15ca417: Add a promise based sleeping function to postpone a function call for n ms.
+
 ## 4.0.0
 
 ### Major Changes
