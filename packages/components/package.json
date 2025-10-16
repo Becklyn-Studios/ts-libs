@@ -20,7 +20,7 @@
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
-        "@becklyn/next": "^3.2.1",
+        "@becklyn/next": "^4.0.0",
         "@becklyn/tsconfig": "*",
         "@storybook/addon-designs": "^10.0.2",
         "@storybook/addon-docs": "^9.1.5",

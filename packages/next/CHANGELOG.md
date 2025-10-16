@@ -1,5 +1,12 @@
 # @becklyn/next
 
+## 4.0.0
+
+### Major Changes
+
+- 4cc1691: Fix hardcoded parameters in GTM provider:
+  Add GTM domain & ID as parameters
+
 ## 3.2.2
 
 ### Patch Changes
