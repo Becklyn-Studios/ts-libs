@@ -104,7 +104,7 @@ export const useUsercentricsHook = ({
     );
 
     const isServiceAccepted = useCallback(
-        (serviceId: string): boolean => {
+        async (serviceId: string): Promise<boolean> => {
             if (debug) {
                 return true;
             }
@@ -113,7 +113,9 @@ export const useUsercentricsHook = ({
                 return false;
             }
 
-            const service = cmp.getServicesBaseInfo().find(data => data.id === serviceId);
+            const services = await cmp.getServicesBaseInfo();
+
+            const service = services.find(service => service.id === serviceId);
 
             return !!service && service.consent.status;
         },

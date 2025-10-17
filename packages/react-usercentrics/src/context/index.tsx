@@ -9,7 +9,7 @@ export interface UsercentricsData {
     showFirstLayer: () => void;
     showSecondLayer: (serviceId?: string) => void;
     acceptService: (serviceId: string) => void;
-    isServiceAccepted: (serviceId: string) => boolean;
+    isServiceAccepted: (serviceId: string) => Promise<boolean>;
 }
 
 export const UsercentricsContext = createContext<UsercentricsData>({} as UsercentricsData);
