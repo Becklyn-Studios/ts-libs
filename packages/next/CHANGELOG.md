@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 4.2.1
+
+### Patch Changes
+
+- 58cf2d2: Add useIsMounted but for useLayoutEffect
+
 ## 4.2.0
 
 ### Minor Changes
