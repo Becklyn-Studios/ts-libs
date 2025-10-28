@@ -44,7 +44,9 @@ export const removeInspectorProps = <T extends InspectorProps>(data: T) => {
     return props;
 };
 
-export const inspector = (data: InspectableField): Record<string, string | undefined> => {
+export const inspector = <T extends InspectableField>(
+    data: T
+): Record<string, string | undefined> => {
     if (!data) {
         return {};
     }
