@@ -1,5 +1,13 @@
 # @becklyn/next
 
+## 4.2.1
+
+### Patch Changes
+
+- 9e6ee0d: Make inspector argument generic
+- 58cf2d2: Add useIsMounted but for useLayoutEffect
+- 5dab6f3: Add support for Next.js 16
+
 ## 4.2.0
 
 ### Minor Changes
