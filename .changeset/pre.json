@@ -1,0 +1,16 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "@becklyn/components": "0.1.3",
+    "@becklyn/eslint": "1.2.0",
+    "@becklyn/forms": "3.0.7",
+    "@becklyn/next": "4.2.1",
+    "@becklyn/prettier": "2.1.5",
+    "@becklyn/react-usercentrics": "3.0.7",
+    "@becklyn/tsconfig": "1.1.3"
+  },
+  "changesets": [
+    "cruel-webs-wish"
+  ]
+}
