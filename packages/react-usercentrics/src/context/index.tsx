@@ -1,13 +1,14 @@
 import React, { PropsWithChildren, createContext, useContext } from "react";
 import { useUsercentricsHook } from "../hook";
-import { ServiceStates, UC } from "../types";
+import { UCCmp } from "../types";
 
 export interface UsercentricsData {
-    cmp: UC | null;
+    cmp: UCCmp | null;
     consentUpdate: number;
     isInitialized: boolean;
     showFirstLayer: () => void;
-    showSecondLayer: (serviceId?: string) => void;
+    showSecondLayer: () => void;
+    showServiceDetails: (serviceId: string) => void;
     acceptService: (serviceId: string) => void;
     isServiceAccepted: (serviceId: string) => boolean;
 }
@@ -16,7 +17,6 @@ export const UsercentricsContext = createContext<UsercentricsData>({} as Usercen
 
 export interface UsercentricsProps {
     windowEvent?: string;
-    forceReload?: ServiceStates;
     debug?: boolean;
 }
 
