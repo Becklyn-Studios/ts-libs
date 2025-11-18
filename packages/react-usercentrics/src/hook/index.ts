@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { UsercentricsData, UsercentricsProps } from "../context";
 import { ConsentDetails, UCCmp, UCConsentEvent } from "../types";
@@ -189,7 +190,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
 
             if (debug) {
                 console.debug(
-                    `serviceId('${serviceId}') consent is ${!!service?.consent?.given ? "true" : "false"}`
+                    `serviceId('${serviceId}') consent is ${service?.consent?.given ? "true" : "false"}`
                 );
 
                 if (!service) {
