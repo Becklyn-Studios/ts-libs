@@ -3,5 +3,5 @@ export const formatPhone = (phone: string | number) => {
         return phone;
     }
 
-    return phone.replace(/[ -/)(]/g, "").replace("+49", "0049");
+    return phone.replace(/[-/)( ]/g, "").replace("+49", "0049");
 };
