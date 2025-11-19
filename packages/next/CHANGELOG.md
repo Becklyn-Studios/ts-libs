@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 4.2.2
+
+### Patch Changes
+
+- 3d34ad1: fix formatPhone to not get rid of the "+"
+
 ## 4.2.1
 
 ### Patch Changes
