@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.6
+
+### Patch Changes
+
+- 5573f12: update dependencies
+
 ## 2.1.2
 
 ### Patch Changes
