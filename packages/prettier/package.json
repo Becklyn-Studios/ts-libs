@@ -1,6 +1,6 @@
 {
     "name": "@becklyn/prettier",
-    "version": "2.1.5",
+    "version": "2.1.6",
     "license": "MIT",
     "description": "The commonly used prettier configuration for projects at Becklyn",
     "homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/prettier",

@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 4.2.3
+
+### Patch Changes
+
+- 5573f12: update dependencies
+
 ## 4.2.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.1.4
+
+### Patch Changes
+
+- 5573f12: update dependencies
+
 ## 0.1.3
 
 ### Patch Changes

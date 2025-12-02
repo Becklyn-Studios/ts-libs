@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.2.1
+
+### Patch Changes
+
+- 5573f12: update dependencies
+
 ## 1.2.0
 
 ### Minor Changes
