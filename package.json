@@ -9,11 +9,11 @@
     },
     "devDependencies": {
         "@becklyn/prettier": "^2.1.5",
-        "@changesets/cli": "^2.29.7",
-        "turbo": "^2.5.8"
+        "@changesets/cli": "^2.29.8",
+        "turbo": "^2.6.1"
     },
     "engines": {
-        "node": ">=18"
+        "node": ">=18.20.8"
     },
     "packageManager": "npm@11.3.0",
     "workspaces": [
