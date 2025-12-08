@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.1.5
+
+### Patch Changes
+
+- 63d3139: Security fixes in next and react packages.
+
 ## 0.1.4
 
 ### Patch Changes

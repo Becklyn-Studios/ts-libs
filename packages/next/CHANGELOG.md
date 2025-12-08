@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 4.2.4
+
+### Patch Changes
+
+- 63d3139: Security fixes in next and react packages.
+
 ## 4.2.3
 
 ### Patch Changes
