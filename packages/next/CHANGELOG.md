@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 4.2.5
+
+### Patch Changes
+
+- cea81a8: Fix vulnerability CVE-2025-55183 and CVE-2025-55184
+
 ## 4.2.4
 
 ### Patch Changes

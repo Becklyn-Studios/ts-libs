@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.1.6
+
+### Patch Changes
+
+- cea81a8: Fix vulnerability CVE-2025-55183 and CVE-2025-55184
+
 ## 0.1.5
 
 ### Patch Changes
