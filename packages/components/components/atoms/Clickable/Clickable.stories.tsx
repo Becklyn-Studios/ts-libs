@@ -1,11 +1,11 @@
 import clsx from "clsx";
 import styles from "@becklyn/components/.storybook/Story.module.scss";
-import type { Meta, StoryObj } from "@storybook/nextjs";
-import { Button } from "./Button";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { Clickable } from "./Clickable";
 
-const meta: Meta<typeof Button> = {
+const meta: Meta<typeof Clickable> = {
     title: "Atoms/Button/Button",
-    component: Button,
+    component: Clickable,
     parameters: {
         layout: "centered",
     },
@@ -26,17 +26,17 @@ const meta: Meta<typeof Button> = {
 
         return (
             <div className={clsx(styles.storyContainer, styles.large, styles.flex)}>
-                <Button {...args} onClick={handleOnClick} />
-                <Button {...args} href="#">
+                <Clickable {...args} onClick={handleOnClick} />
+                <Clickable {...args} href="#">
                     Button as Link
-                </Button>
+                </Clickable>
             </div>
         );
     },
 };
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof Clickable>;
 
 export const Primary: Story = {
     args: {

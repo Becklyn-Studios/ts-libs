@@ -7,7 +7,7 @@ const execAsync = promisify(exec);
 
 const requiredPeerDependencies = ["next", "react", "react-dom", "@types/react", "@types/react-dom"];
 const devDependencies = ["sass", "typescript"];
-const dependencies = ["zod", "clsx", "@becklyn/next"];
+const dependencies = ["clsx", "@becklyn/next"];
 
 export async function init() {
     console.log("🚀 Initializing @becklyn/components in your project...\n");

@@ -8,15 +8,17 @@
         "release": "turbo run build lint test && changeset version && changeset publish"
     },
     "devDependencies": {
-        "@becklyn/prettier": "^2.1.5",
+        "@becklyn/prettier": "*",
         "@changesets/cli": "^2.29.8",
-        "turbo": "^2.6.1"
+        "@trivago/prettier-plugin-sort-imports": "^6.0.0",
+        "turbo": "^2.6.3"
     },
     "engines": {
         "node": ">=18.20.8"
     },
     "packageManager": "npm@11.3.0",
     "workspaces": [
+        "docs",
         "packages/*"
     ],
     "prettier": "@becklyn/prettier"

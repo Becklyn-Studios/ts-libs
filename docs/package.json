@@ -1,0 +1,37 @@
+{
+    "name": "@becklyn/docs",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "build": "next build",
+        "dev": "next dev",
+        "start": "next start",
+        "lint": "eslint && prettier --check \"**/*.{ts,tsx,json,scss,css}\"",
+        "fix": "eslint --fix && prettier --write \"**/*.{ts,tsx,json,scss,css}\""
+    },
+    "dependencies": {
+        "@mdx-js/loader": "^3.1.1",
+        "@next/mdx": "^16.0.10",
+        "clsx": "^2.1.1",
+        "fumadocs-core": "^16.2.5",
+        "fumadocs-mdx": "^14.1.1",
+        "fumadocs-ui": "^16.2.5",
+        "lucide-react": "^0.561.0",
+        "mermaid": "^11.12.2",
+        "next": "^16.0.10",
+        "next-themes": "^0.4.6",
+        "react": "^19.2.3",
+        "react-dom": "^19.2.3",
+        "sass": "^1.97.0"
+    },
+    "devDependencies": {
+        "@becklyn/eslint": "*",
+        "@becklyn/tsconfig": "*",
+        "@types/mdx": "^2.0.13",
+        "@types/node": "^24.10.4",
+        "@types/react": "^19.2.7",
+        "@types/react-dom": "^19.2.3",
+        "typescript": "^5.9.3"
+    },
+    "prettier": "@becklyn/prettier"
+}

@@ -17,13 +17,11 @@
         "preversion": "npm run lint"
     },
     "devDependencies": {
-        "@becklyn/prettier": "*",
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
-        "@trivago/prettier-plugin-sort-imports": "^5.2.2",
         "@types/react": "^19.2.7",
-        "react": "^19.2.1",
-        "react-dom": "^19.2.1",
+        "react": "^19.2.3",
+        "react-dom": "^19.2.3",
         "typescript": "^5.9.3"
     },
     "peerDependencies": {
@@ -50,6 +48,5 @@
         },
         "./package.json": "./package.json"
     },
-    "sideEffects": false,
-    "prettier": "@becklyn/prettier"
+    "sideEffects": false
 }

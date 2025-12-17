@@ -9,6 +9,7 @@ export const useStaticContent = () => {
         // need to render the component without server-side backup
         const isEmpty = ref.current?.innerHTML === "";
         if (isEmpty) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setRender(true);
         }
     }, []);

@@ -51,6 +51,7 @@ export const FormDataProvider = <
 
     return (
         <FormConfigContext.Provider value={{ config }}>
+            {/* eslint-disable-next-line react-hooks/refs */}
             <FormDataReadyProvider {...props} initialData={initialDataRef.current}>
                 {children}
             </FormDataReadyProvider>

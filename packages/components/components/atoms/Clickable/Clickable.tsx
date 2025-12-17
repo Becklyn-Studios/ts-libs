@@ -1,10 +1,21 @@
 import React, { AnchorHTMLAttributes, FC, PropsWithChildren } from "react";
 import Link from "next/link";
 import clsx from "clsx";
-import styles from "./Button.module.scss";
-import { ButtonProps, ButtonSchema } from "./ButtonSchema";
+import styles from "./Clickable.module.scss";
 
-const ButtonWrapperComponent: FC<PropsWithChildren<ButtonProps>> = ({ children, ...props }) => {
+interface ClickableProps {
+    href: string;
+    type: "button" | "submit" | "reset";
+    variant?: "primary" | "secondary" | "tertiary";
+    disabled?: boolean;
+    className?: string;
+    onClick?: () => void;
+}
+
+const ClickableWrapperComponent: FC<PropsWithChildren<ClickableProps>> = ({
+    children,
+    ...props
+}) => {
     return props.href ? (
         <Link href={props.href} {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}>
             {children}
@@ -18,25 +29,19 @@ const ButtonWrapperComponent: FC<PropsWithChildren<ButtonProps>> = ({ children, 
     );
 };
 
-export const Button: FC<PropsWithChildren<ButtonProps>> = props => {
-    const validatedProps = ButtonSchema.safeParse(props);
-
-    if (!validatedProps.data) {
-        return undefined;
-    }
-
-    const { variant, disabled, className, ...restProps } = validatedProps.data;
+export const Clickable: FC<PropsWithChildren<ClickableProps>> = props => {
+    const { variant, disabled, className, ...restProps } = props;
 
     return (
-        <ButtonWrapperComponent
+        <ClickableWrapperComponent
             {...restProps}
             className={clsx(
-                styles.button,
-                styles[variant],
+                styles.clickable,
+                variant ? styles[variant] : undefined,
                 disabled && styles.disabled,
                 className
             )}>
             {props.children}
-        </ButtonWrapperComponent>
+        </ClickableWrapperComponent>
     );
 };

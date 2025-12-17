@@ -1,6 +1,6 @@
 @use "@becklyn/next/scss/mixins" as *;
 
-.button {
+.clickable {
     display: inline-flex;
     
     &.disabled {

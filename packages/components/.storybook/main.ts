@@ -1,7 +1,7 @@
 import { createRequire } from "module";
 import { dirname, join } from "path";
 import { TsconfigPathsPlugin } from "tsconfig-paths-webpack-plugin";
-import type { StorybookConfig } from "@storybook/nextjs";
+import type { StorybookConfig } from "@storybook/nextjs-vite";
 
 const localRequire = createRequire(import.meta.url);
 
@@ -22,7 +22,7 @@ const config: StorybookConfig = {
     ],
 
     framework: {
-        name: getAbsolutePath("@storybook/nextjs"),
+        name: getAbsolutePath("@storybook/nextjs-vite"),
         options: {
             builder: {
                 useSWC: true,
