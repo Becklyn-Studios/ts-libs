@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.2.2
+
+### Patch Changes
+
+- 9788e08: Update packages and ignore .next and .turbo by default
+
 ## 1.2.1
 
 ### Patch Changes

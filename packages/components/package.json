@@ -1,6 +1,6 @@
 {
   "name": "@becklyn/components",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "license": "MIT",
   "homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/components",
   "repository": {
@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@becklyn/eslint": "*",
-    "@becklyn/next": "^4.2.5",
+    "@becklyn/next": "^4.2.6",
     "@becklyn/tsconfig": "*",
     "@storybook/addon-designs": "^11.1.0",
     "@storybook/addon-docs": "^10.1.9",

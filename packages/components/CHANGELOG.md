@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.2.0
+
+### Minor Changes
+
+- 9788e08: Rename Button to Clickable
+
 ## 0.1.6
 
 ### Patch Changes

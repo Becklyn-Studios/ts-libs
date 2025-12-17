@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 4.2.6
+
+### Patch Changes
+
+- 9788e08: Update packages
+
 ## 4.2.5
 
 ### Patch Changes
