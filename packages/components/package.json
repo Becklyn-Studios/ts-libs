@@ -1,50 +1,50 @@
 {
-  "name": "@becklyn/components",
-  "version": "0.2.0",
-  "license": "MIT",
-  "homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/components",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Becklyn-Studios/ts-libs.git"
-  },
-  "scripts": {
-    "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
-    "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
-    "build": "rm -rf dist && tsc && chmod +x dist/bin/cli.js",
-    "prepublishOnly": "npm run lint && npm run build",
-    "storybook": "storybook dev -p 6006",
-    "storybook-build": "storybook build"
-  },
-  "dependencies": {
-    "commander": "^14.0.2"
-  },
-  "devDependencies": {
-    "@becklyn/eslint": "*",
-    "@becklyn/next": "^4.2.6",
-    "@becklyn/tsconfig": "*",
-    "@storybook/addon-designs": "^11.1.0",
-    "@storybook/addon-docs": "^10.1.9",
-    "@storybook/addon-links": "^10.1.9",
-    "@types/node": "^24.10.4",
-    "@types/react": "^19.2.7",
-    "clsx": "^2.1.1",
-    "eslint-plugin-storybook": "^10.1.9",
-    "next": "^16.0.10",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "sass": "^1.97.0",
-    "storybook": "^10.1.9",
-    "@storybook/nextjs-vite": "10.1.9",
-    "vite": "^7.0.0"
-  },
-  "peerDependencies": {
-    "react": "^18.3.1 || ^19.0.0",
-    "react-dom": "^18.3.1 || ^19.0.0"
-  },
-  "bin": {
-    "becklyn-components": "dist/bin/cli.js"
-  },
-  "files": [
-    "dist"
-  ]
+    "name": "@becklyn/components",
+    "version": "0.2.0",
+    "license": "MIT",
+    "homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/components",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Becklyn-Studios/ts-libs.git"
+    },
+    "scripts": {
+        "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
+        "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
+        "build": "rm -rf dist && tsc && chmod +x dist/bin/cli.js",
+        "prepublishOnly": "npm run lint && npm run build",
+        "storybook": "storybook dev -p 6006",
+        "storybook-build": "storybook build"
+    },
+    "dependencies": {
+        "commander": "^14.0.2"
+    },
+    "devDependencies": {
+        "@becklyn/eslint": "*",
+        "@becklyn/next": "^4.2.6",
+        "@becklyn/tsconfig": "*",
+        "@storybook/addon-designs": "^11.1.0",
+        "@storybook/addon-docs": "^10.1.10",
+        "@storybook/addon-links": "^10.1.10",
+        "@types/node": "^24.10.4",
+        "@types/react": "^19.2.7",
+        "clsx": "^2.1.1",
+        "eslint-plugin-storybook": "^10.1.10",
+        "next": "^16.0.10",
+        "react": "^19.2.3",
+        "react-dom": "^19.2.3",
+        "sass": "^1.97.0",
+        "storybook": "^10.1.10",
+        "@storybook/nextjs-vite": "10.1.10",
+        "vite": "^7.3.0"
+    },
+    "peerDependencies": {
+        "react": "^18.3.1 || ^19.0.0",
+        "react-dom": "^18.3.1 || ^19.0.0"
+    },
+    "bin": {
+        "becklyn-components": "dist/bin/cli.js"
+    },
+    "files": [
+        "dist"
+    ]
 }
