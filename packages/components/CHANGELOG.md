@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.2.1
+
+### Patch Changes
+
+- e9e51ac: update dependencies
+
 ## 0.2.0
 
 ### Minor Changes
