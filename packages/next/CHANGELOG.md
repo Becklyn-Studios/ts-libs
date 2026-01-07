@@ -1,5 +1,21 @@
 # @becklyn/next
 
+## 4.3.0
+
+### Minor Changes
+
+- 8551718: Add debounce & debounce hook
+- ff110c2: Add useTimeout & useInterval hooks
+- 632fd75: Add useIsDocumentHidden hook
+- 589d876: Add default fetcher utility function for useSWR
+- bf9698b: Add scroll away hook
+
+### Patch Changes
+
+- 5f57110: update dependencies
+- 05aae7b: Add prettify helper type
+- 84d362f: Fix ErrorBoundary not being available
+
 ## 4.2.6
 
 ### Patch Changes
