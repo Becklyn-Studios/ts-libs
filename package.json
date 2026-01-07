@@ -10,8 +10,8 @@
     "devDependencies": {
         "@becklyn/prettier": "*",
         "@changesets/cli": "^2.29.8",
-        "@trivago/prettier-plugin-sort-imports": "^6.0.0",
-        "turbo": "^2.6.3"
+        "@trivago/prettier-plugin-sort-imports": "^6.0.2",
+        "turbo": "^2.7.3"
     },
     "engines": {
         "node": ">=18.20.8"
