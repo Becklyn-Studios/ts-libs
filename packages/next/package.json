@@ -46,6 +46,12 @@
             "import": "./dist/es/contentful/*.js",
             "default": "./dist/cjs/contentful/*.js"
         },
+        "./error/*": {
+            "types": "./dist/cjs/error/*.d.ts",
+            "require": "./dist/cjs/error/*.js",
+            "import": "./dist/es/error/*.js",
+            "default": "./dist/cjs/error/*.js"
+        },
         "./format/*": {
             "types": "./dist/cjs/format/*.d.ts",
             "require": "./dist/cjs/format/*.js",
