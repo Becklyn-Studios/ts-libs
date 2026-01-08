@@ -1,5 +1,12 @@
-@use "@avemo/ui/styles/mixins.scss" as *;
-@use "@avemo/ui/styles/colors/components-input-dropdown.scss" as *;
+@use "@becklyn/next/scss/mixins" as *;
+
+$background-color: #fff;
+$border-color: #3f3f3f;
+$text-color: #000;
+$hover-color: #3f3f3f;
+$active-color: #3f3f3f;
+$focus-color: #ff0000;
+$disabled-color: #777;
 
 .dropdown {
     display: flex;
@@ -15,57 +22,60 @@
     align-items: center;
     align-self: stretch;
     gap: 16px;
+    border: 1px solid $border-color;
     padding: 8px 24px;
     height: 48px;
 
     @include hover {
         .dropdownButtonText {
-            color: #3f3f3f;
+            color: $hover-color;
         }
     }
 
     @include active {
         .dropdownButtonText {
-            color: #3f3f3f;
+            color: $active-color;
         }
     }
 
     @include focus-visible {
-        outline: 2px solid #ff0000;
+        outline: 2px solid $focus-color;
 
         .dropdownButtonText {
-            color: #3f3f3f;
+            color: $hover-color;
         }
     }
 
     @include disabled {
         .dropdownButtonText {
-            color: #777;
+            color: $disabled-color;
         }
 
         .dropdownButtonIcon {
-            color: #777;
+            color: $disabled-color;
         }
     }
 
     &.default {
-        background: #fff;
+        background: $background-color;
     }
 
     &.multi {
-        border: 1px solid #e0e0e0;
+        border: 1px solid $border-color;
     }
 }
 
 .dropdownButtonText {
-    color: #000;
-    @include oneLineEllipsis;
+    overflow: hidden;
+    color: $text-color;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .dropdownButtonIcon {
-    color: #000;
+    color: $text-color;
     @include square(20px);
-    @include transition(transform, $transition-duration-fast, ease-in-out);
+    @include transition(transform, 200ms, ease-in-out);
 }
 
 .open .dropdownButtonIcon {

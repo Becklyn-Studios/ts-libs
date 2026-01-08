@@ -1,6 +1,8 @@
-@use "@avemo/ui/styles/mixins.scss" as *;
-@use "@avemo/ui/styles/colors/components-input-dropdown.scss" as *;
-@use "@avemo/ui/styles/colors/components-input-checkbox.scss" as *;
+@use "@becklyn/next/scss/mixins" as *;
+
+$background-color: #fff;
+$thumb-color: #3f3f3f;
+$thumb-hover-color: #e0e0e0;
 
 .dropdownContainer {
     position: absolute;
@@ -8,11 +10,10 @@
     left: 0;
     z-index: zIndex("modal");
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.12);
-    background-color: $components-color-input-dropdown-default;
+    border-radius: 8px;
+    background-color: $background-color;
     padding: 16px 8px 16px 0;
     width: 100%;
-
-    @include border-radius("S");
 }
 
 .dropdown {
@@ -26,16 +27,16 @@
 
     &::-webkit-scrollbar {
         right: 8px;
+        border-radius: 16px;
         width: 6px;
-        @include border-radius("XXXL");
 
         @include hover {
-            background-color: $color-gray-200;
+            background-color: $thumb-hover-color;
         }
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: $color-gray-800;
-        @include border-radius("XXXL");
+        border-radius: 16px;
+        background-color: $thumb-color;
     }
 }

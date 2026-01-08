@@ -31,7 +31,8 @@ export const DropdownItem: FC<DropdownItemProps> = ({
             className={clsx(
                 styles.dropdownItem,
                 multiSelect && styles.multi,
-                selected && styles.selected
+                selected && styles.selected,
+                disabled && styles.disabled
             )}
             onClick={onClick}
             role="option"
