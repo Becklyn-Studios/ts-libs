@@ -1,0 +1,31 @@
+@use "@becklyn/next/scss/mixins" as *;
+
+.wrapper {
+}
+
+.content {
+}
+
+.input {
+    background-color: #fff;
+
+    @include hover {
+        background-color: #bbb;
+    }
+
+    @include focus {
+        background-color: #ddd;
+    }
+
+    @include transition(background-color);
+}
+
+.error {
+    color: #eb1c23;
+}
+
+.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #777;
+}
