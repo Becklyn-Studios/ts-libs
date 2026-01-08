@@ -1,6 +1,12 @@
-@use "@avemo/ui/styles/mixins.scss" as *;
-@use "@avemo/ui/styles/colors/components-input-dropdown.scss" as *;
-@use "@avemo/ui/styles/colors/components-input-checkbox.scss" as *;
+@use "@becklyn/next/scss/mixins" as *;
+
+$background-color: #fff;
+$color: #000;
+$hover-color: #3f3f3f;
+$active-color: #3f3f3f;
+$focus-color: #ff0000;
+$selected-color: #3f3f3f;
+$disabled-color: #b9b9b9;
 
 .dropdownItem {
     display: flex;
@@ -8,32 +14,33 @@
     gap: 8px;
     cursor: pointer;
     outline-offset: -2px;
-    background-color: #fff;
+    background-color: $background-color;
     padding: 8px 24px;
     width: 100%;
-    color: #000;
-
-    @include getTypeface("body", "S", "regular");
+    color: $color;
 
     @include focus-visible {
-        outline: 2px solid #ff0000;
+        outline: 2px solid $focus-color;
     }
 
     @include hover {
-        color: #3f3f3f;
+        color: $hover-color;
     }
 
     @include active {
-        color: #3f3f3f;
+        color: $active-color;
     }
 
     &.selected {
-        color: #3f3f3f;
+        color: $selected-color;
+    }
+
+    &.disabled {
+        color: $disabled-color;
     }
 }
 
 .dropdownItemLabel {
-    color: #000;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
