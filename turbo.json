@@ -3,28 +3,21 @@
     "ui": "tui",
     "tasks": {
         "build": {
-            "dependsOn": [
-                "^build"
-            ],
-            "inputs": [
-                "$TURBO_DEFAULT$",
-                ".env*"
-            ]
+            "dependsOn": ["^build"],
+            "inputs": ["$TURBO_DEFAULT$", ".env*"]
+        },
+        "storybook-build": {
+            "dependsOn": ["storybook-build"],
+            "inputs": ["$TURBO_DEFAULT$", ".env*"]
         },
         "lint": {
-            "dependsOn": [
-                "^lint"
-            ]
+            "dependsOn": ["^lint"]
         },
         "test": {
-            "dependsOn": [
-                "^test"
-            ]
+            "dependsOn": ["^test"]
         },
         "check-types": {
-            "dependsOn": [
-                "^check-types"
-            ]
+            "dependsOn": ["^check-types"]
         },
         "dev": {
             "cache": false,
