@@ -5,7 +5,7 @@ import { PropsWithClassName } from "@becklyn/next/types/style";
 import styles from "./Clickable.module.scss";
 
 interface ClickableProps {
-    href: string;
+    href?: string;
     type: "button" | "submit" | "reset";
     variant?: "primary" | "secondary" | "tertiary";
     disabled?: boolean;
