@@ -1,4 +1,5 @@
 import "@becklyn/next/scss/reset";
+import "@becklyn/next/scss/story/story";
 import type { Preview } from "@storybook/nextjs-vite";
 
 const preview: Preview = {

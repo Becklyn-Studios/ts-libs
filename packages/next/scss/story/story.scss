@@ -1,4 +1,4 @@
-.storyContainer {
+.story-container {
     position: relative;
     margin: 0 auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -15,20 +15,20 @@
         gap: 4px;
     }
 
-    &.flexColumn {
+    &.flex-column {
         flex-direction: column;
     }
 
-    &.fullHeight {
+    &.full-height {
         height: 100vh;
         overflow-y: auto;
     }
 
-    &.fullWidth {
+    &.full-width {
         width: 100%;
     }
 
-    &.noPadding {
+    &.no-padding {
         padding: 0;
     }
 }

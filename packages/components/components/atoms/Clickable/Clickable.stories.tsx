@@ -1,5 +1,3 @@
-import clsx from "clsx";
-import styles from "@becklyn/components/.storybook/Story.module.scss";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Clickable } from "./Clickable";
 
@@ -25,7 +23,7 @@ const meta: Meta<typeof Clickable> = {
         };
 
         return (
-            <div className={clsx(styles.storyContainer, styles.large, styles.flex)}>
+            <div className="story-container large flex">
                 <Clickable {...args} onClick={handleOnClick} />
                 <Clickable {...args} href="#">
                     Button as Link
