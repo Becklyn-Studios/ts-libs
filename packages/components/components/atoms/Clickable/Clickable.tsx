@@ -1,6 +1,7 @@
-import React, { AnchorHTMLAttributes, FC, PropsWithChildren } from "react";
+import { AnchorHTMLAttributes, ButtonHTMLAttributes, FC, PropsWithChildren } from "react";
 import Link from "next/link";
 import clsx from "clsx";
+import { PropsWithClassName } from "@becklyn/next/types/style";
 import styles from "./Clickable.module.scss";
 
 interface ClickableProps {
@@ -8,11 +9,10 @@ interface ClickableProps {
     type: "button" | "submit" | "reset";
     variant?: "primary" | "secondary" | "tertiary";
     disabled?: boolean;
-    className?: string;
     onClick?: () => void;
 }
 
-const ClickableWrapperComponent: FC<PropsWithChildren<ClickableProps>> = ({
+const ClickableWrapperComponent: FC<PropsWithChildren<PropsWithClassName<ClickableProps>>> = ({
     children,
     ...props
 }) => {
@@ -23,13 +23,13 @@ const ClickableWrapperComponent: FC<PropsWithChildren<ClickableProps>> = ({
     ) : (
         <button
             type={props.type || "button"}
-            {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}>
+            {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}>
             {children}
         </button>
     );
 };
 
-export const Clickable: FC<PropsWithChildren<ClickableProps>> = props => {
+export const Clickable: FC<PropsWithChildren<PropsWithClassName<ClickableProps>>> = props => {
     const { variant, disabled, className, ...restProps } = props;
 
     return (
