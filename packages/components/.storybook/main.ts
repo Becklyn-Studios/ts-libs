@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import type { StorybookConfig } from "@storybook/nextjs-vite";
 
 function getAbsolutePath(value: string): string {
+    // @ts-expect-error - import.meta.resolve is not supported in ES modules
     return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
 }
 
