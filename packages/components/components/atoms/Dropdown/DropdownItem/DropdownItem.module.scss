@@ -1,0 +1,40 @@
+@use "@avemo/ui/styles/mixins.scss" as *;
+@use "@avemo/ui/styles/colors/components-input-dropdown.scss" as *;
+@use "@avemo/ui/styles/colors/components-input-checkbox.scss" as *;
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    outline-offset: -2px;
+    background-color: #fff;
+    padding: 8px 24px;
+    width: 100%;
+    color: #000;
+
+    @include getTypeface("body", "S", "regular");
+
+    @include focus-visible {
+        outline: 2px solid #ff0000;
+    }
+
+    @include hover {
+        color: #3f3f3f;
+    }
+
+    @include active {
+        color: #3f3f3f;
+    }
+
+    &.selected {
+        color: #3f3f3f;
+    }
+}
+
+.dropdownItemLabel {
+    color: #000;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
