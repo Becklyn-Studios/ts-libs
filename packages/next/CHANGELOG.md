@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 4.4.0
+
+### Minor Changes
+
+- c04464b: Add PropsWithClassnames utility
+
 ## 4.3.0
 
 ### Minor Changes
