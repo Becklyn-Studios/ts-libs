@@ -43,6 +43,6 @@ export const config = [
         },
     },
     {
-        ignores: ["dist/**", ".next/**", ".turbo/**"],
+        ignores: ["bin/**", "dist/**", ".next/**", ".turbo/**", "storybook-static/**"],
     },
 ];
