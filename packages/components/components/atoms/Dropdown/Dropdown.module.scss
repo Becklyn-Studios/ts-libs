@@ -1,0 +1,73 @@
+@use "@avemo/ui/styles/mixins.scss" as *;
+@use "@avemo/ui/styles/colors/components-input-dropdown.scss" as *;
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+}
+
+.dropdownButton {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    align-items: center;
+    align-self: stretch;
+    gap: 16px;
+    padding: 8px 24px;
+    height: 48px;
+
+    @include hover {
+        .dropdownButtonText {
+            color: #3f3f3f;
+        }
+    }
+
+    @include active {
+        .dropdownButtonText {
+            color: #3f3f3f;
+        }
+    }
+
+    @include focus-visible {
+        outline: 2px solid #ff0000;
+
+        .dropdownButtonText {
+            color: #3f3f3f;
+        }
+    }
+
+    @include disabled {
+        .dropdownButtonText {
+            color: #777;
+        }
+
+        .dropdownButtonIcon {
+            color: #777;
+        }
+    }
+
+    &.default {
+        background: #fff;
+    }
+
+    &.multi {
+        border: 1px solid #e0e0e0;
+    }
+}
+
+.dropdownButtonText {
+    color: #000;
+    @include oneLineEllipsis;
+}
+
+.dropdownButtonIcon {
+    color: #000;
+    @include square(20px);
+    @include transition(transform, $transition-duration-fast, ease-in-out);
+}
+
+.open .dropdownButtonIcon {
+    transform: rotate(180deg);
+}
