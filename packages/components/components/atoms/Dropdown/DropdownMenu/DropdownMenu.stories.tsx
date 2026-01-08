@@ -1,6 +1,4 @@
 import { useState } from "react";
-import clsx from "clsx";
-import styles from "@avemo/ui/.storybook/Story.module.scss";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { DropdownMenu, DropdownMenuProps } from "./DropdownMenu";
 
@@ -10,7 +8,7 @@ const InteractiveStory = (args: DropdownMenuProps) => {
     );
 
     return (
-        <div className={clsx(styles.storyContainer, styles.gray)}>
+        <div className="story-container large">
             <div style={{ position: "relative" }}>
                 <DropdownMenu {...args} value={inputValue} setValue={setInputValue} />
             </div>

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import clsx from "clsx";
-import styles from "@becklyn/next/.storybook/Story.module.scss";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Dropdown } from "./Dropdown";
 import { DropdownProps } from "./Dropdown";
@@ -9,7 +7,7 @@ const InteractiveStorySingle = (args: DropdownProps & { multiSelect: false }) =>
     const [value, setValue] = useState(args.value);
 
     return (
-        <div className={clsx(styles.storyContainer, styles.gray)}>
+        <div className="story-container large">
             <Dropdown {...args} value={value} setValue={setValue} multiSelect={false} />
 
             <p>Value: {value}</p>
@@ -21,7 +19,7 @@ const InteractiveStoryMulti = (args: DropdownProps & { multiSelect: true }) => {
     const [value, setValue] = useState(args.value);
 
     return (
-        <div className={clsx(styles.storyContainer)}>
+        <div className="story-container large">
             <Dropdown {...args} value={value} setValue={setValue} multiSelect={true} />
 
             <p>Value: {value.join(", ")}</p>

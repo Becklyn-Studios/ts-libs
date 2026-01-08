@@ -1,6 +1,4 @@
 import { useState } from "react";
-import clsx from "clsx";
-import styles from "@avemo/ui/.storybook/Story.module.scss";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { DropdownItem, DropdownItemProps } from "./DropdownItem";
 
@@ -8,7 +6,7 @@ const InteractiveStory = (args: DropdownItemProps) => {
     const [selected, setSelected] = useState(args.selected);
 
     return (
-        <div className={clsx(styles.storyContainer, styles.gray)}>
+        <div className="story-container large flex">
             <DropdownItem {...args} selected={selected} onClick={() => setSelected(!selected)} />
         </div>
     );
