@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
+import { assertDependencies, loadPackageJson } from "./dependencies";
 import { getAvailableComponents, getComponent } from "./registry";
 
 interface AddOptions {
@@ -15,6 +16,8 @@ export async function add(components: string[], options: AddOptions) {
     const componentsDir = path.join(cwd, options.components || "components");
 
     try {
+        const packageJson = loadPackageJson();
+
         for (const componentName of components) {
             const componentConfig = getComponent(componentName);
 
@@ -24,6 +27,8 @@ export async function add(components: string[], options: AddOptions) {
                 );
                 continue;
             }
+
+            assertDependencies(packageJson, componentConfig.dependencies || []);
 
             console.log(`📦 Adding ${componentConfig.name}...`);
 

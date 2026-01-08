@@ -15,7 +15,7 @@ We also add storybook stories to the components. You need to have storybook inst
 Initialize your project with the necessary configuration.
 
 ```bash
-npx becklyn-components init [options]
+npx @becklyn/components init [options]
 ```
 
 This command will:
@@ -27,7 +27,7 @@ This command will:
 Add components to your project by copying them from the library.
 
 ```bash
-npx becklyn-components add <component> [component...] [options]
+npx @becklyn/components add <component> [component...] [options]
 ```
 
 **Options:**
@@ -40,11 +40,11 @@ npx becklyn-components add <component> [component...] [options]
 
 ```bash
 # Add a single component
-npx becklyn-components add button
+npx @becklyn/components add button
 
 # Add multiple components
-npx becklyn-components add button card dialog
+npx @becklyn/components add button card dialog
 
 # Specify custom directories
-npx becklyn-components add button --components src/ui
+npx @becklyn/components add button --components src/ui
 ```

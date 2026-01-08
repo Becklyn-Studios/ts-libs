@@ -5,7 +5,7 @@ import { init } from "../cli/init";
 import { getAvailableComponents } from "../cli/registry";
 
 program
-    .name("becklyn-components")
+    .name("@becklyn/components")
     .description("CLI for @becklyn/components - Add components to your project")
     .version("1.0.0");
 

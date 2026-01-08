@@ -7,7 +7,7 @@ export interface ComponentConfig {
         path: string;
         content: string;
     }>;
-    dependencies?: string[];
+    dependencies: string[];
 }
 
 /**
@@ -102,8 +102,12 @@ function readComponentFiles(
     componentName: string,
     componentDir: string,
     relativePath?: string
-): Array<{ path: string; content: string }> {
+): {
+    files: Array<{ path: string; content: string }>;
+    dependencies: string[];
+} {
     const files: Array<{ path: string; content: string }> = [];
+    const dependencies: string[] = [];
 
     try {
         const dirContents = fs.readdirSync(componentDir, { withFileTypes: true });
@@ -112,6 +116,12 @@ function readComponentFiles(
             if (item.isFile()) {
                 const filePath = path.join(componentDir, item.name);
                 const content = fs.readFileSync(filePath, "utf-8");
+
+                if (item.name.endsWith("dependencies.json")) {
+                    console.log(item.name, content);
+                    continue;
+                }
+
                 // Use the full relative path from components directory if provided
                 const fileRelativePath = relativePath
                     ? `${relativePath}/${item.name}`
@@ -127,7 +137,7 @@ function readComponentFiles(
         console.error(`Error reading files from ${componentDir}:`, error);
     }
 
-    return files;
+    return { files, dependencies };
 }
 
 export function getAvailableComponents(): string[] {
@@ -173,12 +183,16 @@ export function getComponent(name: string): ComponentConfig | undefined {
             ? matchingComponent.path.substring("components/".length)
             : matchingComponent.path;
 
-        const files = readComponentFiles(matchingComponent.name, componentDir, cleanPath);
+        const { files, dependencies } = readComponentFiles(
+            matchingComponent.name,
+            componentDir,
+            cleanPath
+        );
 
         return {
             name: matchingComponent.name,
-            files: files,
-            dependencies: [], // Could be enhanced to parse dependencies from package.json or imports
+            files,
+            dependencies,
         };
     } catch (error) {
         console.error(`Error reading component "${name}":`, error);
