@@ -7,7 +7,7 @@
             "inputs": ["$TURBO_DEFAULT$", ".env*"]
         },
         "storybook-build": {
-            "dependsOn": ["storybook-build"],
+            "dependsOn": ["^build"],
             "inputs": ["$TURBO_DEFAULT$", ".env*"]
         },
         "lint": {
