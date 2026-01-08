@@ -1,0 +1,37 @@
+@use "@becklyn/next/scss/mixins" as *;
+@use "sass:math";
+
+$height: 30px;
+
+.container {
+    display: inline-flex;
+	gap: 8px;
+	align-items: center;
+}
+
+
+.box {
+	position: relative;
+    cursor: pointer;
+    border: 2px solid #000;
+	border-radius: math.div($height, 2);
+    width: 2 * $height;
+    height: $height;
+
+	.dot { 
+		position: absolute;
+		background-color: #999;
+		border-radius: calc($height - 8px / 2);
+		top: 2px;
+		left: 2px;
+		@include square($height - 8px);
+		@include transition(left background-color);
+	}
+
+    &.active {
+		.dot {
+			left: $height + 2px;
+			background-color: #0f0;
+		}
+    }
+}
