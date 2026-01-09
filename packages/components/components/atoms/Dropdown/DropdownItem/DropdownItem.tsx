@@ -38,7 +38,7 @@ export const DropdownItem: FC<DropdownItemProps> = ({
             role="option"
             aria-selected={selected}
             disabled={disabled}>
-            {multiSelect && <input type="checkbox" checked={selected} />}
+            {multiSelect && <input type="checkbox" checked={selected} readOnly />}
             <span>{label}</span>
         </button>
     );
