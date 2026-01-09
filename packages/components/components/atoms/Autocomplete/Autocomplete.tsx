@@ -166,7 +166,7 @@ export const Autocomplete: FC<AutocompleteProps> = ({
 
     const handleSelect = (index: number) => {
         setIsOpen(false);
-        onChange?.(filteredOptions[index]?.value.toString() || "");
+        onChange?.(filteredOptions[index]?.value || "");
         setInputValue("");
         onUpdateInputValue?.("");
     };
