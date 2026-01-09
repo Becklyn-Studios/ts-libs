@@ -99,10 +99,10 @@ export const Autocomplete: FC<AutocompleteProps> = ({
     };
 
     const [activeIndex, setActiveIndex] = useState<number | null>(
-        value ? options.findIndex(option => String(option.value) === value) : null
+        value ? filteredOptions.findIndex(option => String(option.value) === value) : null
     );
     const selectedIndex = value
-        ? options.findIndex(option => String(option.value) === value)
+        ? filteredOptions.findIndex(option => String(option.value) === value)
         : null;
 
     const clearSelected = () => {
@@ -161,7 +161,7 @@ export const Autocomplete: FC<AutocompleteProps> = ({
 
     const getDisplayValue =
         inputValue ||
-        (value && options.find(option => String(option.value) === value)?.label) ||
+        (value && filteredOptions.find(option => String(option.value) === value)?.label) ||
         "";
 
     const handleSelect = (index: number) => {
@@ -173,13 +173,10 @@ export const Autocomplete: FC<AutocompleteProps> = ({
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-
     return (
         <div className={clsx(styles.autocompleteContainer, className)}>
             {label && (
-                <label
-                    htmlFor={inputId}
-                    className={styles.label}>
+                <label htmlFor={inputId} className={styles.label}>
                     {label}
                 </label>
             )}
@@ -191,7 +188,7 @@ export const Autocomplete: FC<AutocompleteProps> = ({
                     className={clsx(
                         styles.autocomplete,
                         isOpen && styles.open,
-                        hasError && styles.hasError,
+                        hasError && styles.hasError
                     )}
                     {...getReferenceProps()}
                     onClick={() => {
@@ -228,8 +225,7 @@ export const Autocomplete: FC<AutocompleteProps> = ({
                         aria-label="Clear input"
                         onClick={clearInput}
                         className={styles.clearButton}
-                        type="button"
-                    >
+                        type="button">
                         <Cross20 aria-hidden />
                     </Clickable>
                 )}
