@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.3.0
+
+### Minor Changes
+
+- e2b5401: Add TextInput component
+
 ## 0.2.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 1.3.0
+
+### Minor Changes
+
+- 240fc64: Improve excludes
+
 ## 1.2.3
 
 ### Patch Changes
