@@ -2,7 +2,7 @@
 
 .clickable {
     display: inline-flex;
-    
+
     &.disabled {
         pointer-events: none;
         color: #777;

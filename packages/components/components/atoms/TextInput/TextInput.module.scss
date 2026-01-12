@@ -1,9 +1,9 @@
 @use "@becklyn/next/scss/mixins" as *;
 
 .wrapper {
-}
-
-.content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .input {
