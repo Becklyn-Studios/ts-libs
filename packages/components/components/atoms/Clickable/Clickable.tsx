@@ -4,19 +4,31 @@ import clsx from "clsx";
 import { PropsWithClassName } from "@becklyn/next/types/style";
 import styles from "./Clickable.module.scss";
 
-interface ClickableProps {
-    href: string;
-    type: "button" | "submit" | "reset";
+type ClickableProps = LinkClickable | ButtonClickable;
+
+interface BaseClickable {
     variant?: "primary" | "secondary" | "tertiary";
     disabled?: boolean;
+}
+
+interface LinkClickable extends BaseClickable {
+    href: string;
+}
+
+interface ButtonClickable extends BaseClickable {
+    type: "button" | "submit" | "reset";
     onClick?: () => void;
 }
+
+const isLinkClickable = (props: ClickableProps): props is LinkClickable => {
+    return "href" in props;
+};
 
 const ClickableWrapperComponent: FC<PropsWithChildren<PropsWithClassName<ClickableProps>>> = ({
     children,
     ...props
 }) => {
-    return props.href ? (
+    return isLinkClickable(props) ? (
         <Link href={props.href} {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}>
             {children}
         </Link>
