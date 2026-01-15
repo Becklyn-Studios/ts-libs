@@ -1,0 +1,12 @@
+@use "@becklyn/next/scss/mixins" as *;
+
+.imageWrapper {
+    position: relative;
+    @include square(100%);
+}
+
+.image {
+    position: absolute;
+    object-fit: cover;
+    @include square(100%);
+}
