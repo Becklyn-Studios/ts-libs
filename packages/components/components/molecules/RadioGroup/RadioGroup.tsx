@@ -48,13 +48,13 @@ export const RadioGroup: FC<RadioGroupProps> = ({
                 </legend>
             )}
             <div className={clsx(styles.items, styles[orientation])}>
-                {items.map((item, index) => (
-                    <label className={styles.item} key={index}>
+                {items.map(item => (
+                    <label className={styles.item} key={item.value}>
                         <input
                             type="radio"
                             name={name}
                             value={item.value}
-                            {...(value
+                            {...(value !== undefined
                                 ? { checked: item.value === value }
                                 : { defaultChecked: item.value === defaultValue })}
                             onChange={onChange}
