@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, PropsWithChildren, useState } from "react";
 import clsx from "clsx";
 import styles from "./Accordion.module.scss";
