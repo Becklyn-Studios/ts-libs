@@ -1,0 +1,40 @@
+@use "@becklyn/next/scss/mixins" as *;
+
+.wrapper {
+    display: grid;
+    grid-template-rows: min-content 0fr;
+    border-bottom: 1px solid black;
+
+    @include transition(grid-template-rows, 250ms, ease-in-out);
+}
+
+.open {
+    grid-template-rows: min-content 1fr;
+
+    .chevron {
+        transform: rotate3d(0, 0, 1, 180deg);
+    }
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    width: 100%;
+}
+
+.chevron {
+    @include transition(transform);
+}
+
+.frame {
+    margin: 0 -20px;
+    padding: 0 20px;
+    width: calc(100% + 40px);
+    overflow: hidden;
+}
+
+.body {
+    padding: 0 0 12px;
+}
