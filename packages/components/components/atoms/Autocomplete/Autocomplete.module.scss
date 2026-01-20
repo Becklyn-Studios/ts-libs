@@ -1,0 +1,70 @@
+@use "@becklyn/next/scss/mixins" as *;
+
+$label-color: #000;
+$border-color: #000;
+$border-color-focused: #ff0000;
+$border-color-error: #e60000;
+$background-color: #fff;
+$text-color: #000;
+$text-color-hovered: #3f3f3f;
+$icon-color: #000;
+
+.autocompleteContainer {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: 100%;
+}
+
+.label {
+    color: $label-color;
+}
+
+.autocompleteWrapper {
+    position: relative;
+}
+
+.autocomplete {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    align-items: center;
+    gap: 16px;
+    outline: 2px solid transparent;
+    border: 1px solid $border-color;
+    width: 100%;
+    overflow: hidden;
+
+    @include hover {
+        .input {
+            color: $text-color-hovered;
+        }
+    }
+
+    @include focus-within {
+        border: 2px solid $border-color-focused;
+        color: $text-color-hovered;
+    }
+}
+
+.clearButton {
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    transform: translate3d(0, -50%, 0);
+}
+
+.input {
+    flex: 1;
+    outline: none;
+    border: none;
+    background: transparent;
+    width: 100%;
+}
+
+.chevronDownIcon {
+    @include square(20px);
+}
+
+.open .chevronDownIcon {
+    transform: rotate(180deg);
+}
