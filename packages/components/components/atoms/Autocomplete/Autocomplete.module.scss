@@ -13,7 +13,6 @@ $icon-color: #000;
     display: flex;
     position: relative;
     flex-direction: column;
-    gap: 8px;
     width: 100%;
 }
 
@@ -27,25 +26,13 @@ $icon-color: #000;
 
 .autocomplete {
     display: grid;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: 1fr max-content;
     align-items: center;
     gap: 16px;
     outline: 2px solid transparent;
     border: 1px solid $border-color;
-
-    border-radius: 8px;
-    padding: 8px 16px;
     width: 100%;
-    height: 48px;
     overflow: hidden;
-
-    @include transition(border color, 200ms, "ease-in-out");
-
-    &.open {
-        .input {
-            color: $text-color-hovered;
-        }
-    }
 
     @include hover {
         .input {
@@ -57,16 +44,6 @@ $icon-color: #000;
         border: 2px solid $border-color-focused;
         color: $text-color-hovered;
     }
-
-    &.hasError {
-        border-color: $border-color-error;
-    }
-}
-
-.searchIcon {
-    aspect-ratio: 1 / 1;
-    @include square(20px);
-    color: $icon-color;
 }
 
 .clearButton {
@@ -82,16 +59,10 @@ $icon-color: #000;
     border: none;
     background: transparent;
     width: 100%;
-    overflow: hidden;
-    color: $text-color;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .chevronDownIcon {
-    color: $icon-color;
     @include square(20px);
-    @include transition(transform, 200ms, ease-in-out);
 }
 
 .open .chevronDownIcon {

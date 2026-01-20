@@ -1,16 +1,14 @@
 "use client";
 
 import type { ChangeEvent, FC } from "react";
-import { useId, useMemo, useRef, useState } from "react";
-import { type InputHTMLAttributes } from "react";
+import { type InputHTMLAttributes, useId, useMemo, useRef, useState } from "react";
 import clsx from "clsx";
-import { Clickable } from "@becklyn/components/components/atoms/Clickable/Clickable";
-import { DropdownItem } from "@becklyn/components/components/atoms/Dropdown/DropdownItem/DropdownItem";
-import { DropdownItemProps } from "@becklyn/components/components/atoms/Dropdown/DropdownItem/DropdownItem";
+import {
+    DropdownItem,
+    DropdownItemProps,
+} from "@becklyn/components/components/atoms/Dropdown/DropdownItem/DropdownItem";
 import { DropdownMenu } from "@becklyn/components/components/atoms/Dropdown/DropdownMenu/DropdownMenu";
 import { ChevronDown20 } from "@becklyn/components/components/icons/ChevronDown20";
-import { Cross20 } from "@becklyn/components/components/icons/Cross20";
-import { Search20 } from "@becklyn/components/components/icons/Search20";
 import {
     FloatingFocusManager,
     FloatingPortal,
@@ -110,19 +108,13 @@ export const Autocomplete: FC<AutocompleteProps> = ({
         onChange?.("");
     };
 
-    const clearInput = () => {
-        setInputValue("");
-        onUpdateInputValue?.("");
-        clearSelected();
-    };
-
     const { refs, floatingStyles, context } = useFloating<HTMLElement>({
         placement: "bottom-start",
         open: isOpen,
         onOpenChange: setIsOpen,
         whileElementsMounted: autoUpdate,
         middleware: [
-            offset(8),
+            offset(0),
             flip({ padding: 10 }),
             size({
                 apply({ rects, elements, availableHeight }) {
@@ -195,7 +187,6 @@ export const Autocomplete: FC<AutocompleteProps> = ({
                         inputRef.current?.focus();
                         setIsOpen(true);
                     }}>
-                    <Search20 className={styles.searchIcon} aria-hidden />
                     <input
                         id={inputId}
                         ref={inputRef}
@@ -216,19 +207,8 @@ export const Autocomplete: FC<AutocompleteProps> = ({
                         }}
                         {...restProps}
                     />
-                    {inputValue.length === 0 && selectedIndex === null && (
-                        <ChevronDown20 aria-hidden className={styles.chevronDownIcon} />
-                    )}
+                    <ChevronDown20 aria-hidden className={styles.chevronDownIcon} />
                 </button>
-                {(inputValue.length > 0 || selectedIndex !== null) && (
-                    <Clickable
-                        aria-label="Clear input"
-                        onClick={clearInput}
-                        className={styles.clearButton}
-                        type="button">
-                        <Cross20 aria-hidden />
-                    </Clickable>
-                )}
             </div>
 
             {isOpen && filteredOptions.length > 0 && (
