@@ -1,0 +1,40 @@
+@use "@becklyn/next/scss/mixins" as *;
+
+$background-color: #fff;
+$color: #000;
+$hover-color: #3f3f3f;
+$active-color: #3f3f3f;
+$focus-color: #ff0000;
+$selected-color: #3f3f3f;
+$disabled-color: #b9b9b9;
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    outline-offset: -2px;
+    background-color: $background-color;
+    width: 100%;
+    color: $color;
+
+    @include focus-visible {
+        outline: 2px solid $focus-color;
+    }
+
+    @include hover {
+        color: $hover-color;
+    }
+
+    @include active {
+        color: $active-color;
+    }
+
+    &.selected {
+        color: $selected-color;
+    }
+
+    &.disabled {
+        color: $disabled-color;
+    }
+}
