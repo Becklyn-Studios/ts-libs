@@ -6,7 +6,7 @@ const InteractiveStory = (args: DropdownItemProps) => {
     const [selected, setSelected] = useState(args.selected);
 
     return (
-        <div className="story-container large flex">
+        <div className="story-container mobileDesktop flex">
             <DropdownItem {...args} selected={selected} onClick={() => setSelected(!selected)} />
         </div>
     );

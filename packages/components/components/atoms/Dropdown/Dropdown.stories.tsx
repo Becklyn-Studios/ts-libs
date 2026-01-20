@@ -7,7 +7,7 @@ const InteractiveStorySingle = (args: DropdownProps & { multiSelect: false }) =>
     const [value, setValue] = useState(args.value);
 
     return (
-        <div className="story-container large">
+        <div className="story-container mobileDesktop">
             <Dropdown {...args} value={value} setValue={setValue} multiSelect={false} />
 
             <p>Value: {value}</p>
@@ -19,7 +19,7 @@ const InteractiveStoryMulti = (args: DropdownProps & { multiSelect: true }) => {
     const [value, setValue] = useState(args.value);
 
     return (
-        <div className="story-container large">
+        <div className="story-container mobileDesktop">
             <Dropdown {...args} value={value} setValue={setValue} multiSelect={true} />
 
             <p>Value: {value.join(", ")}</p>
