@@ -8,7 +8,7 @@ const InteractiveStory = (args: DropdownMenuProps) => {
     );
 
     return (
-        <div className="story-container large">
+        <div className="story-container mobileDesktop">
             <div style={{ position: "relative" }}>
                 <DropdownMenu {...args} value={inputValue} setValue={setInputValue} />
             </div>

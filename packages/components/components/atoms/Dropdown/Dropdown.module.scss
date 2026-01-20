@@ -12,8 +12,6 @@ $disabled-color: #777;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
-    width: 100%;
 }
 
 .dropdownButton {
@@ -21,10 +19,7 @@ $disabled-color: #777;
     grid-template-columns: 1fr max-content;
     align-items: center;
     align-self: stretch;
-    gap: 16px;
     border: 1px solid $border-color;
-    padding: 8px 24px;
-    height: 48px;
 
     @include hover {
         .dropdownButtonText {
@@ -50,32 +45,11 @@ $disabled-color: #777;
         .dropdownButtonText {
             color: $disabled-color;
         }
-
-        .dropdownButtonIcon {
-            color: $disabled-color;
-        }
     }
-
-    &.default {
-        background: $background-color;
-    }
-
-    &.multi {
-        border: 1px solid $border-color;
-    }
-}
-
-.dropdownButtonText {
-    overflow: hidden;
-    color: $text-color;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .dropdownButtonIcon {
-    color: $text-color;
     @include square(20px);
-    @include transition(transform, 200ms, ease-in-out);
 }
 
 .open .dropdownButtonIcon {

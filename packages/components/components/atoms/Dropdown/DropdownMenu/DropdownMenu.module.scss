@@ -1,18 +1,14 @@
 @use "@becklyn/next/scss/mixins" as *;
 
 $background-color: #fff;
-$thumb-color: #3f3f3f;
-$thumb-hover-color: #e0e0e0;
+$border-color: #e0e0e0;
 
 .dropdownContainer {
     position: absolute;
     top: 100%;
     left: 0;
-    z-index: zIndex("modal");
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
+    border: 1px solid $border-color;
     background-color: $background-color;
-    padding: 16px 8px 16px 0;
     width: 100%;
 }
 
@@ -24,19 +20,4 @@ $thumb-hover-color: #e0e0e0;
     width: 100%;
     max-height: 15rem;
     overflow-y: auto;
-
-    &::-webkit-scrollbar {
-        right: 8px;
-        border-radius: 16px;
-        width: 6px;
-
-        @include hover {
-            background-color: $thumb-hover-color;
-        }
-    }
-
-    &::-webkit-scrollbar-thumb {
-        border-radius: 16px;
-        background-color: $thumb-color;
-    }
 }

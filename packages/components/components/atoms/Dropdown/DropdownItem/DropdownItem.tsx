@@ -39,7 +39,7 @@ export const DropdownItem: FC<DropdownItemProps> = ({
             aria-selected={selected}
             disabled={disabled}>
             {multiSelect && <input type="checkbox" checked={selected} />}
-            <span className={styles.dropdownItemLabel}>{label}</span>
+            <span>{label}</span>
         </button>
     );
 };

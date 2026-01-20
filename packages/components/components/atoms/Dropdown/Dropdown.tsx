@@ -90,7 +90,7 @@ export const Dropdown: FC<DropdownProps> = ({
         onOpenChange: setIsOpen,
         whileElementsMounted: autoUpdate,
         middleware: [
-            offset(8),
+            offset(0),
             flip({ padding: 10 }),
             size({
                 apply({ rects, elements, availableHeight }) {
@@ -171,9 +171,7 @@ export const Dropdown: FC<DropdownProps> = ({
                 aria-autocomplete="none"
                 className={clsx(styles.dropdownButton, isOpen && styles.open)}
                 {...getReferenceProps()}>
-                <span className={styles.dropdownButtonText}>
-                    {selectedItemLabel || placeholder}
-                </span>
+                <span>{selectedItemLabel || placeholder}</span>
                 <ChevronDown20 aria-hidden className={styles.dropdownButtonIcon} />
             </button>
             {isOpen && (

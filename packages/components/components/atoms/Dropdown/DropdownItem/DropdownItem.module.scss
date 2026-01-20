@@ -15,7 +15,6 @@ $disabled-color: #b9b9b9;
     cursor: pointer;
     outline-offset: -2px;
     background-color: $background-color;
-    padding: 8px 24px;
     width: 100%;
     color: $color;
 
@@ -38,10 +37,4 @@ $disabled-color: #b9b9b9;
     &.disabled {
         color: $disabled-color;
     }
-}
-
-.dropdownItemLabel {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
 }
