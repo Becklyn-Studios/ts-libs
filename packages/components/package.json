@@ -9,7 +9,7 @@
     },
     "scripts": {
         "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
-        "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
+        "format": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
         "build": "rm -rf dist && tsc && chmod +x dist/bin/cli.js",
         "prepublishOnly": "npm run lint && npm run build",
         "storybook": "storybook dev -p 6006",
@@ -24,6 +24,7 @@
         "@becklyn/tsconfig": "*",
         "@floating-ui/react": "^0.27.16",
         "@storybook/addon-docs": "^10.1.11",
+        "@storybook/nextjs-vite": "10.1.11",
         "@types/node": "^25.0.3",
         "@types/react": "^19.2.7",
         "clsx": "^2.1.1",
@@ -33,7 +34,6 @@
         "react-dom": "^19.2.3",
         "sass": "^1.97.2",
         "storybook": "^10.1.11",
-        "@storybook/nextjs-vite": "10.1.11",
         "vite": "^7.3.1"
     },
     "peerDependencies": {
