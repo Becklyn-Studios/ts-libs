@@ -1,0 +1,62 @@
+@use "@becklyn/next/scss/mixins" as *;
+
+$label-color: #000;
+$thumb-color: #fff;
+$thumb-border-color: #000;
+$thumb-color-hover: #ffffff69;
+$thumb-color-focused: #ff620043;
+$thumb-color-track-pressed: #7f7f7f;
+$track-color: #000;
+$range-color: #202020;
+
+.wrapper {
+    display: flex;
+    row-gap: 16px;
+    flex-direction: column;
+    color: $label-color;
+}
+
+.sliderRoot {
+    display: flex;
+    position: relative;
+    align-items: center;
+    height: 32px;
+    touch-action: none;
+    user-select: none;
+}
+
+.sliderTrack {
+    position: relative;
+    flex-grow: 1;
+    border-radius: 9999px;
+    background-color: $track-color;
+    height: 3px;
+}
+
+.sliderRange {
+    position: absolute;
+    background-color: $range-color;
+    height: 100%;
+}
+
+.sliderThumb {
+    display: block;
+    position: relative;
+    border: 1px solid $thumb-border-color;
+    border-radius: 50%;
+    background-color: $thumb-color;
+
+    @include square(20px);
+
+    &:hover {
+        box-shadow: 0 0 0 6px $thumb-color-hover;
+    }
+
+    &:focus {
+        box-shadow: 0 0 0 6px $thumb-color-focused;
+    }
+
+    &:active {
+        box-shadow: 0 0 0 6px $thumb-color-track-pressed;
+    }
+}
