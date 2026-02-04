@@ -16,23 +16,23 @@
         "storybook-build": "storybook build"
     },
     "dependencies": {
-        "commander": "^14.0.2"
+        "commander": "^14.0.3"
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
         "@becklyn/next": "*",
         "@becklyn/tsconfig": "*",
-        "@storybook/addon-docs": "^10.1.11",
-        "@types/node": "^25.0.3",
-        "@types/react": "^19.2.7",
+        "@storybook/addon-docs": "^10.2.5",
+        "@storybook/nextjs-vite": "10.2.5",
+        "@types/node": "^25.2.0",
+        "@types/react": "^19.2.10",
         "clsx": "^2.1.1",
-        "eslint-plugin-storybook": "^10.1.11",
-        "next": "^16.1.1",
-        "react": "^19.2.3",
-        "react-dom": "^19.2.3",
-        "sass": "^1.97.2",
-        "storybook": "^10.1.11",
-        "@storybook/nextjs-vite": "10.1.11",
+        "eslint-plugin-storybook": "^10.2.5",
+        "next": "^16.1.6",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "sass": "^1.97.3",
+        "storybook": "^10.2.5",
         "vite": "^7.3.1"
     },
     "peerDependencies": {
