@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.9
+
+### Patch Changes
+
+- 65753b9: update dependencies
+
 ## 2.1.8
 
 ### Patch Changes

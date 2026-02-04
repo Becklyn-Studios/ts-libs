@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 4.4.1
+
+### Patch Changes
+
+- 65753b9: update dependencies
+
 ## 4.4.0
 
 ### Minor Changes
