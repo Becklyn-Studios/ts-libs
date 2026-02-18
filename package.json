@@ -21,5 +21,10 @@
         "docs",
         "packages/*"
     ],
-    "prettier": "@becklyn/prettier"
+    "prettier": "@becklyn/prettier",
+    "overrides": {
+        "@limegrass/eslint-plugin-import-alias": {
+            "eslint": "^10.0.0"
+        }
+    }
 }
