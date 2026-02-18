@@ -12,6 +12,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: black;
 }
 
 .pages {
@@ -34,9 +35,25 @@
 .active {
     cursor: not-allowed;
     background-color: black;
+    pointer-events: none;
     color: white;
 }
 
 .spacer {
     pointer-events: none;
+}
+
+.arrow,
+.button {
+    @include hover {
+        border-color: #333;
+        color: #333;
+    }
+    @include active {
+        border-color: #555;
+        color: #555;
+    }
+    @include focus-visible {
+        outline: 2px solid blue;
+    }
 }
