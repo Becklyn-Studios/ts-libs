@@ -16,7 +16,6 @@ export interface PaginationProps {
 export const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, onGoTo, className }) => {
     const hasNext = currentPage < totalPages - 1;
     const hasPrevious = currentPage > 0;
-    // const [smallLayout, setSmallLayout] = useState(false);
 
     const pages = useMemo(() => {
         if (totalPages <= 1 || currentPage >= totalPages) {
