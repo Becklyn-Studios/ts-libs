@@ -11,7 +11,7 @@
         "@becklyn/prettier": "*",
         "@changesets/cli": "^2.29.8",
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",
-        "turbo": "^2.8.3"
+        "turbo": "^2.8.10"
     },
     "engines": {
         "node": ">=18.20.8"

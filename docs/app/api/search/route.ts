@@ -3,7 +3,7 @@ import { getPages } from "@/app/source";
 
 export const { GET } = createSearchAPI("advanced", {
     indexes: getPages().map(page => ({
-        title: page.data.title,
+        title: page.data.title ?? "",
         structuredData: page.data.structuredData,
         id: page.url,
         url: page.url,
