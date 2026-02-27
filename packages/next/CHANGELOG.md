@@ -1,5 +1,13 @@
 # @becklyn/next
 
+## 5.0.0
+
+### Major Changes
+
+- b96a640: update dependencies
+  set will-change to false per default for the transition mixin
+  supported node version changed to 20.19.0
+
 ## 4.4.1
 
 ### Patch Changes

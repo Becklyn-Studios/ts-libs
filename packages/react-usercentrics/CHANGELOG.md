@@ -1,5 +1,12 @@
 # @becklyn/react-usercentrics
 
+## 4.0.0
+
+### Major Changes
+
+- b96a640: update dependencies
+  supported node version changed to 20.19.0
+
 ## 3.0.10
 
 ### Patch Changes

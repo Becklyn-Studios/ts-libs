@@ -1,6 +1,6 @@
 {
     "name": "@becklyn/eslint",
-    "version": "1.3.1",
+    "version": "2.0.0",
     "license": "MIT",
     "description": "the eslint-config base we use for our TypeScript apps",
     "homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/eslint",

@@ -1,5 +1,12 @@
 # @becklyn/components
 
+## 1.0.0
+
+### Major Changes
+
+- b96a640: update dependencies
+  supported node version changed to 20.19.0
+
 ## 0.3.1
 
 ### Patch Changes
