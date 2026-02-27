@@ -4,7 +4,7 @@
 
 ### Major Changes
 
-- b96a640: update depencendies
+- b96a640: update dependencies
   set will-change to false per default for the transition mixin
   supported node version changed to 20.19.0
 
