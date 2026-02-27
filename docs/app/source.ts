@@ -1,12 +1,21 @@
-import { InferPageType, loader } from "fumadocs-core/source";
+import { InferPageType, type LoaderOutput, type MetaData, loader } from "fumadocs-core/source";
 import { lucideIconsPlugin } from "fumadocs-core/source/lucide-icons";
+import type { DocCollectionEntry, MetaCollectionEntry } from "fumadocs-mdx/runtime/server";
 import { docs } from "fumadocs-mdx:collections/server";
 
-const source = loader({
+type DocsFrontmatter = { title?: string; description?: string; icon?: string; full?: boolean };
+type DocsPageData = DocCollectionEntry<string, DocsFrontmatter>;
+type DocsLoaderOutput = LoaderOutput<{
+    source: { pageData: DocsPageData; metaData: MetaCollectionEntry<MetaData> };
+    i18n: undefined;
+}>;
+
+// Cast needed because TypeScript cannot resolve the generic conditional type in the
+// generated .source/server.ts due to @ts-nocheck suppressing top-level await inference.
+const source = loader(docs.toFumadocsSource(), {
     baseUrl: "/docs",
-    source: docs.toFumadocsSource(),
     plugins: [lucideIconsPlugin()],
-});
+}) as unknown as DocsLoaderOutput;
 
 export const { getPage, getPages, pageTree, generateParams } = source;
 

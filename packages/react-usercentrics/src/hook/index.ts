@@ -11,7 +11,7 @@ export const useUsercentricsHook = ({
     const [consentUpdate, setConsentUpdate] = useState<number>(0);
     const [serviceStates, setServiceStates] = useState<ServiceStates>({});
 
-    const incrementConsentUpdate = () => setConsentUpdate(prev => ++prev);
+    const incrementConsentUpdate = () => setConsentUpdate(prev => prev + 1);
     const isInitialized = !!cmp?.isInitialized?.();
 
     useEffect(() => {

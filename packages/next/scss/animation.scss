@@ -1,6 +1,6 @@
 @use "sass:list";
 
-@mixin transition($properties, $duration: 0.15s, $easing: ease-in-out, $will-change: true) {
+@mixin transition($properties, $duration: 0.15s, $easing: ease-in-out, $will-change: false) {
     @if $will-change {
         will-change: list.join($properties, (), "comma");
     }

@@ -19,7 +19,7 @@
     "devDependencies": {
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
-        "@types/react": "^19.2.10",
+        "@types/react": "^19.2.14",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
         "typescript": "^5.9.3"

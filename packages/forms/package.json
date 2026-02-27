@@ -16,7 +16,7 @@
     "devDependencies": {
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
-        "@types/react": "^19.2.10",
+        "@types/react": "^19.2.14",
         "@types/styled-components": "^5.1.36",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
