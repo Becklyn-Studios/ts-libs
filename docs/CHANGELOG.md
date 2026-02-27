@@ -1,8 +1,8 @@
 # @becklyn/docs
 
-## 1.0.0
+## 0.1.0
 
-### Major Changes
+### Minor Changes
 
 - b96a640: update dependencies
   supported node version changed to 20.19.0
