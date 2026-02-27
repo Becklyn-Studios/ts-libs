@@ -1,5 +1,13 @@
 # @becklyn/forms
 
+## 4.0.0
+
+### Major Changes
+
+- b96a640: update depencendies
+  set will-change to false per default for the transition mixin
+  supported node version changed to 20.19.0
+
 ## 3.0.10
 
 ### Patch Changes
