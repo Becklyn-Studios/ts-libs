@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { UsercentricsData, UsercentricsProps } from "../context";
-import { ServiceStates, UC, UCCMPEvent, UCCustomEvent } from "../types";
+import { ServiceStates, UC, UCCMPEvent, UCCustomEvent, UCService } from "../types";
 
 export const useUsercentricsHook = ({
     windowEvent = "ucEvent",
@@ -10,6 +10,7 @@ export const useUsercentricsHook = ({
     const [cmp, setCmp] = useState<UC | null>(null);
     const [consentUpdate, setConsentUpdate] = useState<number>(0);
     const [serviceStates, setServiceStates] = useState<ServiceStates>({});
+    const [services, setServices] = useState<UCService[]>([]);
 
     const incrementConsentUpdate = () => setConsentUpdate(prev => prev + 1);
     const isInitialized = !!cmp?.isInitialized?.();
@@ -73,6 +74,25 @@ export const useUsercentricsHook = ({
         return () => window.removeEventListener(windowEvent, onUcEvent);
     }, [debug, windowEvent, forceReload, serviceStates]);
 
+    useEffect(() => {
+        if (!cmp || !isInitialized) {
+            return;
+        }
+
+        let cancelled = false;
+        const result = cmp.getServicesBaseInfo();
+
+        Promise.resolve(result).then(resolved => {
+            if (!cancelled) {
+                setServices(resolved);
+            }
+        });
+
+        return () => {
+            cancelled = true;
+        };
+    }, [cmp, isInitialized, consentUpdate]);
+
     const showFirstLayer = useCallback((): void => {
         if (!cmp || !isInitialized) {
             return;
@@ -109,15 +129,11 @@ export const useUsercentricsHook = ({
                 return true;
             }
 
-            if (!cmp || !isInitialized) {
-                return false;
-            }
-
-            const service = cmp.getServicesBaseInfo().find(data => data.id === serviceId);
+            const service = services.find(data => data.id === serviceId);
 
             return !!service && service.consent.status;
         },
-        [debug, cmp, isInitialized]
+        [debug, services]
     );
 
     return {
