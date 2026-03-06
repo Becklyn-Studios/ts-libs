@@ -1,5 +1,11 @@
 # @becklyn/react-usercentrics
 
+## 4.0.1
+
+### Patch Changes
+
+- a962342: fix new return type of getServicesBaseInfo
+
 ## 4.0.0
 
 ### Major Changes
