@@ -14,7 +14,7 @@ export interface UC {
     showFirstLayer: () => void;
     showSecondLayer: (serviceId?: string) => void;
     acceptService: (serviceId: string) => void;
-    getServicesBaseInfo: () => UCService[];
+    getServicesBaseInfo: () => UCService[] | Promise<UCService[]>;
 }
 
 export type UCActionType =
