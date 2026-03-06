@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 5.0.1
+
+### Patch Changes
+
+- d25896b: update dependencies
+
 ## 5.0.0
 
 ### Major Changes

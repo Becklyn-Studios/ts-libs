@@ -1,5 +1,11 @@
 # @becklyn/docs
 
+## 0.1.1
+
+### Patch Changes
+
+- d25896b: update dependencies
+
 ## 0.1.0
 
 ### Minor Changes

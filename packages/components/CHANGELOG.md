@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.4.1
+
+### Patch Changes
+
+- d25896b: update dependencies
+
 ## 0.4.0
 
 ### Minor Changes
