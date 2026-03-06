@@ -9,9 +9,9 @@
     },
     "devDependencies": {
         "@becklyn/prettier": "*",
-        "@changesets/cli": "^2.29.8",
+        "@changesets/cli": "^2.30.0",
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",
-        "turbo": "^2.8.10"
+        "turbo": "^2.8.13"
     },
     "engines": {
         "node": ">=20.19.0"
