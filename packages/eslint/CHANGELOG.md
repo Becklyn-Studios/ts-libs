@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 2.0.1
+
+### Patch Changes
+
+- d25896b: update dependencies
+
 ## 2.0.0
 
 ### Major Changes
