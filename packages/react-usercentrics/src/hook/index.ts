@@ -146,7 +146,9 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
                 return;
             }
 
-            cmp.updateServicesConsents(serviceIds.map(id => ({ id, consent: true })));
+            cmp.updateServicesConsents(serviceIds.map(id => ({ id, consent: true }))).then(() => {
+                cmp.saveConsents();
+            });
         },
         [cmp, isInitialized]
     );
