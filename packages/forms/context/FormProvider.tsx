@@ -1,6 +1,6 @@
 import { PropsWithChildren, useContext, useMemo } from "react";
-import { FormFieldConfig } from "type";
 import { useFormValidations } from "../hook/useFormValidations";
+import { FormFieldConfig } from "../type";
 import { fieldsFromConfig } from "../util";
 import { FormContext, useForm } from "./context";
 import { FormDataProvider, FormProviderProps } from "./data/FormDataProvider";
