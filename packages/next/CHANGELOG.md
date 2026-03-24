@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 5.0.2
+
+### Patch Changes
+
+- b5aa92e: update dependencies
+
 ## 5.0.1
 
 ### Patch Changes

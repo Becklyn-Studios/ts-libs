@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 4.0.1
+
+### Patch Changes
+
+- b5aa92e: update dependencies
+
 ## 4.0.0
 
 ### Major Changes
