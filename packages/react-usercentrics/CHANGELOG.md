@@ -1,6 +1,6 @@
 # @becklyn/react-usercentrics
 
-## 6.0.0
+## 5.0.0
 
 ### Major Changes
 
