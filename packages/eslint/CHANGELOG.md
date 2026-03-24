@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 2.0.2
+
+### Patch Changes
+
+- b5aa92e: update dependencies
+
 ## 2.0.1
 
 ### Patch Changes
