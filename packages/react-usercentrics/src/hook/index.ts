@@ -1,45 +1,43 @@
-import { useCallback, useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useCallback, useEffect, useRef, useState } from "react";
 import { UsercentricsData, UsercentricsProps } from "../context";
-import { ServiceStates, UC, UCCMPEvent, UCCustomEvent, UCService } from "../types";
+import { ConsentDetails, UCCmp, UCConsentEvent } from "../types";
 
-export const useUsercentricsHook = ({
-    windowEvent = "ucEvent",
-    forceReload,
-    debug,
-}: UsercentricsProps): UsercentricsData => {
-    const [cmp, setCmp] = useState<UC | null>(null);
+export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsData => {
+    const [cmp, setCmp] = useState<UCCmp | null>(null);
+    const consentDetails = useRef<ConsentDetails | null>(null);
     const [consentUpdate, setConsentUpdate] = useState<number>(0);
-    const [serviceStates, setServiceStates] = useState<ServiceStates>({});
-    const [services, setServices] = useState<UCService[]>([]);
-
     const incrementConsentUpdate = () => setConsentUpdate(prev => prev + 1);
-    const isInitialized = !!cmp?.isInitialized?.();
+    const [isInitialized, setInitialized] = useState<boolean>(false);
+
+    const logUcNotInitializedMessage = () => {
+        console.debug("Usercentircs is not initialized.");
+    };
 
     useEffect(() => {
-        const onCmpEvent = (event: UCCMPEvent) => {
-            if (["ACCEPT_ALL", "DENY_ALL", "SAVE"].includes(event.detail.type)) {
-                incrementConsentUpdate();
-            }
+        const consentChangeEvent = (event: UCConsentEvent) => {
+            consentDetails.current = event.detail;
+            incrementConsentUpdate();
         };
 
-        window.addEventListener("UC_UI_CMP_EVENT", onCmpEvent);
+        window.addEventListener("UC_CONSENT", consentChangeEvent);
 
-        return () => window.removeEventListener("UC_UI_CMP_EVENT", onCmpEvent);
+        return () => window.removeEventListener("UC_CONSENT", consentChangeEvent);
     }, []);
 
     useEffect(() => {
         const onLoad = () => {
             incrementConsentUpdate();
 
-            if (!window.UC_UI) {
+            if (!window.__ucCmp) {
                 return;
             }
 
             if (debug) {
-                console.log(window.UC_UI);
+                console.debug("Usercentrice was initialized.");
             }
 
-            setCmp(window.UC_UI);
+            setCmp(window.__ucCmp);
         };
 
         window.addEventListener("UC_UI_INITIALIZED", onLoad);
@@ -47,93 +45,164 @@ export const useUsercentricsHook = ({
     }, [debug]);
 
     useEffect(() => {
-        const handleCustomEvent = (e: UCCustomEvent) => {
-            const details = e.detail;
-
-            if (debug) {
-                console.log(details);
-            }
-
-            if (details.action !== "onInitialPageLoad") {
-                for (const key in details) {
-                    const value = details[key];
-
-                    if (serviceStates[key] !== value && forceReload?.[key] === value) {
-                        window.location.reload();
-                        return;
-                    }
-                }
-            }
-
-            setServiceStates(details);
-        };
-
-        const onUcEvent = ((e: UCCustomEvent) => handleCustomEvent(e)) as EventListener;
-
-        window.addEventListener(windowEvent, onUcEvent);
-        return () => window.removeEventListener(windowEvent, onUcEvent);
-    }, [debug, windowEvent, forceReload, serviceStates]);
-
-    useEffect(() => {
-        if (!cmp || !isInitialized) {
+        if (!window?.__ucCmp) {
             return;
         }
 
-        let cancelled = false;
-        const result = cmp.getServicesBaseInfo();
+        if (debug) {
+            console.debug(window.__ucCmp);
+        }
 
-        Promise.resolve(result).then(resolved => {
-            if (!cancelled) {
-                setServices(resolved);
+        setCmp(window.__ucCmp);
+    }, [consentUpdate]);
+
+    useEffect(() => {
+        if (!window) {
+            return;
+        }
+
+        if (!cmp) {
+            if (debug) {
+                logUcNotInitializedMessage();
             }
+
+            return;
+        }
+
+        cmp.getConsentDetails().then(details => {
+            consentDetails.current = details;
         });
 
-        return () => {
-            cancelled = true;
-        };
-    }, [cmp, isInitialized, consentUpdate]);
+        cmp.isInitialized().then(v => {
+            setInitialized(v);
+        });
+    }, [cmp]);
 
     const showFirstLayer = useCallback((): void => {
+        if (!window) {
+            return;
+        }
+
+        if (debug) {
+            console.debug("Function showFirstLayer() was called.");
+        }
+
         if (!cmp || !isInitialized) {
+            if (debug) {
+                logUcNotInitializedMessage();
+            }
+
             return;
         }
 
         cmp.showFirstLayer();
     }, [cmp, isInitialized]);
 
-    const showSecondLayer = useCallback(
-        (serviceId?: string): void => {
-            if (!cmp || !isInitialized) {
+    const showSecondLayer = useCallback((): void => {
+        if (debug) {
+            console.debug("Function showSecondLayer() was called.");
+        }
+
+        if (!cmp || !isInitialized) {
+            if (debug) {
+                logUcNotInitializedMessage();
+            }
+
+            return;
+        }
+
+        cmp.showSecondLayer();
+    }, [cmp, isInitialized]);
+
+    const showServiceDetails = useCallback(
+        (serviceId: string): void => {
+            if (debug) {
+                console.debug(`showServiceDetails() was called with('${serviceId}')`);
+            }
+
+            if (!serviceId) {
+                if (debug) {
+                    console.error("Variable `serviceId` is empty.");
+                }
                 return;
             }
 
-            cmp.showSecondLayer(serviceId);
+            if (!cmp || !isInitialized) {
+                if (debug) {
+                    logUcNotInitializedMessage();
+                }
+
+                return;
+            }
+
+            cmp.showServiceDetails(serviceId);
+        },
+        [cmp, isInitialized]
+    );
+
+    const acceptServices = useCallback(
+        (serviceIds: string[]): void => {
+            if (!window || !cmp || !isInitialized) {
+                return;
+            }
+
+            cmp.updateServicesConsents(serviceIds.map(id => ({ id, consent: true }))).then(() => {
+                cmp.saveConsents();
+            });
         },
         [cmp, isInitialized]
     );
 
     const acceptService = useCallback(
         (serviceId: string): void => {
-            if (!cmp || !isInitialized) {
+            if (!window) {
                 return;
             }
 
-            cmp.acceptService(serviceId);
+            if (debug) {
+                console.debug(`acceptServices() was called with('${serviceId}')`);
+
+                if (!serviceId) {
+                    console.error("Variable `serviceId` is empty.");
+                }
+            }
+
+            if (!serviceId) {
+                return;
+            }
+
+            acceptServices([serviceId]);
         },
-        [cmp, isInitialized]
+        [acceptServices]
     );
 
     const isServiceAccepted = useCallback(
         (serviceId: string): boolean => {
-            if (debug) {
-                return true;
+            const service = consentDetails.current?.services[serviceId];
+
+            if (!cmp || !isInitialized) {
+                if (debug) {
+                    console.debug(
+                        `Function isServiceAccepted('${serviceId}') called before usercenrics was initialized.`
+                    );
+                }
+
+                return false;
             }
 
-            const service = services.find(data => data.id === serviceId);
+            if (debug) {
+                console.debug(
+                    `serviceId('${serviceId}') consent is ${service?.consent?.given ? "true" : "false"}`
+                );
 
-            return !!service && service.consent.status;
+                if (!service) {
+                    console.error(`Service with serviceId='${serviceId}' doesn't exist.`);
+                }
+            }
+
+            return !!service?.consent?.given;
         },
-        [debug, services]
+        [debug, cmp, isInitialized, consentDetails.current]
     );
 
     return {
@@ -142,6 +211,7 @@ export const useUsercentricsHook = ({
         isInitialized,
         showFirstLayer,
         showSecondLayer,
+        showServiceDetails,
         acceptService,
         isServiceAccepted,
     };

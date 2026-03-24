@@ -1,6 +1,6 @@
 {
     "name": "@becklyn/react-usercentrics",
-    "version": "4.0.1",
+    "version": "5.0.0",
     "license": "MIT",
     "homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/react-usercentrics",
     "repository": {
@@ -17,9 +17,10 @@
         "preversion": "npm run lint"
     },
     "devDependencies": {
+        "@becklyn/prettier": "*",
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
-        "@types/react": "^19.2.14",
+        "@trivago/prettier-plugin-sort-imports": "^5.2.2",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
         "typescript": "^5.9.3"
@@ -48,5 +49,6 @@
         },
         "./package.json": "./package.json"
     },
-    "sideEffects": false
+    "sideEffects": false,
+    "prettier": "@becklyn/prettier"
 }
