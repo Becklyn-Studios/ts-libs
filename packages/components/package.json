@@ -12,7 +12,7 @@
         "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
         "build": "rm -rf dist && tsc && chmod +x dist/bin/cli.js",
         "prepublishOnly": "npm run lint && npm run build",
-        "storybook": "storybook dev -p 6006",
+        "storybook": "storybook dev -p 6006 --no-open",
         "storybook-build": "storybook build"
     },
     "dependencies": {
