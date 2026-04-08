@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.11
+
+### Patch Changes
+
+- b113e67: update dependencies
+
 ## 2.1.10
 
 ### Patch Changes

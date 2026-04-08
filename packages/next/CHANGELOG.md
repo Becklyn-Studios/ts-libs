@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 5.0.3
+
+### Patch Changes
+
+- b113e67: update dependencies
+
 ## 5.0.2
 
 ### Patch Changes

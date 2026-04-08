@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 2.0.3
+
+### Patch Changes
+
+- b113e67: update dependencies
+
 ## 2.0.2
 
 ### Patch Changes
