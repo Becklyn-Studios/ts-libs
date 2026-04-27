@@ -53,7 +53,9 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
             console.debug(window.__ucCmp);
         }
 
-        setCmp(window.__ucCmp);
+        (() => {
+            setCmp(window.__ucCmp);
+        })();
     }, [consentUpdate]);
 
     useEffect(() => {
