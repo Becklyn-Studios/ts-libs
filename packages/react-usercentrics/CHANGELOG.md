@@ -1,5 +1,11 @@
 # @becklyn/react-usercentrics
 
+## 5.0.1
+
+### Patch Changes
+
+- fd15683: update dependencies
+
 ## 5.0.0
 
 ### Major Changes

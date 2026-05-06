@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 5.0.4
+
+### Patch Changes
+
+- fd15683: update dependencies
+
 ## 5.0.3
 
 ### Patch Changes

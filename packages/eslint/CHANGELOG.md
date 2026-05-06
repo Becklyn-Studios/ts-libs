@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 2.0.4
+
+### Patch Changes
+
+- fd15683: update dependencies
+
 ## 2.0.3
 
 ### Patch Changes
