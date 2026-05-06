@@ -2,6 +2,7 @@
 
 import { FC, PropsWithChildren } from "react";
 import clsx from "clsx";
+import "keen-slider/keen-slider.min.css";
 import { SliderOptions, useSlider } from "@becklyn/next/lib/slider";
 import { PropsWithClassName } from "@becklyn/next/types/style";
 import styles from "./Slider.module.scss";
