@@ -20,7 +20,6 @@ export const useIntersection = ({
     dependencies,
 }: UseIntersectionProps) => {
     const [visible, setVisible] = useState(defaultValue);
-    const { current } = ref;
 
     useEffect(() => {
         const observer = new IntersectionObserver(entries => {
@@ -39,7 +38,7 @@ export const useIntersection = ({
 
         return () => observer.disconnect();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [current, ...(dependencies ?? [])]);
+    }, [ref, ...(dependencies ?? [])]);
 
     return visible;
 };
