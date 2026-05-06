@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import KeenSlider, {
     Container,
     KeenSliderInstance,
@@ -39,14 +39,19 @@ export const useSlider = ({
     const [details, setDetails] = useState<TrackDetails | null>(null);
     const [options, setOptions] = useState<SliderOptions | null>(null);
     const [isMounted, setIsMounted] = useState<boolean>(false);
-    const sliderRef = useRef<KeenSliderInstance | null>(null);
+    const [slider, setSlider] = useState<KeenSliderInstance | null>(null);
 
     useEffect(() => {
         if (!ref) {
             return;
         }
 
-        sliderRef.current = new KeenSlider(
+        const handleDetails = (instance: KeenSliderInstance) => {
+            setIsMounted(true);
+            setDetails(instance.track.details);
+        };
+
+        const instance = new KeenSlider(
             ref,
             {
                 rubberband: false,
@@ -63,11 +68,12 @@ export const useSlider = ({
             ].flat()
         );
 
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setSlider(instance);
+
         return () => {
-            if (sliderRef.current) {
-                sliderRef.current.destroy();
-                sliderRef.current = null;
-            }
+            instance.destroy();
+            setSlider(null);
         };
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,42 +81,22 @@ export const useSlider = ({
 
     const isActiveIndex = useCallback((index: number) => index === details?.rel, [details]);
 
-    const handleDetails = (ref: KeenSliderInstance) => {
-        const details = ref.track.details;
-
-        setIsMounted(true);
-
-        setDetails(details);
-    };
-
     const next = () => {
-        if (!sliderRef.current) {
-            return;
-        }
-
-        sliderRef?.current?.next();
+        slider?.next();
     };
 
     const prev = () => {
-        if (!sliderRef.current) {
-            return;
-        }
-
-        sliderRef?.current?.prev();
+        slider?.prev();
     };
 
     const moveToIdx = (index: number) => {
-        if (!sliderRef.current) {
-            return;
-        }
-
-        sliderRef.current?.moveToIdx(index);
+        slider?.moveToIdx(index);
     };
 
     return [
         setRef,
         {
-            slider: sliderRef.current,
+            slider,
             activeIndex: details ? details.rel : 0,
             isDisabled: options ? !!options.disabled : false,
             details,

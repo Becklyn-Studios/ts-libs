@@ -1,0 +1,13 @@
+.scrollContainer {
+    padding: 0 16px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.scrollHint {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    color: #aaa;
+}

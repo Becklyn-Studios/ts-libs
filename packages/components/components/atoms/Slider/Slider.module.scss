@@ -1,0 +1,49 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.slide {
+    display: flex;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.navButton {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-size: 16px;
+    line-height: 1;
+
+    &:hover {
+        background-color: #f0f0f0;
+    }
+}
+
+.dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #ccc;
+    transition: background-color 0.2s;
+}
+
+.dotActive {
+    background-color: #333;
+}

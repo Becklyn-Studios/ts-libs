@@ -46,7 +46,6 @@ export const useTrapFocus = <T extends HTMLElement>(container?: T | null): UseTr
             return;
         }
 
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         update();
     }, [container, update]);
 
