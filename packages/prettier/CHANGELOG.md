@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.12
+
+### Patch Changes
+
+- fd15683: update dependencies
+
 ## 2.1.11
 
 ### Patch Changes

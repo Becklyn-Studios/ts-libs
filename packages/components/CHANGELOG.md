@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.4.4
+
+### Patch Changes
+
+- fd15683: update dependencies
+
 ## 0.4.3
 
 ### Patch Changes
