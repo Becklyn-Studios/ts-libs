@@ -17,13 +17,13 @@
         "@contentful/rich-text-react-renderer": "^16.2.1",
         "keen-slider": "^6.8.6",
         "sass": "^1.99.0",
-        "zod": "^4.3.6"
+        "zod": "^4.4.3"
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
         "@contentful/rich-text-types": "^17.2.7",
-        "@types/node": "^25.5.2",
+        "@types/node": "^25.6.0",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "next": "^16.2.4",
