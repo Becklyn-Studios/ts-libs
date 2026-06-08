@@ -8,7 +8,7 @@
     @include transition(grid-template-rows, 250ms, ease-in-out);
 }
 
-.open {
+.expanded {
     grid-template-rows: min-content 1fr;
 
     .chevron {

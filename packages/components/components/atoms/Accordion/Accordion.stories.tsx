@@ -22,7 +22,7 @@ const defaultArgs: PropsWithChildren<AccordionProps> = {
     headline: "Headline",
     children: (
         <div>
-            <h2>Headline 2</h2>
+            <h4>Headline 2</h4>
             <p>
                 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
                 tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero
@@ -41,6 +41,6 @@ export const Default: Story = {
     args: defaultArgs,
 };
 
-export const InitiallyOpen: Story = {
-    args: { ...defaultArgs, isDefaultOpen: true },
+export const InitiallyExpanded: Story = {
+    args: { ...defaultArgs, isDefaultExpanded: true },
 };
