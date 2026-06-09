@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 5.0.5
+
+### Patch Changes
+
+- 39b73f3: update dependencies
+
 ## 5.0.4
 
 ### Patch Changes
