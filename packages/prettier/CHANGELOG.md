@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.13
+
+### Patch Changes
+
+- 39b73f3: update dependencies
+
 ## 2.1.12
 
 ### Patch Changes

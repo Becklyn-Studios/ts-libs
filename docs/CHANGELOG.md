@@ -1,5 +1,11 @@
 # @becklyn/docs
 
+## 0.1.5
+
+### Patch Changes
+
+- 39b73f3: update dependencies
+
 ## 0.1.4
 
 ### Patch Changes
