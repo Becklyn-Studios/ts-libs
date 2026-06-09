@@ -1,19 +1,22 @@
 .box {
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 24px;
+    align-items: center;
+    transition:
+        background-color 0.3s,
+        border-color 0.3s,
+        color 0.3s;
+    border: 2px solid #ccc;
     border-radius: 8px;
     background-color: #f0f0f0;
-    border: 2px solid #ccc;
+    padding: 24px;
+    color: #999;
     font-weight: bold;
     font-size: 16px;
-    color: #999;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
 }
 
 .visible {
-    background-color: #d4edda;
     border-color: #6abf69;
+    background-color: #d4edda;
     color: #2e7d32;
 }
