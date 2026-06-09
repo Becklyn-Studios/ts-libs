@@ -16,10 +16,10 @@
     "devDependencies": {
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
-        "@types/react": "^19.2.14",
+        "@types/react": "^19.2.17",
         "@types/styled-components": "^5.1.36",
-        "react": "^19.2.5",
-        "react-dom": "^19.2.5",
+        "react": "^19.2.7",
+        "react-dom": "^19.2.7",
         "styled-components": "^5.3.11"
     },
     "peerDependencies": {
