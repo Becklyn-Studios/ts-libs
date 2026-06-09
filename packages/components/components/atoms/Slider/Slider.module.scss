@@ -11,16 +11,16 @@
 
 .nav {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     gap: 16px;
 }
 
 .navButton {
-    background: none;
+    cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 4px;
-    cursor: pointer;
+    background: none;
     padding: 6px 12px;
     font-size: 16px;
     line-height: 1;
@@ -32,16 +32,16 @@
 
 .dots {
     display: flex;
-    gap: 6px;
     align-items: center;
+    gap: 6px;
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
+    transition: background-color 0.2s;
     border-radius: 50%;
     background-color: #ccc;
-    transition: background-color 0.2s;
+    width: 8px;
+    height: 8px;
 }
 
 .dotActive {
