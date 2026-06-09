@@ -16,7 +16,7 @@
         "storybook-build": "storybook build"
     },
     "dependencies": {
-        "commander": "^14.0.3"
+        "commander": "^15.0.0"
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
@@ -33,7 +33,7 @@
         "react-dom": "^19.2.7",
         "sass": "^1.100.0",
         "storybook": "^10.4.2",
-        "vite": "^7.3.5"
+        "vite": "^8.0.16"
     },
     "peerDependencies": {
         "react": "^18.3.1 || ^19.0.0",
