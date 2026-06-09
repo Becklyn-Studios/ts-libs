@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.4.6
+
+### Patch Changes
+
+- 36f9512: make build script more robust
+
 ## 0.4.5
 
 ### Patch Changes
