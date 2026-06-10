@@ -4,9 +4,6 @@ import { FC, PropsWithChildren, useState } from "react";
 import clsx from "clsx";
 import styles from "./Accordion.module.scss";
 
-const headId = `accordion-head`;
-const frameId = `accordion-frame`;
-
 export interface AccordionProps {
     headline: string;
     isDefaultExpanded?: boolean;
@@ -20,6 +17,8 @@ export const Accordion: FC<PropsWithChildren<AccordionProps>> = ({
     children,
 }) => {
     const [isExpanded, setExpanded] = useState(!!isDefaultExpanded);
+    const headId = `accordion-head`;
+    const frameId = `accordion-frame`;
 
     return (
         <div className={clsx(styles.wrapper, isExpanded && styles.expanded, className)}>
