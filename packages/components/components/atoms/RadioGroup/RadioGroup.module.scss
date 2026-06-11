@@ -1,0 +1,81 @@
+@use "@becklyn/next/scss/mixins" as *;
+
+.wrapper {
+    border: none;
+    width: 100%;
+}
+
+.label {
+    padding-bottom: 8px;
+}
+
+.items {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+.vertical {
+    flex-direction: column;
+}
+
+.horizontal {
+    flex-direction: row;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.input {
+    display: grid;
+    flex-shrink: 0;
+    place-content: center;
+    appearance: none;
+    margin: 2px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    background: transparent;
+
+    @include square(20px);
+
+    @include hover {
+        border-color: #333;
+        &::before {
+            color: #333;
+        }
+    }
+    @include active {
+        border-color: #555;
+        &::before {
+            color: #555;
+        }
+    }
+    @include focus-visible {
+        outline: 2px solid blue;
+        outline-offset: 2px;
+    }
+    &:disabled {
+        border-color: #888;
+        &::before {
+            color: #888;
+        }
+    }
+}
+
+.input::before {
+    transform: scale(0);
+    box-shadow: inset 12px 12px;
+    border-radius: 50%;
+    content: "";
+    color: #000;
+
+    @include square(12px);
+}
+
+.input:checked::before {
+    transform: scale(1);
+}

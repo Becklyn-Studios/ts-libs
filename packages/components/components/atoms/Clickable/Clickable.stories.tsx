@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Clickable } from "./Clickable";
 
 const meta: Meta<typeof Clickable> = {
-    title: "Atoms/Button/Button",
+    title: "Atoms/Clickable",
     component: Clickable,
     parameters: {
         layout: "centered",
