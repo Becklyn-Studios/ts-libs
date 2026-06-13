@@ -11,10 +11,10 @@
         "@becklyn/prettier": "*",
         "@changesets/cli": "^2.31.0",
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",
-        "turbo": "^2.9.16"
+        "turbo": "^2.9.18"
     },
     "engines": {
-        "node": ">=20.19.0"
+        "node": ">=20.20.2"
     },
     "packageManager": "npm@11.16.0",
     "workspaces": [
