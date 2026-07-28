@@ -120,6 +120,37 @@ export const useLazyDataLayer = () => {
     };
 };
 
+export const DATA_TRACKING_PREFIX = "data-tracking-";
+
+const toCamelCase = (value: string) =>
+    value.replace(/-([a-z0-9])/g, (_, character: string) => character.toUpperCase());
+
+export const collectTrackingContext = (target: Element) => {
+    const context: Record<string, string> = {};
+
+    let element: Element | null = target;
+
+    while (element) {
+        for (const { name, value } of Array.from(element.attributes)) {
+            if (!name.startsWith(DATA_TRACKING_PREFIX)) {
+                continue;
+            }
+
+            const key = toCamelCase(name.slice(DATA_TRACKING_PREFIX.length));
+
+            if (!key || Object.prototype.hasOwnProperty.call(context, key)) {
+                continue;
+            }
+
+            context[key] = value;
+        }
+
+        element = element.parentElement;
+    }
+
+    return context;
+};
+
 export const useDataEventForwarder = (hasConsent: boolean) => {
     useLayoutEffect(() => {
         const captureDataEvent = (event: MouseEvent) => {
@@ -145,6 +176,7 @@ export const useDataEventForwarder = (hasConsent: boolean) => {
             const text = "innerText" in element ? (element.innerText as string) : undefined;
 
             const data = {
+                ...collectTrackingContext(target),
                 event: "websiteClick",
                 dataEvent,
                 classList,
