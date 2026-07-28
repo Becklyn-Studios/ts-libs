@@ -22,3 +22,5 @@ To activate the Git hooks checked into the repository, execute the following com
 ```bash
 git config core.hooksPath .git-hooks
 ```
+
+<!-- test change: harmless marker for PR workflow verification -->
