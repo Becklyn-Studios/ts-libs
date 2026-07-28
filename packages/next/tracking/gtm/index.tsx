@@ -138,7 +138,7 @@ export const collectTrackingContext = (target: Element) => {
 
             const key = toCamelCase(name.slice(DATA_TRACKING_PREFIX.length));
 
-            if (!key || key in context) {
+            if (!key || Object.prototype.hasOwnProperty.call(context, key)) {
                 continue;
             }
 
