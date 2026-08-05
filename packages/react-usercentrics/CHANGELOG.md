@@ -1,5 +1,11 @@
 # @becklyn/react-usercentrics
 
+## 5.0.3
+
+### Patch Changes
+
+- db251c6: update dependencies
+
 ## 5.0.2
 
 ### Patch Changes

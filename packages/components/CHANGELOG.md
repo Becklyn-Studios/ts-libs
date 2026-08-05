@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.4.7
+
+### Patch Changes
+
+- db251c6: update dependencies
+
 ## 0.4.6
 
 ### Patch Changes
