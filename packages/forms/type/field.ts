@@ -27,11 +27,8 @@ export type FormFieldConfig<
     editStep?: number;
 };
 
-export type FormFieldConfigFunc<
-    GlobalFormData extends Record<string, any>,
-    DataType,
-    FieldConfig,
-> = FieldConfig | ((props: { value: DataType; data: GlobalFormData }) => FieldConfig);
+export type FormFieldConfigFunc<GlobalFormData extends Record<string, any>, DataType, FieldConfig> =
+    FieldConfig | ((props: { value: DataType; data: GlobalFormData }) => FieldConfig);
 
 export type ResolveFieldConfigFunc<
     T extends FormFieldConfig<string, any, any, GlobalFormData>,

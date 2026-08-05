@@ -11,9 +11,7 @@ export type FormFieldValidationFunction<GlobalFormData extends Record<string, an
 }) => boolean;
 
 export type FormFieldValidation<GlobalFormData extends Record<string, any>> =
-    | boolean
-    | RegExp
-    | FormFieldValidationFunction<GlobalFormData>;
+    boolean | RegExp | FormFieldValidationFunction<GlobalFormData>;
 
 export interface FieldValidations<GlobalFormData extends Record<string, any>> {
     validation: FormFieldValidation<GlobalFormData>;
