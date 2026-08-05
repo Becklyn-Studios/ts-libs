@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 5.1.1
+
+### Patch Changes
+
+- db251c6: update dependencies
+
 ## 5.1.0
 
 ### Minor Changes

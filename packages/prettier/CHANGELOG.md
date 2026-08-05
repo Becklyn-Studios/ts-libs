@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.14
+
+### Patch Changes
+
+- db251c6: update dependencies
+
 ## 2.1.13
 
 ### Patch Changes

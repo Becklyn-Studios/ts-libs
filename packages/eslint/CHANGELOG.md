@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 2.0.6
+
+### Patch Changes
+
+- db251c6: update dependencies
+
 ## 2.0.5
 
 ### Patch Changes

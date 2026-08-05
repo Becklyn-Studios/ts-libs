@@ -1,5 +1,11 @@
 # @becklyn/forms
 
+## 4.0.4
+
+### Patch Changes
+
+- db251c6: update dependencies
+
 ## 4.0.3
 
 ### Patch Changes
