@@ -112,6 +112,28 @@ describe("handleDeploymentProtection", () => {
         expect(response!.headers.get("Set-Cookie")).toContain(SESSION_COOKIE_NAME);
     });
 
+    it("does not open-redirect on malicious return_to after login", async () => {
+        const body = new URLSearchParams({
+            __becklyn_dp: "1",
+            username: "preview",
+            password: "s3cret",
+            return_to: "/\\evil.com",
+        });
+
+        const response = await handleDeploymentProtection(
+            new Request("https://example.com/login", {
+                method: "POST",
+                headers: { "content-type": "application/x-www-form-urlencoded" },
+                body,
+            }),
+            { env: baseEnv }
+        );
+
+        expect(response).not.toBeNull();
+        expect(response!.status).toBe(302);
+        expect(response!.headers.get("Location")).toBe("/");
+    });
+
     it("rejects invalid password credentials", async () => {
         const body = new URLSearchParams({
             __becklyn_dp: "1",

@@ -13,6 +13,7 @@ import {
 import { timingSafeEqualString } from "./crypto";
 import { renderLoginPage } from "./login-page";
 import { validatePasswordCredentials } from "./password";
+import { safeReturnTo } from "./safe-return-to";
 import { createSessionToken, sessionCookieOptions, verifySessionToken } from "./session";
 import type { DeploymentProtectionConfig, DeploymentProtectionOptions } from "./types";
 import {
@@ -52,14 +53,6 @@ function redirect(location: string, status = 302): Response {
             "Cache-Control": "no-store",
         },
     });
-}
-
-function safeReturnTo(value: string | null | undefined, fallback = "/"): string {
-    if (!value || !value.startsWith("/") || value.startsWith("//")) {
-        return fallback;
-    }
-
-    return value;
 }
 
 async function attachSession(
