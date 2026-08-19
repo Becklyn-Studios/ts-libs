@@ -1,3 +1,4 @@
+import { parseAllowlist } from "./handoff";
 import type { DeploymentProtectionConfig, DeploymentProtectionOptions, EnvMap } from "./types";
 
 const FALSEY = new Set(["0", "false", "no", "off"]);
@@ -42,16 +43,29 @@ export function resolveConfig(
     // Prefer an explicit secret; otherwise derive a stable key from credentials so
     // projects can stay zero-config beyond username/password.
     const secret = explicitSecret ?? (username && password ? `dp:${username}:${password}` : null);
+    const handoffSecret =
+        read(env, "DEPLOYMENT_PROTECTION_HANDOFF_SECRET") ?? explicitSecret ?? secret;
+    const authProxyUrl =
+        read(env, "DEPLOYMENT_PROTECTION_AUTH_PROXY_URL")?.replace(/\/$/, "") ?? null;
 
     return {
         enabled: isEnabled(env),
         username,
         password,
         secret,
+        handoffSecret,
         bypassSecret: read(
             env,
             "VERCEL_AUTOMATION_BYPASS_SECRET",
             "DEPLOYMENT_PROTECTION_BYPASS_SECRET"
+        ),
+        authProxyUrl,
+        allowedReturnOrigins: parseAllowlist(
+            read(
+                env,
+                "DEPLOYMENT_PROTECTION_ALLOWED_ORIGINS",
+                "DEPLOYMENT_PROTECTION_AUTH_PROXY_ALLOWED_ORIGINS"
+            )
         ),
         vercelClientId: read(
             env,
@@ -80,8 +94,21 @@ export function hasPasswordAuth(config: DeploymentProtectionConfig): boolean {
     return Boolean(config.username && config.password && config.secret);
 }
 
-export function hasVercelAuth(config: DeploymentProtectionConfig): boolean {
+/** Direct Vercel OAuth on the protected app (legacy / single-project setup). */
+export function hasVercelDirectAuth(config: DeploymentProtectionConfig): boolean {
     return Boolean(config.vercelClientId && config.vercelClientSecret && config.secret);
+}
+
+/**
+ * Central auth-proxy mode: apps only need the proxy URL + shared handoff secret.
+ * Vercel client credentials live solely on the proxy.
+ */
+export function hasVercelProxyAuth(config: DeploymentProtectionConfig): boolean {
+    return Boolean(config.authProxyUrl && config.handoffSecret && config.secret);
+}
+
+export function hasVercelAuth(config: DeploymentProtectionConfig): boolean {
+    return hasVercelDirectAuth(config) || hasVercelProxyAuth(config);
 }
 
 /**

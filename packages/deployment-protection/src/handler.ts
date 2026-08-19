@@ -1,5 +1,12 @@
 import { isValidBypass, readBypassCookie, readBypassToken, shouldSetBypassCookie } from "./bypass";
-import { hasPasswordAuth, hasVercelAuth, isProtectionActive, resolveConfig } from "./config";
+import {
+    hasPasswordAuth,
+    hasVercelAuth,
+    hasVercelDirectAuth,
+    hasVercelProxyAuth,
+    isProtectionActive,
+    resolveConfig,
+} from "./config";
 import {
     BYPASS_COOKIE_NAME,
     BYPASS_HEADER,
@@ -11,6 +18,7 @@ import {
     VERCEL_CALLBACK_PATH,
 } from "./constants";
 import { timingSafeEqualString } from "./crypto";
+import { buildProxyStartUrl, verifyHandoffToken } from "./handoff";
 import { renderLoginPage } from "./login-page";
 import { validatePasswordCredentials } from "./password";
 import { safeReturnTo } from "./safe-return-to";
@@ -184,6 +192,22 @@ async function handleVercelAuthorize(
     }
 
     const returnTo = safeReturnTo(new URL(request.url).searchParams.get("return_to"));
+
+    // Prefer central auth-proxy so apps never register per-host OAuth callbacks.
+    if (hasVercelProxyAuth(config) && config.authProxyUrl && config.handoffSecret) {
+        const startUrl = await buildProxyStartUrl({
+            authProxyUrl: config.authProxyUrl,
+            secret: config.handoffSecret,
+            returnOrigin: new URL(request.url).origin,
+            returnPath: returnTo,
+        });
+        return redirect(request, startUrl);
+    }
+
+    if (!hasVercelDirectAuth(config)) {
+        return new Response("Sign in with Vercel is not configured", { status: 500 });
+    }
+
     return buildVercelAuthorizeRedirect(request, config, returnTo);
 }
 
@@ -200,9 +224,40 @@ async function handleVercelCallback(
     }
 
     const url = new URL(request.url);
+    const handoff = url.searchParams.get("handoff");
+    const secure = isSecureRequest(request);
+
+    // Auth-proxy handoff: short-lived signed token, no Vercel client secret on the app.
+    if (handoff) {
+        if (!config.handoffSecret) {
+            return new Response("Sign in with Vercel is not configured", { status: 500 });
+        }
+
+        const returnTo = safeReturnTo(url.searchParams.get("return_to"));
+        const payload = await verifyHandoffToken(config.handoffSecret, handoff, url.origin);
+
+        if (!payload) {
+            return htmlResponse(
+                renderLoginPage(config, {
+                    error: "Vercel sign-in failed (invalid handoff).",
+                    returnTo,
+                    showPassword: hasPasswordAuth(config),
+                    showVercel: true,
+                })
+            );
+        }
+
+        const response = redirect(request, returnTo);
+        return attachSession(response, config, "vercel", payload.subject, secure);
+    }
+
+    // Legacy direct OAuth callback on the protected app.
+    if (!hasVercelDirectAuth(config)) {
+        return new Response("Sign in with Vercel is not configured", { status: 500 });
+    }
+
     const code = url.searchParams.get("code");
     const state = url.searchParams.get("state");
-    const secure = isSecureRequest(request);
     const returnTo = safeReturnTo(readCookie(request, OAUTH_RETURN_COOKIE));
 
     if (!code || !(await assertOAuthState(request, state))) {

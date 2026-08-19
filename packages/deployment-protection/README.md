@@ -70,33 +70,97 @@ export default withDeploymentProtection(async request => {
 | `DEPLOYMENT_PROTECTION_ENABLED`              | no                | `true`                    | Set `false` / `0` / `off` to disable                   |
 | `DEPLOYMENT_PROTECTION_USERNAME`             | for password auth | —                         | Shared username                                        |
 | `DEPLOYMENT_PROTECTION_PASSWORD`             | for password auth | —                         | Shared password                                        |
-| `DEPLOYMENT_PROTECTION_SECRET`               | recommended       | derived from user+pass    | HMAC secret for session cookies                        |
+| `DEPLOYMENT_PROTECTION_SECRET`               | recommended       | derived from user+pass    | HMAC secret for session cookies (+ handoff fallback)   |
+| `DEPLOYMENT_PROTECTION_AUTH_PROXY_URL`       | for proxy SSO     | —                         | Base URL of the central auth-proxy app                 |
+| `DEPLOYMENT_PROTECTION_HANDOFF_SECRET`       | no                | same as `…_SECRET`        | Shared secret between apps and the auth-proxy          |
 | `VERCEL_AUTOMATION_BYPASS_SECRET`            | no                | —                         | Same secret as Vercel Protection Bypass for Automation |
-| `DEPLOYMENT_PROTECTION_VERCEL_CLIENT_ID`     | for Vercel login  | —                         | Or `NEXT_PUBLIC_VERCEL_APP_CLIENT_ID`                  |
-| `DEPLOYMENT_PROTECTION_VERCEL_CLIENT_SECRET` | for Vercel login  | —                         | Or `VERCEL_APP_CLIENT_SECRET`                          |
+| `DEPLOYMENT_PROTECTION_VERCEL_CLIENT_ID`     | direct Vercel SSO | —                         | Or `NEXT_PUBLIC_VERCEL_APP_CLIENT_ID` (legacy)         |
+| `DEPLOYMENT_PROTECTION_VERCEL_CLIENT_SECRET` | direct Vercel SSO | —                         | Or `VERCEL_APP_CLIENT_SECRET` (legacy)                 |
 | `DEPLOYMENT_PROTECTION_FORM_TITLE`           | no                | `Authentication required` | Login heading                                          |
 | `DEPLOYMENT_PROTECTION_FORM_DESCRIPTION`     | no                | …                         | Login description                                      |
 
-At least one of password auth, Vercel OAuth, or a bypass secret must be configured while enabled. If nothing is configured, the gate stays inactive (fail-open) so local dev is not bricked.
+At least one of password auth, Vercel OAuth (proxy or direct), or a bypass secret must be configured while enabled. If nothing is configured, the gate stays inactive (fail-open) so local dev is not bricked.
 
-### 3. Sign in with Vercel (optional)
+### 3. Sign in with Vercel via auth-proxy (recommended)
 
-1. Create a [Sign in with Vercel](https://vercel.com/docs/sign-in-with-vercel) app in the Vercel dashboard.
-2. Generate a client secret.
-3. Add authorization callback URLs for each project host, pointing at:
+Register **one** OAuth callback URL on a shared [Sign in with Vercel](https://vercel.com/docs/sign-in-with-vercel) app:
+
+```text
+https://<auth-proxy-host>/callback
+```
+
+Deploy the `deployment-protection-auth-proxy` app from this monorepo (or any tiny Next app that wires the handlers below) and set:
+
+**On the auth-proxy**
+
+| Variable                                             | Description                            |
+| ---------------------------------------------------- | -------------------------------------- |
+| `DEPLOYMENT_PROTECTION_VERCEL_CLIENT_ID`             | Vercel OAuth client id                 |
+| `DEPLOYMENT_PROTECTION_VERCEL_CLIENT_SECRET`         | Vercel OAuth client secret             |
+| `DEPLOYMENT_PROTECTION_SECRET` or `…_HANDOFF_SECRET` | Shared HMAC secret with protected apps |
+| `DEPLOYMENT_PROTECTION_ALLOWED_ORIGINS`              | Optional allowlist (see below)         |
+
+**On every protected app**
+
+| Variable                               | Description                            |
+| -------------------------------------- | -------------------------------------- |
+| `DEPLOYMENT_PROTECTION_AUTH_PROXY_URL` | e.g. `https://dp-auth.example.com`     |
+| `DEPLOYMENT_PROTECTION_SECRET`         | Session cookie secret                  |
+| `DEPLOYMENT_PROTECTION_HANDOFF_SECRET` | Same as proxy (defaults to `…_SECRET`) |
+
+No per-project / per-preview callback URLs.
+
+#### Flow
+
+1. App redirects to `{AUTH_PROXY_URL}/start` with a **signed** `return_origin` + `return_path`.
+2. Proxy runs Vercel OAuth against its fixed `/callback`.
+3. Proxy redirects to  
+   `{return_origin}/_becklyn/deployment-protection/vercel/callback?handoff=…&return_to=…`
+4. App verifies the short-lived handoff token (`aud` must match its origin), sets `__becklyn_dp_session`, continues.
+
+#### Allowlist (proxy)
+
+`DEPLOYMENT_PROTECTION_ALLOWED_ORIGINS` is a comma-separated list:
+
+- full origins: `https://app.example.com`
+- host suffixes: `.vercel.app`, `example.com`
+- `localhost` (http(s) localhost / 127.0.0.1)
+
+Empty allowlist → any origin that passes https (or local http) validation. Prefer an allowlist in production.
+
+#### Minimal proxy route handlers
+
+```ts
+// app/start/route.ts
+import { handleAuthProxyStart } from "@becklyn/deployment-protection";
+
+export const GET = (request: Request) => handleAuthProxyStart(request);
+
+// app/callback/route.ts
+import { handleAuthProxyCallback } from "@becklyn/deployment-protection";
+
+export const GET = (request: Request) => handleAuthProxyCallback(request);
+```
+
+### 4. Sign in with Vercel (legacy direct mode)
+
+Still supported when `DEPLOYMENT_PROTECTION_AUTH_PROXY_URL` is unset:
+
+1. Create a Sign in with Vercel app.
+2. Add authorization callback URLs for **each** project host:
 
     ```text
     https://<your-host>/_becklyn/deployment-protection/vercel/callback
     http://localhost:3000/_becklyn/deployment-protection/vercel/callback
     ```
 
-    You can attach the path to preview + production domains of each project from the dashboard.
+3. Set client id/secret on the project(s).
 
-4. Set client id/secret env vars on the project(s). Prefer team-level shared env values.
+When both proxy URL and direct client credentials are set, **proxy mode wins** for the authorize step.
 
 Scopes used: `openid email profile`.
 
-### 4. Automation bypass
+### 5. Automation bypass
 
 Matches Vercel’s Protection Bypass for Automation:
 
@@ -116,7 +180,7 @@ When platform Deployment Protection is disabled, **this package** enforces the b
 ## Behaviour
 
 1. Disabled / misconfigured → pass through
-2. Internal Vercel OAuth routes → handled by the package
+2. Internal Vercel OAuth routes → handled by the package (proxy start or direct OAuth / handoff)
 3. Login form `POST` → validate username/password, set signed HttpOnly session cookie
 4. Valid bypass header/query/cookie → allow (optionally set cookies)
 5. Valid session cookie → allow
@@ -136,6 +200,8 @@ Redeploy. Middleware stays installed but is a no-op.
 
 ```ts
 import {
+    handleAuthProxyCallback,
+    handleAuthProxyStart,
     handleDeploymentProtection,
     resolveConfig,
     withDeploymentProtection,
@@ -144,6 +210,7 @@ import {
 
 - `withDeploymentProtection(options?)` / `withDeploymentProtection(next, options?)` — middleware/proxy factory
 - `handleDeploymentProtection(request, options?)` — framework-agnostic core (`null` = continue)
+- `handleAuthProxyStart` / `handleAuthProxyCallback` — central auth-proxy routes
 
 Recommended matcher (must be pasted as a string literal in your middleware/proxy file — see above):
 
@@ -155,6 +222,8 @@ Recommended matcher (must be pasted as a string literal in your middleware/proxy
 
 - This is a **shared-secret gate**, not per-user product auth.
 - Prefer a dedicated `DEPLOYMENT_PROTECTION_SECRET` in production.
+- Auth-proxy start requests are HMAC-signed; handoff tokens are short-lived and audience-bound.
+- Do not put the raw handoff secret in query strings — only signatures/tokens.
 - Turn off paid Vercel Password Protection / seat-heavy sharing once this is live; keep `VERCEL_AUTOMATION_BYPASS_SECRET` configured for tooling.
 - Middleware is a convenience edge check — do not treat it as the only control for highly sensitive data.
 

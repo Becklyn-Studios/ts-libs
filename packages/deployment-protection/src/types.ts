@@ -5,7 +5,22 @@ export interface DeploymentProtectionConfig {
     username: string | null;
     password: string | null;
     secret: string | null;
+    /**
+     * Shared secret used to sign proxy start requests and verify handoff tokens.
+     * Falls back to {@link secret} when unset.
+     */
+    handoffSecret: string | null;
     bypassSecret: string | null;
+    /**
+     * Base URL of the central auth-proxy app (e.g. https://dp-auth.example.com).
+     * When set, protected apps no longer need per-host Vercel OAuth callback URLs.
+     */
+    authProxyUrl: string | null;
+    /**
+     * Optional allowlist for auth-proxy return origins (proxy side).
+     * See README for entry formats.
+     */
+    allowedReturnOrigins: string[];
     vercelClientId: string | null;
     vercelClientSecret: string | null;
     sessionTtlSeconds: number;
