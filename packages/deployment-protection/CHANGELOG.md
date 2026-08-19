@@ -1,5 +1,11 @@
 # @becklyn/deployment-protection
 
+## 0.4.0
+
+### Minor Changes
+
+- 03bce00: Add Storybook / static deploy support via Vercel Edge Middleware (`@becklyn/deployment-protection/storybook` and `./edge`) using the same env-based gate as Next.js, without requiring the `next` package.
+
 ## 0.3.0
 
 ### Minor Changes
