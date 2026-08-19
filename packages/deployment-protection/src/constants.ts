@@ -4,6 +4,7 @@ export const OAUTH_STATE_COOKIE = "__becklyn_dp_oauth_state";
 export const OAUTH_NONCE_COOKIE = "__becklyn_dp_oauth_nonce";
 export const OAUTH_VERIFIER_COOKIE = "__becklyn_dp_oauth_verifier";
 export const OAUTH_RETURN_COOKIE = "__becklyn_dp_oauth_return";
+export const OAUTH_RETURN_ORIGIN_COOKIE = "__becklyn_dp_oauth_return_origin";
 
 export const INTERNAL_PATH_PREFIX = "/_becklyn/deployment-protection";
 export const VERCEL_AUTHORIZE_PATH = `${INTERNAL_PATH_PREFIX}/vercel`;

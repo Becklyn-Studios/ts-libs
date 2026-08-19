@@ -1,0 +1,28 @@
+{
+    "name": "@becklyn/deployment-protection-auth-proxy",
+    "version": "0.1.0",
+    "private": true,
+    "description": "Central Sign in with Vercel auth-proxy for @becklyn/deployment-protection",
+    "scripts": {
+        "dev": "next dev --port 3010",
+        "build": "next build",
+        "start": "next start --port 3010",
+        "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx,md,json}\"",
+        "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,md,json}\""
+    },
+    "dependencies": {
+        "@becklyn/deployment-protection": "*",
+        "next": "^16.3.0",
+        "react": "^19.2.8",
+        "react-dom": "^19.2.8"
+    },
+    "devDependencies": {
+        "@becklyn/eslint": "*",
+        "@becklyn/tsconfig": "*",
+        "@types/node": "^25.9.5",
+        "@types/react": "^19.2.18",
+        "@types/react-dom": "^19.2.4",
+        "typescript": "^5.9.3"
+    },
+    "prettier": "@becklyn/prettier"
+}

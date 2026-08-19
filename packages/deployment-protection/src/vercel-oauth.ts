@@ -1,6 +1,7 @@
 import {
     OAUTH_NONCE_COOKIE,
     OAUTH_RETURN_COOKIE,
+    OAUTH_RETURN_ORIGIN_COOKIE,
     OAUTH_STATE_COOKIE,
     OAUTH_VERIFIER_COOKIE,
     VERCEL_CALLBACK_PATH,
@@ -24,6 +25,14 @@ export interface VercelUserInfo {
     preferred_username?: string;
 }
 
+export interface VercelOAuthPathOptions {
+    /**
+     * Absolute path used as the OAuth redirect_uri path on the current origin.
+     * Defaults to the protected-app callback path. Auth-proxy uses `/callback`.
+     */
+    callbackPath?: string;
+}
+
 function cookieOptions(secure: boolean) {
     return {
         httpOnly: true,
@@ -34,10 +43,15 @@ function cookieOptions(secure: boolean) {
     };
 }
 
+function resolveCallbackPath(options?: VercelOAuthPathOptions): string {
+    return options?.callbackPath ?? VERCEL_CALLBACK_PATH;
+}
+
 export async function buildVercelAuthorizeRedirect(
     request: Request,
     config: DeploymentProtectionConfig,
-    returnTo: string
+    returnTo: string,
+    options?: VercelOAuthPathOptions
 ): Promise<Response> {
     if (!config.vercelClientId) {
         return new Response("Vercel OAuth is not configured", { status: 500 });
@@ -48,7 +62,7 @@ export async function buildVercelAuthorizeRedirect(
     const codeVerifier = randomToken(48);
     const codeChallenge = await sha256Base64Url(codeVerifier);
     const origin = new URL(request.url).origin;
-    const redirectUri = `${origin}${VERCEL_CALLBACK_PATH}`;
+    const redirectUri = `${origin}${resolveCallbackPath(options)}`;
     const secure = origin.startsWith("https://");
 
     const params = new URLSearchParams({
@@ -82,7 +96,8 @@ export async function exchangeVercelCode(
     request: Request,
     config: DeploymentProtectionConfig,
     code: string,
-    codeVerifier: string
+    codeVerifier: string,
+    options?: VercelOAuthPathOptions
 ): Promise<VercelTokenResponse> {
     if (!config.vercelClientId || !config.vercelClientSecret) {
         throw new Error("Vercel OAuth is not configured");
@@ -95,7 +110,7 @@ export async function exchangeVercelCode(
         client_secret: config.vercelClientSecret,
         code,
         code_verifier: codeVerifier,
-        redirect_uri: `${origin}${VERCEL_CALLBACK_PATH}`,
+        redirect_uri: `${origin}${resolveCallbackPath(options)}`,
     });
 
     const response = await fetch("https://api.vercel.com/login/oauth/token", {
@@ -192,6 +207,7 @@ export function clearOAuthCookies(response: Response, secure: boolean): void {
         OAUTH_NONCE_COOKIE,
         OAUTH_VERIFIER_COOKIE,
         OAUTH_RETURN_COOKIE,
+        OAUTH_RETURN_ORIGIN_COOKIE,
     ]) {
         appendSetCookie(response, name, "", expired);
     }

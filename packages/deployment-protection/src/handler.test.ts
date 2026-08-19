@@ -224,3 +224,74 @@ describe("handleDeploymentProtection", () => {
         expect(await response!.text()).toContain("Sign in with Vercel");
     });
 });
+
+describe("auth proxy mode on protected apps", () => {
+    it("detects proxy auth without vercel client credentials", () => {
+        const config = resolveConfig({
+            env: {
+                DEPLOYMENT_PROTECTION_SECRET: "super-long-signing-secret",
+                DEPLOYMENT_PROTECTION_AUTH_PROXY_URL: "https://dp-auth.example.com",
+            },
+        });
+        expect(hasVercelAuth(config)).toBe(true);
+        expect(config.authProxyUrl).toBe("https://dp-auth.example.com");
+    });
+
+    it("redirects authorize to the auth proxy with a signature", async () => {
+        const response = await handleDeploymentProtection(
+            new Request(
+                "https://app.example.com/_becklyn/deployment-protection/vercel?return_to=/dash"
+            ),
+            {
+                env: {
+                    DEPLOYMENT_PROTECTION_SECRET: "super-long-signing-secret",
+                    DEPLOYMENT_PROTECTION_AUTH_PROXY_URL: "https://dp-auth.example.com",
+                },
+            }
+        );
+        expect(response).not.toBeNull();
+        expect(response!.status).toBe(302);
+        const location = new URL(response!.headers.get("Location")!);
+        expect(location.origin).toBe("https://dp-auth.example.com");
+        expect(location.pathname).toBe("/start");
+        expect(location.searchParams.get("return_origin")).toBe("https://app.example.com");
+        expect(location.searchParams.get("return_path")).toBe("/dash");
+        expect(location.searchParams.get("sig")).toBeTruthy();
+    });
+
+    it("accepts a valid handoff token on the app callback", async () => {
+        const { createHandoffToken } = await import("./handoff");
+        const handoff = await createHandoffToken(
+            "super-long-signing-secret",
+            "https://app.example.com",
+            "alice",
+            60
+        );
+        const response = await handleDeploymentProtection(
+            new Request(
+                `https://app.example.com/_becklyn/deployment-protection/vercel/callback?handoff=${encodeURIComponent(handoff)}&return_to=/home`
+            ),
+            {
+                env: {
+                    DEPLOYMENT_PROTECTION_SECRET: "super-long-signing-secret",
+                    DEPLOYMENT_PROTECTION_AUTH_PROXY_URL: "https://dp-auth.example.com",
+                },
+            }
+        );
+        expect(response).not.toBeNull();
+        expect(response!.status).toBe(302);
+        expect(response!.headers.get("Location")).toBe("https://app.example.com/home");
+        expect(response!.headers.get("Set-Cookie")).toContain(SESSION_COOKIE_NAME);
+    });
+
+    it("shows Sign in with Vercel when only auth proxy is configured", async () => {
+        const response = await handleDeploymentProtection(new Request("https://example.com/"), {
+            env: {
+                DEPLOYMENT_PROTECTION_SECRET: "super-long-signing-secret",
+                DEPLOYMENT_PROTECTION_AUTH_PROXY_URL: "https://dp-auth.example.com",
+            },
+        });
+        expect(response).not.toBeNull();
+        expect(await response!.text()).toContain("Sign in with Vercel");
+    });
+});
