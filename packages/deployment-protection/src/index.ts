@@ -7,6 +7,7 @@ export {
 } from "./auth-proxy";
 export { handleDeploymentProtection } from "./handler";
 export { withDeploymentProtection } from "./middleware";
+export { middlewarePassThrough, withEdgeDeploymentProtection } from "./edge";
 export {
     resolveConfig,
     hasPasswordAuth,

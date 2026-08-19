@@ -2,7 +2,7 @@
     "name": "@becklyn/deployment-protection",
     "version": "0.3.0",
     "license": "MIT",
-    "description": "Simple shared username/password + Sign in with Vercel gate for Next.js deployments",
+    "description": "Simple shared username/password + Sign in with Vercel gate for Next.js and Storybook deployments",
     "homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/deployment-protection",
     "repository": {
         "type": "git",
@@ -26,6 +26,11 @@
     "peerDependencies": {
         "next": "^14.0.0 || ^15.0.0 || ^16.0.0"
     },
+    "peerDependenciesMeta": {
+        "next": {
+            "optional": true
+        }
+    },
     "files": [
         "dist"
     ],
@@ -38,6 +43,18 @@
             "require": "./dist/cjs/index.js",
             "import": "./dist/es/index.js",
             "default": "./dist/cjs/index.js"
+        },
+        "./storybook": {
+            "types": "./dist/cjs/storybook.d.ts",
+            "require": "./dist/cjs/storybook.js",
+            "import": "./dist/es/storybook.js",
+            "default": "./dist/cjs/storybook.js"
+        },
+        "./edge": {
+            "types": "./dist/cjs/edge.d.ts",
+            "require": "./dist/cjs/edge.js",
+            "import": "./dist/es/edge.js",
+            "default": "./dist/cjs/edge.js"
         },
         "./package.json": "./package.json"
     },

@@ -1,6 +1,6 @@
 # `@becklyn/deployment-protection`
 
-Simple, shared deployment gate for Next.js apps on Vercel.
+Simple, shared deployment gate for Next.js apps and static Storybook deploys on Vercel.
 
 Use this instead of (or after disabling) Vercel platform Deployment Protection when you need:
 
@@ -9,7 +9,10 @@ Use this instead of (or after disabling) Vercel platform Deployment Protection w
 - always-on **automation bypass** via `x-vercel-protection-bypass` / `VERCEL_AUTOMATION_BYPASS_SECRET`
 - a kill switch (`DEPLOYMENT_PROTECTION_ENABLED`, on by default)
 
-Protection runs in Next.js **middleware** (Next ≤15) or **proxy** (Next 16+).
+Protection runs in:
+
+- Next.js **middleware** (Next ≤15) or **proxy** (Next 16+)
+- **Vercel Edge Middleware** for static Storybook (`@becklyn/deployment-protection/storybook`)
 
 > **Note:** Vercel Connect is unrelated (third-party API tokens). Platform Vercel Authentication cookies are not visible to your app once platform protection is off — team members use the **Sign in with Vercel** button instead.
 
@@ -21,7 +24,45 @@ npm i @becklyn/deployment-protection
 
 ## Quick setup
 
-### 1. Middleware / proxy
+### Storybook (static on Vercel)
+
+Built Storybook is static (`storybook-static`), so protection is **Vercel Edge Middleware** — not a Storybook addon.
+
+1. Install the package in the project that deploys Storybook.
+2. Add `middleware.ts` at the **Vercel project root** (same level Vercel uses for `vercel.json` / output):
+
+```ts
+import { withStorybookDeploymentProtection } from "@becklyn/deployment-protection/storybook";
+
+export default withStorybookDeploymentProtection();
+
+export const config = {
+    matcher: ["/((?!.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|map|txt|xml|woff2?|mjs)$).*)"],
+};
+```
+
+3. Set the same environment variables as for Next.js (below).
+4. Optional `vercel.json` for a Storybook-only project:
+
+```json
+{
+    "buildCommand": "npm run build-storybook",
+    "outputDirectory": "storybook-static",
+    "framework": null
+}
+```
+
+`withStorybookDeploymentProtection` does **not** require the `next` package. The matcher must stay a **string literal** in `middleware.ts` (same static-analysis rule as Next.js).
+
+Framework-agnostic alias (same implementation):
+
+```ts
+import { withEdgeDeploymentProtection } from "@becklyn/deployment-protection/edge";
+
+export default withEdgeDeploymentProtection();
+```
+
+### 1. Next.js middleware / proxy
 
 Next.js requires `config.matcher` to be a **string literal in the local middleware/proxy file**.
 It cannot be imported from a package (Next analyzes the matcher statically at build time).
@@ -205,10 +246,13 @@ import {
     handleDeploymentProtection,
     resolveConfig,
     withDeploymentProtection,
+    withEdgeDeploymentProtection,
 } from "@becklyn/deployment-protection";
+import { withStorybookDeploymentProtection } from "@becklyn/deployment-protection/storybook";
 ```
 
-- `withDeploymentProtection(options?)` / `withDeploymentProtection(next, options?)` — middleware/proxy factory
+- `withDeploymentProtection(options?)` / `withDeploymentProtection(next, options?)` — Next.js middleware/proxy factory
+- `withStorybookDeploymentProtection(options?)` / `withEdgeDeploymentProtection(options?)` — Vercel Edge Middleware for Storybook / static deploys (no Next.js)
 - `handleDeploymentProtection(request, options?)` — framework-agnostic core (`null` = continue)
 - `handleAuthProxyStart` / `handleAuthProxyCallback` — central auth-proxy routes
 
