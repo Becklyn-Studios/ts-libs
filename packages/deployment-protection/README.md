@@ -23,33 +23,34 @@ npm i @becklyn/deployment-protection
 
 ### 1. Middleware / proxy
 
+Next.js requires `config.matcher` to be a **string literal in the local middleware/proxy file**.
+It cannot be imported from a package (Next analyzes the matcher statically at build time).
+
 **Next.js 16+ (`proxy.ts`):**
 
 ```ts
-import {
-    deploymentProtectionMatcher,
-    withDeploymentProtection,
-} from "@becklyn/deployment-protection";
+import { withDeploymentProtection } from "@becklyn/deployment-protection";
 
 export const proxy = withDeploymentProtection();
 
 export const config = {
-    matcher: deploymentProtectionMatcher,
+    matcher: [
+        "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|map|txt|xml|woff2?)$).*)",
+    ],
 };
 ```
 
 **Next.js ≤15 (`middleware.ts`):**
 
 ```ts
-import {
-    deploymentProtectionMatcher,
-    withDeploymentProtection,
-} from "@becklyn/deployment-protection";
+import { withDeploymentProtection } from "@becklyn/deployment-protection";
 
 export default withDeploymentProtection();
 
 export const config = {
-    matcher: deploymentProtectionMatcher,
+    matcher: [
+        "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|map|txt|xml|woff2?)$).*)",
+    ],
 };
 ```
 
@@ -135,7 +136,6 @@ Redeploy. Middleware stays installed but is a no-op.
 
 ```ts
 import {
-    deploymentProtectionMatcher,
     handleDeploymentProtection,
     resolveConfig,
     withDeploymentProtection,
@@ -144,7 +144,12 @@ import {
 
 - `withDeploymentProtection(options?)` / `withDeploymentProtection(next, options?)` — middleware/proxy factory
 - `handleDeploymentProtection(request, options?)` — framework-agnostic core (`null` = continue)
-- `deploymentProtectionMatcher` — recommended matcher array
+
+Recommended matcher (must be pasted as a string literal in your middleware/proxy file — see above):
+
+```ts
+"/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|map|txt|xml|woff2?)$).*)";
+```
 
 ## Security notes
 
