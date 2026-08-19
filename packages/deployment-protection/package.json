@@ -1,0 +1,46 @@
+{
+    "name": "@becklyn/deployment-protection",
+    "version": "0.0.0",
+    "license": "MIT",
+    "description": "Simple shared username/password + Sign in with Vercel gate for Next.js deployments",
+    "homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/deployment-protection",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Becklyn-Studios/ts-libs.git"
+    },
+    "scripts": {
+        "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx,md,json}\"",
+        "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,md,json}\"",
+        "test": "vitest run",
+        "build": "rm -rf dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
+        "prepublishOnly": "npm run lint && npm run test && npm run build"
+    },
+    "devDependencies": {
+        "@becklyn/eslint": "*",
+        "@becklyn/tsconfig": "*",
+        "@types/node": "^25.9.5",
+        "next": "^16.3.0",
+        "typescript": "^5.9.3",
+        "vitest": "^3.2.4"
+    },
+    "peerDependencies": {
+        "next": "^14.0.0 || ^15.0.0 || ^16.0.0"
+    },
+    "files": [
+        "dist"
+    ],
+    "main": "dist/cjs/index.js",
+    "module": "dist/es/index.js",
+    "types": "dist/cjs/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/cjs/index.d.ts",
+            "require": "./dist/cjs/index.js",
+            "import": "./dist/es/index.js",
+            "default": "./dist/cjs/index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "sideEffects": false,
+    "prettier": "@becklyn/prettier"
+}

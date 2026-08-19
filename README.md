@@ -9,6 +9,7 @@ Collection of frontend development libraries we use to build UI apps based on Ty
 -   [prettier](./packages/prettier/README.md)
 -   [forms](./packages/forms/README.md)
 -   [react-usercentrics](./packages/react-usercentrics/README.md)
+-   [deployment-protection](./packages/deployment-protection/README.md)
 
 ## Contributing
 
