@@ -108,7 +108,7 @@ describe("handleDeploymentProtection", () => {
 
         expect(response).not.toBeNull();
         expect(response!.status).toBe(302);
-        expect(response!.headers.get("Location")).toBe("/dashboard");
+        expect(response!.headers.get("Location")).toBe("https://example.com/dashboard");
         expect(response!.headers.get("Set-Cookie")).toContain(SESSION_COOKIE_NAME);
     });
 
@@ -131,7 +131,7 @@ describe("handleDeploymentProtection", () => {
 
         expect(response).not.toBeNull();
         expect(response!.status).toBe(302);
-        expect(response!.headers.get("Location")).toBe("/");
+        expect(response!.headers.get("Location")).toBe("https://example.com/");
     });
 
     it("rejects invalid password credentials", async () => {
@@ -205,7 +205,7 @@ describe("handleDeploymentProtection", () => {
         );
         expect(response).not.toBeNull();
         expect(response!.status).toBe(302);
-        expect(response!.headers.get("Location")).toBe("/page");
+        expect(response!.headers.get("Location")).toBe("https://example.com/page");
         const cookies = response!.headers.getSetCookie?.() ?? [
             response!.headers.get("Set-Cookie") ?? "",
         ];

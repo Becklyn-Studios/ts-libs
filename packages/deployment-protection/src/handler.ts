@@ -45,11 +45,13 @@ function htmlResponse(html: string, status = 401): Response {
     });
 }
 
-function redirect(location: string, status = 302): Response {
+function redirect(request: Request, location: string, status = 302): Response {
+    // Next.js middleware/proxy requires an absolute Location; relative values throw ERR_INVALID_URL.
+    const absoluteLocation = new URL(location, request.url).toString();
     return new Response(null, {
         status,
         headers: {
-            Location: location,
+            Location: absoluteLocation,
             "Cache-Control": "no-store",
         },
     });
@@ -101,7 +103,7 @@ async function handleBypass(
     if (hadQueryBypass || hadSetCookieQuery || setCookieMode) {
         url.searchParams.delete(BYPASS_HEADER);
         url.searchParams.delete("x-vercel-set-bypass-cookie");
-        const response = redirect(url.pathname + url.search + url.hash);
+        const response = redirect(request, url.pathname + url.search + url.hash);
         const secure = isSecureRequest(request);
 
         if (setCookieMode || hadSetCookieQuery) {
@@ -165,7 +167,7 @@ async function handlePasswordPost(
         );
     }
 
-    const response = redirect(returnTo);
+    const response = redirect(request, returnTo);
     return attachSession(response, config, "password", username, isSecureRequest(request));
 }
 
@@ -233,7 +235,7 @@ async function handleVercelCallback(
 
         const user = await fetchVercelUserInfo(tokenData.access_token);
         const subject = user.preferred_username || user.email || user.sub || "vercel-user";
-        const response = redirect(returnTo);
+        const response = redirect(request, returnTo);
         clearOAuthCookies(response, secure);
         return attachSession(response, config, "vercel", subject, secure);
     } catch {

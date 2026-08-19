@@ -28,6 +28,57 @@ function isOptions(value: unknown): value is DeploymentProtectionOptions {
     );
 }
 
+function toNextResponse(request: NextRequest, response: Response): NextResponse {
+    const location = response.headers.get("Location");
+
+    if (location && response.status >= 300 && response.status < 400) {
+        // Always resolve against the incoming request so relative Locations never reach Next.
+        const redirectResponse = NextResponse.redirect(
+            new URL(location, request.url),
+            response.status
+        );
+
+        copyHeaders(response, redirectResponse, /* skipLocation */ true);
+        return redirectResponse;
+    }
+
+    const nextResponse = new NextResponse(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+    });
+    copyHeaders(response, nextResponse, false);
+    return nextResponse;
+}
+
+function copyHeaders(from: Response, to: NextResponse, skipLocation: boolean): void {
+    const setCookies =
+        typeof from.headers.getSetCookie === "function" ? from.headers.getSetCookie() : [];
+
+    if (setCookies.length > 0) {
+        for (const cookie of setCookies) {
+            to.headers.append("Set-Cookie", cookie);
+        }
+    }
+
+    from.headers.forEach((value, key) => {
+        const lower = key.toLowerCase();
+
+        if (lower === "set-cookie") {
+            // Already copied via getSetCookie when available; fall back otherwise.
+            if (setCookies.length === 0) {
+                to.headers.append("Set-Cookie", value);
+            }
+            return;
+        }
+
+        if (skipLocation && lower === "location") {
+            return;
+        }
+
+        to.headers.set(key, value);
+    });
+}
+
 /**
  * Next.js middleware / proxy wrapper.
  *
@@ -67,12 +118,7 @@ export function withDeploymentProtection(...args: WithDeploymentProtectionArgs) 
         const protectionResponse = await handleDeploymentProtection(request, options);
 
         if (protectionResponse) {
-            // Preserve NextResponse subclass when possible
-            return new NextResponse(protectionResponse.body, {
-                status: protectionResponse.status,
-                statusText: protectionResponse.statusText,
-                headers: protectionResponse.headers,
-            });
+            return toNextResponse(request, protectionResponse);
         }
 
         if (next) {
