@@ -1,5 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { deploymentProtectionMatcher } from "./constants";
 import { handleDeploymentProtection } from "./handler";
 import type { DeploymentProtectionOptions } from "./types";
 
@@ -82,18 +81,30 @@ function copyHeaders(from: Response, to: NextResponse, skipLocation: boolean): v
 /**
  * Next.js middleware / proxy wrapper.
  *
+ * Next.js only accepts a statically analyzable `config.matcher` in the local
+ * middleware/proxy file. Do not import a matcher from this package — paste the
+ * recommended pattern inline (see README).
+ *
  * @example middleware.ts (Next ≤15)
  * ```ts
- * import {withDeploymentProtection, deploymentProtectionMatcher} from "@becklyn/deployment-protection";
+ * import {withDeploymentProtection} from "@becklyn/deployment-protection";
  * export default withDeploymentProtection();
- * export const config = { matcher: deploymentProtectionMatcher };
+ * export const config = {
+ *   matcher: [
+ *     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|map|txt|xml|woff2?)$).*)",
+ *   ],
+ * };
  * ```
  *
  * @example proxy.ts (Next 16+)
  * ```ts
- * import {withDeploymentProtection, deploymentProtectionMatcher} from "@becklyn/deployment-protection";
+ * import {withDeploymentProtection} from "@becklyn/deployment-protection";
  * export const proxy = withDeploymentProtection();
- * export const config = { matcher: deploymentProtectionMatcher };
+ * export const config = {
+ *   matcher: [
+ *     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|css|js|map|txt|xml|woff2?)$).*)",
+ *   ],
+ * };
  * ```
  */
 export function withDeploymentProtection(...args: WithDeploymentProtectionArgs) {
@@ -129,5 +140,3 @@ export function withDeploymentProtection(...args: WithDeploymentProtectionArgs) 
         return NextResponse.next();
     };
 }
-
-export { deploymentProtectionMatcher };
