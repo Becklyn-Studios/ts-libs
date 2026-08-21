@@ -26,9 +26,9 @@ npm i @becklyn/deployment-protection
 
 ### Storybook (static on Vercel)
 
-Built Storybook is static (`storybook-static`), so protection is **Vercel Edge Middleware** — not a Storybook addon.
+Built Storybook is static (`storybook-static`), so protection is **Vercel Routing Middleware** — not a Storybook addon.
 
-1. Install the package in the project that deploys Storybook.
+1. Install the package in the project that deploys Storybook (published build, or workspace package after `npm run build`).
 2. Add `middleware.ts` at the **Vercel project root** (same level Vercel uses for `vercel.json` / output):
 
 ```ts
@@ -42,7 +42,7 @@ export const config = {
 ```
 
 3. Set the same environment variables as for Next.js (below).
-4. Optional `vercel.json` for a Storybook-only project:
+4. `vercel.json` for a Storybook-only project — **`framework` must be `null`** (Other). Do **not** use the Vercel “Storybook” framework preset; it sets `disableRootMiddleware` and skips middleware entirely:
 
 ```json
 {
@@ -53,6 +53,8 @@ export const config = {
 ```
 
 `withStorybookDeploymentProtection` does **not** require the `next` package. The matcher must stay a **string literal** in `middleware.ts` (same static-analysis rule as Next.js).
+
+Prefer the default **edge** runtime. `runtime: "nodejs"` is supported as well — both resolve to a self-contained ESM bundle (`dist/storybook.mjs` / `dist/edge.mjs`) so Vercel does not need to trace the multi-file tsc graph.
 
 Framework-agnostic alias (same implementation):
 

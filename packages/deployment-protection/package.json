@@ -9,16 +9,17 @@
         "url": "git+https://github.com/Becklyn-Studios/ts-libs.git"
     },
     "scripts": {
-        "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx,md,json}\"",
-        "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,md,json}\"",
-        "test": "vitest run",
-        "build": "rm -rf dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
-        "prepublishOnly": "npm run lint && npm run test && npm run build"
+        "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx,md,json,mjs}\"",
+        "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,md,json,mjs}\"",
+        "test": "npm run build && vitest run",
+        "build": "rm -rf dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json && node ./scripts/build-edge-bundles.mjs",
+        "prepublishOnly": "npm run lint && npm run test"
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
         "@becklyn/tsconfig": "*",
         "@types/node": "^25.9.5",
+        "esbuild": "^0.25.12",
         "next": "^16.3.0",
         "typescript": "^5.9.3",
         "vitest": "^3.2.4"
@@ -46,15 +47,21 @@
         },
         "./storybook": {
             "types": "./dist/cjs/storybook.d.ts",
+            "edge-light": "./dist/storybook.mjs",
+            "worker": "./dist/storybook.mjs",
+            "browser": "./dist/storybook.mjs",
+            "import": "./dist/storybook.mjs",
             "require": "./dist/cjs/storybook.js",
-            "import": "./dist/es/storybook.js",
-            "default": "./dist/cjs/storybook.js"
+            "default": "./dist/storybook.mjs"
         },
         "./edge": {
             "types": "./dist/cjs/edge.d.ts",
+            "edge-light": "./dist/edge.mjs",
+            "worker": "./dist/edge.mjs",
+            "browser": "./dist/edge.mjs",
+            "import": "./dist/edge.mjs",
             "require": "./dist/cjs/edge.js",
-            "import": "./dist/es/edge.js",
-            "default": "./dist/cjs/edge.js"
+            "default": "./dist/edge.mjs"
         },
         "./package.json": "./package.json"
     },

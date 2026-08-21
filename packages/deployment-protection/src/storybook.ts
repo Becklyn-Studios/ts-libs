@@ -1,9 +1,13 @@
 /**
  * Storybook deployment protection for Vercel.
  *
- * Built Storybooks are static sites, so protection runs as **Vercel Edge Middleware**
+ * Built Storybooks are static sites, so protection runs as **Vercel Routing Middleware**
  * (not Storybook config). Drop a `middleware.ts` next to the Vercel project root that
  * serves `storybook-static` and set the same env vars as the Next.js integration.
+ *
+ * The published `./storybook` and `./edge` entry points resolve to self-contained ESM
+ * bundles so Vercel edge/nodejs middleware can load them without tracing multi-file
+ * package internals.
  *
  * @example middleware.ts
  * ```ts
@@ -19,7 +23,7 @@
  * };
  * ```
  *
- * Optional `vercel.json` for a Storybook-only project:
+ * Optional `vercel.json` for a Storybook-only project (`framework` must be `null`):
  * ```json
  * {
  *   "buildCommand": "npm run build-storybook",
