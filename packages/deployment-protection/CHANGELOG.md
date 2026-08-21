@@ -1,5 +1,11 @@
 # @becklyn/deployment-protection
 
+## 0.4.1
+
+### Patch Changes
+
+- b9685e4: Fix Storybook/static Vercel middleware by shipping self-contained `./edge` and `./storybook` ESM bundles. Resolves edge "unsupported modules" and nodejs named-export failures from multi-file tsc output.
+
 ## 0.4.0
 
 ### Minor Changes
