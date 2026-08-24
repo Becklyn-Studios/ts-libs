@@ -1,4 +1,7 @@
 import { NextRequest } from "next/server";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { SESSION_COOKIE_NAME } from "./constants";
 import { withDeploymentProtection } from "./middleware";
@@ -36,5 +39,26 @@ describe("withDeploymentProtection", () => {
 
         expect(response.status).toBe(302);
         expect(response.cookies.get(SESSION_COOKIE_NAME)?.value).toBeTruthy();
+    });
+});
+
+function packageSource(relativePath: string): string {
+    return readFileSync(
+        path.join(path.dirname(fileURLToPath(import.meta.url)), relativePath),
+        "utf8"
+    );
+}
+
+describe("JSDoc matcher examples", () => {
+    it("use two backslashes so copied regex excludes static assets", () => {
+        for (const file of ["middleware.ts", "storybook.ts"] as const) {
+            const source = packageSource(file);
+            const matches = [...source.matchAll(/\.\*(\\+)\./g)];
+            expect(matches.length).toBeGreaterThan(0);
+
+            for (const match of matches) {
+                expect(match[1], file).toHaveLength(2);
+            }
+        }
     });
 });
