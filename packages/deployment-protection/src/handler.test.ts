@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { hasPasswordAuth, hasVercelAuth, isProtectionActive, resolveConfig } from "./config";
-import { BYPASS_HEADER, SESSION_COOKIE_NAME } from "./constants";
+import { BYPASS_COOKIE_NAME, BYPASS_HEADER, SESSION_COOKIE_NAME } from "./constants";
 import { timingSafeEqualString } from "./crypto";
 import { handleDeploymentProtection } from "./handler";
 import { createSessionToken, verifySessionToken } from "./session";
@@ -10,6 +10,27 @@ const baseEnv = {
     DEPLOYMENT_PROTECTION_PASSWORD: "s3cret",
     DEPLOYMENT_PROTECTION_SECRET: "super-long-signing-secret",
 };
+
+function setCookieHeader(response: Response): string {
+    const cookies = response.headers.getSetCookie?.() ?? [response.headers.get("Set-Cookie") ?? ""];
+    return cookies.join("\n");
+}
+
+function cookieHeaderFromResponse(response: Response, name: string): string | null {
+    const cookies = response.headers.getSetCookie?.() ?? [response.headers.get("Set-Cookie") ?? ""];
+
+    for (const cookie of cookies) {
+        const [pair] = cookie.split(";");
+
+        if (!pair?.startsWith(`${name}=`)) {
+            continue;
+        }
+
+        return `${name}=${pair.slice(name.length + 1)}`;
+    }
+
+    return null;
+}
 
 describe("resolveConfig", () => {
     it("is enabled by default", () => {
@@ -117,7 +138,7 @@ describe("handleDeploymentProtection", () => {
             __becklyn_dp: "1",
             username: "preview",
             password: "s3cret",
-            return_to: "/\\evil.com",
+            return_to: "/\\\\evil.com",
         });
 
         const response = await handleDeploymentProtection(
@@ -191,6 +212,57 @@ describe("handleDeploymentProtection", () => {
         expect(response).toBeNull();
     });
 
+    it("sets a session cookie when the automation secret is in the query", async () => {
+        const env = {
+            ...baseEnv,
+            VERCEL_AUTOMATION_BYPASS_SECRET: "bypass-secret",
+        };
+        const response = await handleDeploymentProtection(
+            new Request("https://example.com/page?x-vercel-protection-bypass=bypass-secret&keep=1"),
+            { env }
+        );
+
+        expect(response).not.toBeNull();
+        expect(response!.status).toBe(302);
+        expect(response!.headers.get("Location")).toBe("https://example.com/page?keep=1");
+        expect(setCookieHeader(response!)).toContain(SESSION_COOKIE_NAME);
+        expect(setCookieHeader(response!)).not.toContain(BYPASS_COOKIE_NAME);
+
+        const sessionCookie = cookieHeaderFromResponse(response!, SESSION_COOKIE_NAME);
+        expect(sessionCookie).toBeTruthy();
+
+        const followUp = await handleDeploymentProtection(
+            new Request("https://example.com/page?keep=1", {
+                headers: { cookie: sessionCookie! },
+            }),
+            { env }
+        );
+        expect(followUp).toBeNull();
+    });
+
+    it("sets a session cookie from the bypass query even without other auth config", async () => {
+        const env = {
+            VERCEL_AUTOMATION_BYPASS_SECRET: "bypass-secret",
+        };
+        const response = await handleDeploymentProtection(
+            new Request("https://example.com/?x-vercel-protection-bypass=bypass-secret"),
+            { env }
+        );
+
+        expect(response).not.toBeNull();
+        expect(response!.status).toBe(302);
+        expect(setCookieHeader(response!)).toContain(SESSION_COOKIE_NAME);
+
+        const sessionCookie = cookieHeaderFromResponse(response!, SESSION_COOKIE_NAME);
+        const followUp = await handleDeploymentProtection(
+            new Request("https://example.com/", {
+                headers: { cookie: sessionCookie! },
+            }),
+            { env }
+        );
+        expect(followUp).toBeNull();
+    });
+
     it("bypasses with the automation secret query param and sets session", async () => {
         const response = await handleDeploymentProtection(
             new Request(
@@ -206,10 +278,8 @@ describe("handleDeploymentProtection", () => {
         expect(response).not.toBeNull();
         expect(response!.status).toBe(302);
         expect(response!.headers.get("Location")).toBe("https://example.com/page");
-        const cookies = response!.headers.getSetCookie?.() ?? [
-            response!.headers.get("Set-Cookie") ?? "",
-        ];
-        expect(cookies.join("\n")).toContain(SESSION_COOKIE_NAME);
+        expect(setCookieHeader(response!)).toContain(SESSION_COOKIE_NAME);
+        expect(setCookieHeader(response!)).toContain(BYPASS_COOKIE_NAME);
     });
 
     it("shows Sign in with Vercel when configured", async () => {
