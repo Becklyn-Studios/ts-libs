@@ -1,6 +1,6 @@
 {
     "name": "@becklyn/deployment-protection",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "license": "MIT",
     "description": "Simple shared username/password + Sign in with Vercel gate for Next.js and Storybook deployments",
     "homepage": "https://github.com/Becklyn-Studios/ts-libs/tree/main/packages/deployment-protection",
