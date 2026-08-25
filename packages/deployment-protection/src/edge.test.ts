@@ -70,4 +70,19 @@ describe("withEdgeDeploymentProtection", () => {
         const response = await middleware(new Request("https://storybook.example.com/"));
         expect(response.headers.get("x-middleware-next")).toBe("1");
     });
+
+    it("is a no-op when disabled even if the automation bypass secret is set", async () => {
+        const middleware = withEdgeDeploymentProtection({
+            env: {
+                VERCEL_AUTOMATION_BYPASS_SECRET: "bypass-secret",
+                DEPLOYMENT_PROTECTION_ENABLED: "false",
+            },
+        });
+        const response = await middleware(
+            new Request("https://storybook.example.com/?x-vercel-protection-bypass=bypass-secret")
+        );
+        expect(response.status).toBe(200);
+        expect(response.headers.get("x-middleware-next")).toBe("1");
+        expect(response.headers.get("Location")).toBeNull();
+    });
 });

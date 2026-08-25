@@ -61,6 +61,18 @@ describe("resolveConfig", () => {
         expect(isProtectionActive(config)).toBe(false);
     });
 
+    it("lets the kill switch win over the automation bypass secret", () => {
+        const config = resolveConfig({
+            env: {
+                VERCEL_AUTOMATION_BYPASS_SECRET: "bypass-secret",
+                DEPLOYMENT_PROTECTION_ENABLED: "false",
+            },
+        });
+        expect(config.enabled).toBe(false);
+        expect(config.bypassSecret).toBe("bypass-secret");
+        expect(isProtectionActive(config)).toBe(false);
+    });
+
     it("detects vercel oauth config", () => {
         const config = resolveConfig({
             env: {
@@ -138,6 +150,34 @@ describe("handleDeploymentProtection", () => {
             },
         });
         expect(response).toBeNull();
+    });
+
+    it("does not enforce bypass when the kill switch is off", async () => {
+        const env = {
+            VERCEL_AUTOMATION_BYPASS_SECRET: "bypass-secret",
+            DEPLOYMENT_PROTECTION_ENABLED: "false",
+        };
+
+        const anonymous = await handleDeploymentProtection(new Request("https://example.com/"), {
+            env,
+        });
+        expect(anonymous).toBeNull();
+
+        const withHeader = await handleDeploymentProtection(
+            new Request("https://example.com/api/health", {
+                headers: {
+                    [BYPASS_HEADER]: "bypass-secret",
+                },
+            }),
+            { env }
+        );
+        expect(withHeader).toBeNull();
+
+        const withQuery = await handleDeploymentProtection(
+            new Request("https://example.com/?x-vercel-protection-bypass=bypass-secret"),
+            { env }
+        );
+        expect(withQuery).toBeNull();
     });
 
     it("returns a login page when unauthenticated", async () => {

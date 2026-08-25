@@ -41,6 +41,23 @@ describe("withDeploymentProtection", () => {
         expect(response.status).toBe(302);
         expect(response.cookies.get(SESSION_COOKIE_NAME)?.value).toBeTruthy();
     });
+
+    it("passes through when the kill switch is off even if the bypass secret is set", async () => {
+        const middleware = withDeploymentProtection({
+            env: {
+                VERCEL_AUTOMATION_BYPASS_SECRET: "bypass-secret",
+                DEPLOYMENT_PROTECTION_ENABLED: "false",
+            },
+        });
+        const request = new NextRequest(
+            "https://example.com/?x-vercel-protection-bypass=bypass-secret"
+        );
+        const response = await middleware(request);
+
+        expect(response.status).toBe(200);
+        expect(response.headers.get("Location")).toBeNull();
+        expect(response.cookies.get(SESSION_COOKIE_NAME)).toBeUndefined();
+    });
 });
 
 function packageSource(relativePath: string): string {
@@ -61,5 +78,13 @@ describe("JSDoc matcher examples", () => {
                 expect(match[1], file).toHaveLength(2);
             }
         }
+    });
+});
+
+describe("config env access", () => {
+    it("reads the kill switch and bypass secret via static process.env members", () => {
+        const source = packageSource("config.ts");
+        expect(source).toContain("process.env.DEPLOYMENT_PROTECTION_ENABLED");
+        expect(source).toContain("process.env.VERCEL_AUTOMATION_BYPASS_SECRET");
     });
 });

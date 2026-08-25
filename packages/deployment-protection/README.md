@@ -7,7 +7,7 @@ Use this instead of (or after disabling) Vercel platform Deployment Protection w
 - a **shared username/password** from env vars
 - optional **Sign in with Vercel** for team members
 - always-on **automation bypass** via `x-vercel-protection-bypass` / `VERCEL_AUTOMATION_BYPASS_SECRET`
-- a kill switch (`DEPLOYMENT_PROTECTION_ENABLED`, on by default)
+- a kill switch (`DEPLOYMENT_PROTECTION_ENABLED`, on by default) that disables the **entire** gate, including automation bypass
 
 Protection runs in:
 
@@ -124,6 +124,8 @@ export default withDeploymentProtection(async request => {
 
 At least one of password auth, Vercel OAuth (proxy or direct), or a bypass secret must be configured while enabled. If nothing is configured, the gate stays inactive (fail-open) so local dev is not bricked.
 
+`DEPLOYMENT_PROTECTION_ENABLED=false` **always wins**. A set `VERCEL_AUTOMATION_BYPASS_SECRET` (Vercel injects this on most projects) does not keep the gate active.
+
 ### 3. Sign in with Vercel via auth-proxy (recommended)
 
 Register **one** OAuth callback URL on a shared [Sign in with Vercel](https://vercel.com/docs/sign-in-with-vercel) app:
@@ -230,6 +232,8 @@ The header form stays one-shot (no cookies) so CI/Playwright can send it on each
 
 When platform Deployment Protection is disabled, **this package** enforces the bypass secret so CI/Playwright keep working the same way.
 
+Bypass is only enforced while the gate is enabled. `DEPLOYMENT_PROTECTION_ENABLED=false` turns off challenges **and** bypass handling.
+
 ## Behaviour
 
 1. Disabled / misconfigured → pass through
@@ -248,7 +252,7 @@ Session cookie: `__becklyn_dp_session` (HMAC-SHA256, 14 days by default). On HTT
 DEPLOYMENT_PROTECTION_ENABLED=false
 ```
 
-Redeploy. Middleware stays installed but is a no-op.
+Redeploy. Middleware stays installed but is a no-op — including when `VERCEL_AUTOMATION_BYPASS_SECRET` is set.
 
 ## API
 
