@@ -213,6 +213,12 @@ export function clearOAuthCookies(response: Response, secure: boolean): void {
     }
 }
 
+const SAME_SITE_LABEL: Record<"lax" | "strict" | "none", string> = {
+    lax: "Lax",
+    strict: "Strict",
+    none: "None",
+};
+
 export function appendSetCookie(
     response: Response,
     name: string,
@@ -242,9 +248,7 @@ export function appendSetCookie(
     }
 
     if (options.sameSite) {
-        parts.push(
-            `SameSite=${options.sameSite === "none" ? "None" : options.sameSite[0]!.toUpperCase()}${options.sameSite.slice(1)}`
-        );
+        parts.push(`SameSite=${SAME_SITE_LABEL[options.sameSite]}`);
     }
 
     response.headers.append("Set-Cookie", parts.join("; "));

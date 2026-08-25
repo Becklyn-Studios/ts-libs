@@ -3,7 +3,8 @@ import { hasPasswordAuth, hasVercelAuth, isProtectionActive, resolveConfig } fro
 import { BYPASS_COOKIE_NAME, BYPASS_HEADER, SESSION_COOKIE_NAME } from "./constants";
 import { timingSafeEqualString } from "./crypto";
 import { handleDeploymentProtection } from "./handler";
-import { createSessionToken, verifySessionToken } from "./session";
+import { createSessionToken, sessionCookieOptions, verifySessionToken } from "./session";
+import { appendSetCookie } from "./vercel-oauth";
 
 const baseEnv = {
     DEPLOYMENT_PROTECTION_USERNAME: "preview",
@@ -14,6 +15,11 @@ const baseEnv = {
 function setCookieHeader(response: Response): string {
     const cookies = response.headers.getSetCookie?.() ?? [response.headers.get("Set-Cookie") ?? ""];
     return cookies.join("\n");
+}
+
+function namedSetCookie(response: Response, name: string): string {
+    const cookies = response.headers.getSetCookie?.() ?? [response.headers.get("Set-Cookie") ?? ""];
+    return cookies.find(cookie => cookie.startsWith(`${name}=`)) ?? "";
 }
 
 function cookieHeaderFromResponse(response: Response, name: string): string | null {
@@ -30,6 +36,10 @@ function cookieHeaderFromResponse(response: Response, name: string): string | nu
     }
 
     return null;
+}
+
+function expectSameSiteNone(cookie: string) {
+    expect(cookie).toMatch(/;\s*SameSite=None(?:;|$)/);
 }
 
 describe("resolveConfig", () => {
@@ -76,6 +86,38 @@ describe("session tokens", () => {
         const token = await createSessionToken("secret", "password", "preview", 60);
         const tampered = token.replace(/\./, ".x");
         expect(await verifySessionToken("secret", tampered)).toBeNull();
+    });
+
+    it("uses SameSite=None; Secure on HTTPS and Lax on HTTP", () => {
+        expect(sessionCookieOptions(60, true)).toEqual({
+            httpOnly: true,
+            sameSite: "none",
+            secure: true,
+            path: "/",
+            maxAge: 60,
+        });
+        expect(sessionCookieOptions(60, false)).toEqual({
+            httpOnly: true,
+            sameSite: "lax",
+            secure: false,
+            path: "/",
+            maxAge: 60,
+        });
+    });
+});
+
+describe("appendSetCookie", () => {
+    it("serializes SameSite=None without a trailing suffix", () => {
+        const response = new Response(null);
+        appendSetCookie(response, "test", "value", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            path: "/",
+        });
+        expect(response.headers.get("Set-Cookie")).toBe(
+            "test=value; Path=/; HttpOnly; Secure; SameSite=None"
+        );
     });
 });
 
@@ -131,6 +173,30 @@ describe("handleDeploymentProtection", () => {
         expect(response!.status).toBe(302);
         expect(response!.headers.get("Location")).toBe("https://example.com/dashboard");
         expect(response!.headers.get("Set-Cookie")).toContain(SESSION_COOKIE_NAME);
+        expectSameSiteNone(namedSetCookie(response!, SESSION_COOKIE_NAME));
+        expect(namedSetCookie(response!, SESSION_COOKIE_NAME)).toContain("Secure");
+    });
+
+    it("sets the session cookie as SameSite=Lax on HTTP", async () => {
+        const body = new URLSearchParams({
+            __becklyn_dp: "1",
+            username: "preview",
+            password: "s3cret",
+            return_to: "/",
+        });
+
+        const response = await handleDeploymentProtection(
+            new Request("http://localhost:3000/", {
+                method: "POST",
+                headers: { "content-type": "application/x-www-form-urlencoded" },
+                body,
+            }),
+            { env: baseEnv }
+        );
+
+        expect(response).not.toBeNull();
+        expect(namedSetCookie(response!, SESSION_COOKIE_NAME)).toMatch(/;\s*SameSite=Lax(?:;|$)/);
+        expect(namedSetCookie(response!, SESSION_COOKIE_NAME)).not.toMatch(/SameSite=None/);
     });
 
     it("does not open-redirect on malicious return_to after login", async () => {
@@ -227,6 +293,7 @@ describe("handleDeploymentProtection", () => {
         expect(response!.headers.get("Location")).toBe("https://example.com/page?keep=1");
         expect(setCookieHeader(response!)).toContain(SESSION_COOKIE_NAME);
         expect(setCookieHeader(response!)).not.toContain(BYPASS_COOKIE_NAME);
+        expectSameSiteNone(namedSetCookie(response!, SESSION_COOKIE_NAME));
 
         const sessionCookie = cookieHeaderFromResponse(response!, SESSION_COOKIE_NAME);
         expect(sessionCookie).toBeTruthy();
@@ -352,6 +419,7 @@ describe("auth proxy mode on protected apps", () => {
         expect(response!.status).toBe(302);
         expect(response!.headers.get("Location")).toBe("https://app.example.com/home");
         expect(response!.headers.get("Set-Cookie")).toContain(SESSION_COOKIE_NAME);
+        expectSameSiteNone(namedSetCookie(response!, SESSION_COOKIE_NAME));
     });
 
     it("shows Sign in with Vercel when only auth proxy is configured", async () => {

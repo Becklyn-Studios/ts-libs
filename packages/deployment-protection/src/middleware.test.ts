@@ -24,6 +24,7 @@ describe("withDeploymentProtection", () => {
         expect(response.status).toBe(302);
         expect(response.headers.get("Location")).toBe("https://example.com/page");
         expect(response.cookies.get(SESSION_COOKIE_NAME)?.value).toBeTruthy();
+        expect(response.headers.get("set-cookie")?.toLowerCase()).toContain("samesite=none");
     });
 
     it("does not require x-vercel-set-bypass-cookie to persist the session", async () => {
@@ -53,7 +54,7 @@ describe("JSDoc matcher examples", () => {
     it("use two backslashes so copied regex excludes static assets", () => {
         for (const file of ["middleware.ts", "storybook.ts"] as const) {
             const source = packageSource(file);
-            const matches = [...source.matchAll(/\.\*(\\+)\./g)];
+            const matches = [...source.matchAll(/\.\*(\\\\+)\./g)];
             expect(matches.length).toBeGreaterThan(0);
 
             for (const match of matches) {

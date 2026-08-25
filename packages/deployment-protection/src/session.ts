@@ -76,7 +76,9 @@ export async function verifySessionToken(
 export function sessionCookieOptions(maxAge: number, secure: boolean) {
     return {
         httpOnly: true,
-        sameSite: "lax" as const,
+        // SameSite=None; Secure is required for third-party iframes (e.g. Contentful).
+        // Browsers reject SameSite=None without Secure, so HTTP (localhost) stays Lax.
+        sameSite: (secure ? "none" : "lax") as "none" | "lax",
         secure,
         path: "/",
         maxAge,
