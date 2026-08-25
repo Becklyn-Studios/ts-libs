@@ -240,7 +240,7 @@ When platform Deployment Protection is disabled, **this package** enforces the b
 6. Valid session or bypass cookie → allow
 7. Else → HTML login page (password and/or Sign in with Vercel)
 
-Session cookie: `__becklyn_dp_session` (HMAC-SHA256, 14 days by default).
+Session cookie: `__becklyn_dp_session` (HMAC-SHA256, 14 days by default). On HTTPS it is `HttpOnly; Secure; SameSite=None` so a logged-in session is sent when the preview is embedded in a third-party iframe (e.g. Contentful live preview). On HTTP (localhost) it stays `SameSite=Lax` because browsers reject `SameSite=None` without `Secure`.
 
 ## Disable without code changes
 
@@ -283,6 +283,8 @@ Recommended matcher (must be pasted as a string literal in your middleware/proxy
 - Do not put the raw handoff secret in query strings — only signatures/tokens.
 - Turn off paid Vercel Password Protection / seat-heavy sharing once this is live; keep `VERCEL_AUTOMATION_BYPASS_SECRET` configured for tooling.
 - Middleware is a convenience edge check — do not treat it as the only control for highly sensitive data.
+- `__becklyn_dp_session` is `SameSite=None` on HTTPS so third-party iframes can send it. That cookie only decides whether the preview may load; apps must still CSRF-protect their own state-changing endpoints. OAuth state/PKCE cookies stay `SameSite=Lax`.
+- Safari (and some Chrome third-party-cookie settings) may still block unpartitioned third-party cookies even with `SameSite=None`.
 
 ## License
 
