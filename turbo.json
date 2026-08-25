@@ -4,7 +4,8 @@
     "tasks": {
         "build": {
             "dependsOn": ["^build"],
-            "inputs": ["$TURBO_DEFAULT$", ".env*"]
+            "inputs": ["$TURBO_DEFAULT$", ".env*"],
+            "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
         },
         "storybook-build": {
             "dependsOn": ["^build"],
@@ -14,7 +15,7 @@
             "dependsOn": ["^lint"]
         },
         "test": {
-            "dependsOn": ["^test"]
+            "dependsOn": ["build"]
         },
         "check-types": {
             "dependsOn": ["^check-types"]

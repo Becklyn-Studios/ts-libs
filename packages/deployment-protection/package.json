@@ -11,9 +11,9 @@
     "scripts": {
         "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx,md,json,mjs}\"",
         "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,md,json,mjs}\"",
-        "test": "npm run build && vitest run",
+        "test": "vitest run",
         "build": "rm -rf dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json && node ./scripts/build-edge-bundles.mjs",
-        "prepublishOnly": "npm run lint && npm run test"
+        "prepublishOnly": "npm run lint && npm run build && npm run test"
     },
     "devDependencies": {
         "@becklyn/eslint": "*",
