@@ -14,6 +14,7 @@ import {
     OAUTH_RETURN_COOKIE,
     OAUTH_VERIFIER_COOKIE,
     SESSION_COOKIE_NAME,
+    SET_BYPASS_COOKIE_HEADER,
     VERCEL_AUTHORIZE_PATH,
     VERCEL_CALLBACK_PATH,
 } from "./constants";
@@ -65,6 +66,15 @@ function redirect(request: Request, location: string, status = 302): Response {
     });
 }
 
+/**
+ * Prefer the dedicated session secret; fall back to the automation bypass secret
+ * so a query-param bypass can still persist `__becklyn_dp_session` when no
+ * username/password or explicit HMAC secret is configured.
+ */
+function signingSecret(config: DeploymentProtectionConfig): string | null {
+    return config.secret ?? config.bypassSecret;
+}
+
 async function attachSession(
     response: Response,
     config: DeploymentProtectionConfig,
@@ -72,16 +82,13 @@ async function attachSession(
     subject: string,
     secure: boolean
 ): Promise<Response> {
-    if (!config.secret) {
+    const secret = signingSecret(config);
+
+    if (!secret) {
         return response;
     }
 
-    const token = await createSessionToken(
-        config.secret,
-        method,
-        subject,
-        config.sessionTtlSeconds
-    );
+    const token = await createSessionToken(secret, method, subject, config.sessionTtlSeconds);
     const opts = sessionCookieOptions(config.sessionTtlSeconds, secure);
     appendSetCookie(response, SESSION_COOKIE_NAME, token, opts);
     return response;
@@ -106,11 +113,13 @@ async function handleBypass(
     const setCookieMode = shouldSetBypassCookie(request);
     const url = new URL(request.url);
     const hadQueryBypass = url.searchParams.has(BYPASS_HEADER);
-    const hadSetCookieQuery = url.searchParams.has("x-vercel-set-bypass-cookie");
+    const hadSetCookieQuery = url.searchParams.has(SET_BYPASS_COOKIE_HEADER);
 
+    // Query-param bypass (and the Vercel set-cookie helper) persist auth, then
+    // strip secrets from the URL. Header-only automation stays one-shot.
     if (hadQueryBypass || hadSetCookieQuery || setCookieMode) {
         url.searchParams.delete(BYPASS_HEADER);
-        url.searchParams.delete("x-vercel-set-bypass-cookie");
+        url.searchParams.delete(SET_BYPASS_COOKIE_HEADER);
         const response = redirect(request, url.pathname + url.search + url.hash);
         const secure = isSecureRequest(request);
 
@@ -124,6 +133,7 @@ async function handleBypass(
             });
         }
 
+        // Always persist a signed session when the bypass secret arrived via query.
         await attachSession(response, config, "bypass", "automation", secure);
         return { kind: "respond", response };
     }
@@ -343,11 +353,10 @@ export async function handleDeploymentProtection(
         return null;
     }
 
-    if (config.secret) {
-        const session = await verifySessionToken(
-            config.secret,
-            readCookie(request, SESSION_COOKIE_NAME)
-        );
+    const secret = signingSecret(config);
+
+    if (secret) {
+        const session = await verifySessionToken(secret, readCookie(request, SESSION_COOKIE_NAME));
 
         if (session) {
             return null;

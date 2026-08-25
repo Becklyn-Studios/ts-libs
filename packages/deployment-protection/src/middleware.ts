@@ -18,6 +18,18 @@ export type WithDeploymentProtectionArgs =
     | [NextMiddleware]
     | [NextMiddleware, DeploymentProtectionOptions];
 
+type CookieSameSite = "lax" | "strict" | "none";
+
+interface ParsedSetCookie {
+    name: string;
+    value: string;
+    httpOnly?: boolean;
+    secure?: boolean;
+    path?: string;
+    maxAge?: number;
+    sameSite?: CookieSameSite;
+}
+
 function isOptions(value: unknown): value is DeploymentProtectionOptions {
     return (
         typeof value === "object" &&
@@ -25,6 +37,100 @@ function isOptions(value: unknown): value is DeploymentProtectionOptions {
         !Array.isArray(value) &&
         typeof value !== "function"
     );
+}
+
+function decodeCookieValue(value: string): string {
+    try {
+        return decodeURIComponent(value);
+    } catch {
+        return value;
+    }
+}
+
+function parseSetCookie(header: string): ParsedSetCookie | null {
+    const parts = header
+        .split(";")
+        .map(part => part.trim())
+        .filter(Boolean);
+    const first = parts.shift();
+
+    if (!first) {
+        return null;
+    }
+
+    const separator = first.indexOf("=");
+
+    if (separator <= 0) {
+        return null;
+    }
+
+    const parsed: ParsedSetCookie = {
+        name: first.slice(0, separator),
+        value: decodeCookieValue(first.slice(separator + 1)),
+    };
+
+    for (const part of parts) {
+        const [rawKey, ...rest] = part.split("=");
+        const key = rawKey?.toLowerCase();
+        const attrValue = rest.join("=");
+
+        if (key === "httponly") {
+            parsed.httpOnly = true;
+        } else if (key === "secure") {
+            parsed.secure = true;
+        } else if (key === "path") {
+            parsed.path = attrValue;
+        } else if (key === "max-age") {
+            const maxAge = Number(attrValue);
+
+            if (!Number.isNaN(maxAge)) {
+                parsed.maxAge = maxAge;
+            }
+        } else if (key === "samesite") {
+            const sameSite = attrValue.toLowerCase();
+
+            if (sameSite === "lax" || sameSite === "strict" || sameSite === "none") {
+                parsed.sameSite = sameSite;
+            }
+        }
+    }
+
+    return parsed;
+}
+
+function readSetCookieHeaders(headers: Headers): string[] {
+    if (typeof headers.getSetCookie === "function") {
+        const cookies = headers.getSetCookie();
+
+        if (cookies.length > 0) {
+            return cookies;
+        }
+    }
+
+    const single = headers.get("set-cookie");
+    return single ? [single] : [];
+}
+
+/**
+ * Next.js middleware only reliably applies cookies set via `NextResponse.cookies`.
+ * Copying raw `Set-Cookie` headers onto a redirect is ignored by the runtime.
+ */
+function applyCookies(from: Response, to: NextResponse): void {
+    for (const header of readSetCookieHeaders(from.headers)) {
+        const cookie = parseSetCookie(header);
+
+        if (!cookie) {
+            continue;
+        }
+
+        to.cookies.set(cookie.name, cookie.value, {
+            httpOnly: cookie.httpOnly,
+            secure: cookie.secure,
+            path: cookie.path,
+            maxAge: cookie.maxAge,
+            sameSite: cookie.sameSite,
+        });
+    }
 }
 
 function toNextResponse(request: NextRequest, response: Response): NextResponse {
@@ -38,6 +144,7 @@ function toNextResponse(request: NextRequest, response: Response): NextResponse 
         );
 
         copyHeaders(response, redirectResponse, /* skipLocation */ true);
+        applyCookies(response, redirectResponse);
         return redirectResponse;
     }
 
@@ -46,27 +153,16 @@ function toNextResponse(request: NextRequest, response: Response): NextResponse 
         statusText: response.statusText,
     });
     copyHeaders(response, nextResponse, false);
+    applyCookies(response, nextResponse);
     return nextResponse;
 }
 
 function copyHeaders(from: Response, to: NextResponse, skipLocation: boolean): void {
-    const setCookies =
-        typeof from.headers.getSetCookie === "function" ? from.headers.getSetCookie() : [];
-
-    if (setCookies.length > 0) {
-        for (const cookie of setCookies) {
-            to.headers.append("Set-Cookie", cookie);
-        }
-    }
-
     from.headers.forEach((value, key) => {
         const lower = key.toLowerCase();
 
         if (lower === "set-cookie") {
-            // Already copied via getSetCookie when available; fall back otherwise.
-            if (setCookies.length === 0) {
-                to.headers.append("Set-Cookie", value);
-            }
+            // Applied via NextResponse.cookies so the middleware runtime honors them.
             return;
         }
 

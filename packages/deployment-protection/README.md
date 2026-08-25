@@ -215,8 +215,18 @@ x-vercel-protection-bypass: <VERCEL_AUTOMATION_BYPASS_SECRET>
 Or query:
 
 ```text
+https://app.example/?x-vercel-protection-bypass=<secret>
+```
+
+A valid bypass query param redirects to the same path without the secret and sets the signed `__becklyn_dp_session` cookie, so later requests stay authenticated. You do not need `x-vercel-set-bypass-cookie` for that.
+
+Optional Vercel-compatible helper — also persist the raw bypass secret as `__becklyn_dp_bypass`:
+
+```text
 https://app.example/?x-vercel-protection-bypass=<secret>&x-vercel-set-bypass-cookie=true
 ```
+
+The header form stays one-shot (no cookies) so CI/Playwright can send it on each request.
 
 When platform Deployment Protection is disabled, **this package** enforces the bypass secret so CI/Playwright keep working the same way.
 
@@ -225,9 +235,10 @@ When platform Deployment Protection is disabled, **this package** enforces the b
 1. Disabled / misconfigured → pass through
 2. Internal Vercel OAuth routes → handled by the package (proxy start or direct OAuth / handoff)
 3. Login form `POST` → validate username/password, set signed HttpOnly session cookie
-4. Valid bypass header/query/cookie → allow (optionally set cookies)
-5. Valid session cookie → allow
-6. Else → HTML login page (password and/or Sign in with Vercel)
+4. Valid bypass header → allow this request
+5. Valid bypass query param → set `__becklyn_dp_session`, redirect to the cleaned URL
+6. Valid session or bypass cookie → allow
+7. Else → HTML login page (password and/or Sign in with Vercel)
 
 Session cookie: `__becklyn_dp_session` (HMAC-SHA256, 14 days by default).
 
