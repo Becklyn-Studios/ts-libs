@@ -12,7 +12,7 @@
     },
     "dependencies": {
         "@becklyn/deployment-protection": "*",
-        "next": "^16.3.0",
+        "next": "^16.3.4",
         "react": "^19.2.8",
         "react-dom": "^19.2.8"
     },
@@ -21,7 +21,7 @@
         "@becklyn/tsconfig": "*",
         "@types/node": "^25.9.5",
         "@types/react": "^19.2.18",
-        "@types/react-dom": "^19.2.4",
+        "@types/react-dom": "^19.2.7",
         "typescript": "^5.9.3"
     },
     "prettier": "@becklyn/prettier"
