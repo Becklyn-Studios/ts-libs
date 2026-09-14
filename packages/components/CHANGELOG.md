@@ -1,5 +1,11 @@
 # @becklyn/components
 
+## 0.4.8
+
+### Patch Changes
+
+- 22425b2: update dependencies
+
 ## 0.4.7
 
 ### Patch Changes

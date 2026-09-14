@@ -1,5 +1,11 @@
 # @becklyn/deployment-protection
 
+## 0.4.4
+
+### Patch Changes
+
+- 22425b2: update dependencies
+
 ## 0.4.3
 
 ### Patch Changes

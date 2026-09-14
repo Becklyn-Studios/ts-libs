@@ -1,6 +1,6 @@
 {
     "name": "@becklyn/deployment-protection-auth-proxy",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "private": true,
     "description": "Central Sign in with Vercel auth-proxy for @becklyn/deployment-protection",
     "scripts": {

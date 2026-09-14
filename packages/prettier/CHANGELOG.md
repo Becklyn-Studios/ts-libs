@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.15
+
+### Patch Changes
+
+- 22425b2: update dependencies
+
 ## 2.1.14
 
 ### Patch Changes
