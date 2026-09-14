@@ -20,7 +20,7 @@
         "@types/styled-components": "^5.1.36",
         "react": "^19.3.0",
         "react-dom": "^19.3.0",
-        "styled-components": "^5.3.11"
+        "styled-components": "^6.5.3"
     },
     "peerDependencies": {
         "react": "^18.3.1 || ^19.0.0",
