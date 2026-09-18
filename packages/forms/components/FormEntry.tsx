@@ -48,7 +48,7 @@ export const FormEntry = <
         [entry, fieldConfigs]
     );
 
-    const [hasChildren, setHasChildren] = useState(getHasChildren(data.get()));
+    const [hasChildren, setHasChildren] = useState(() => getHasChildren(data.get()));
 
     useEffect(() => {
         const remove = data.subscribe(() => {

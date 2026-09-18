@@ -8,7 +8,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
     const consentDetails = useRef<ConsentDetails | null>(null);
     const [consentUpdate, setConsentUpdate] = useState<number>(0);
     const incrementConsentUpdate = () => setConsentUpdate(prev => prev + 1);
-    const [isInitialized, setInitialized] = useState<boolean>(false);
+    const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
     const logUcNotInitializedMessage = () => {
         console.debug("Usercentircs is not initialized.");
@@ -76,7 +76,7 @@ export const useUsercentricsHook = ({ debug }: UsercentricsProps): UsercentricsD
         });
 
         cmp.isInitialized().then(v => {
-            setInitialized(v);
+            setIsInitialized(v);
         });
     }, [cmp]);
 

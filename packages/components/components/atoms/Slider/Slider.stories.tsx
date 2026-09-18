@@ -7,6 +7,7 @@ const SLIDE_COLORS = ["#4f86c6", "#6abf69", "#f0a500", "#e05c5c", "#a97cc7"];
 const SampleSlides = ({ count = 3 }: { count?: number }) => (
     <>
         {Array.from({ length: count }).map((_, i) => (
+            // eslint-disable-next-line react-x/no-array-index-key -- slides are generated from a count, the index is their only identity
             <Slide key={i}>
                 <div
                     style={{

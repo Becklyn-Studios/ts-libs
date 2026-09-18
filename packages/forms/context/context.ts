@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Context, createContext, useContext } from "react";
+import { Context, createContext, use } from "react";
 import { FormStore } from "../hook/useFormStore";
 import { FormValidations } from "../hook/useFormValidations";
 import { FormFieldConfig, FormInputFunc, FormValidationStrategy } from "../type";
@@ -26,4 +26,4 @@ export const FormContext = createContext<FormContextProps<FormFieldConfig<string
 export const useForm = <
     T extends FormFieldConfig<string, any, any, GlobalFormData>,
     GlobalFormData extends Record<string, any>,
->() => useContext(FormContext as unknown as Context<FormContextProps<T, GlobalFormData>>);
+>() => use(FormContext as unknown as Context<FormContextProps<T, GlobalFormData>>);

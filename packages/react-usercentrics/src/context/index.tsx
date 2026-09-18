@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, createContext, useContext } from "react";
+import React, { PropsWithChildren, createContext, use } from "react";
 import { useUsercentricsHook } from "../hook";
 import { UCCmp } from "../types";
 
@@ -26,7 +26,7 @@ export const UsercentricsProvider: React.FC<PropsWithChildren<UsercentricsProps>
 }) => {
     const data = useUsercentricsHook(props);
 
-    return <UsercentricsContext.Provider value={data}>{children}</UsercentricsContext.Provider>;
+    return <UsercentricsContext value={data}>{children}</UsercentricsContext>;
 };
 
-export const useUsercentrics = () => useContext(UsercentricsContext);
+export const useUsercentrics = () => use(UsercentricsContext);

@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
+import { FC, PropsWithChildren, createContext, use, useEffect, useState } from "react";
 import Script from "next/script";
 import { CookiebotConsent } from "./types";
 
@@ -106,7 +106,7 @@ export const CookiebotProvider: FC<PropsWithChildren<CookiebotProviderProps>> = 
     }, []);
 
     return (
-        <CookiebotProviderContext.Provider
+        <CookiebotProviderContext
             value={{
                 openWidget,
                 closeWidget,
@@ -124,11 +124,11 @@ export const CookiebotProvider: FC<PropsWithChildren<CookiebotProviderProps>> = 
                 src={`https://consent.cookiebot.com/uc.js?cbid=${cookieBotId}`}
             />
             {children}
-        </CookiebotProviderContext.Provider>
+        </CookiebotProviderContext>
     );
 };
 
-export const useCookiebot = () => useContext(CookiebotProviderContext);
+export const useCookiebot = () => use(CookiebotProviderContext);
 
 export const withCookiebot = <P extends object>(Component: FC<P & CookiebotProviderProps>) => {
     return (props: P & CookiebotProviderProps) => (

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PropsWithChildren, useContext, useRef } from "react";
+import { PropsWithChildren, use, useRef } from "react";
 import { FormStore, useFormStore } from "../../hook/useFormStore";
 import {
     FormConfig,
@@ -50,12 +50,12 @@ export const FormDataProvider = <
     });
 
     return (
-        <FormConfigContext.Provider value={{ config }}>
+        <FormConfigContext value={{ config }}>
             {/* eslint-disable-next-line react-hooks/refs */}
             <FormDataReadyProvider {...props} initialData={initialDataRef.current}>
                 {children}
             </FormDataReadyProvider>
-        </FormConfigContext.Provider>
+        </FormConfigContext>
     );
 };
 
@@ -71,7 +71,7 @@ const FormDataReadyProvider = <
     editData: inputEditData,
     errors: inputErrors,
 }: PropsWithChildren<Omit<FormProviderProps<T, GlobalFormData>, "config">>) => {
-    const externalContext = useContext(FormDataContext);
+    const externalContext = use(FormDataContext);
 
     const internalData = useFormStore<Partial<GlobalFormData>>(initialData ?? {});
     const internalEditData = useFormStore<Partial<GlobalFormData>>({});
@@ -85,9 +85,5 @@ const FormDataReadyProvider = <
     const errors =
         inputErrors || (inheritErrors && externalContext ? externalContext.errors : internalErrors);
 
-    return (
-        <FormDataContext.Provider value={{ data, editData, errors }}>
-            {children}
-        </FormDataContext.Provider>
-    );
+    return <FormDataContext value={{ data, editData, errors }}>{children}</FormDataContext>;
 };

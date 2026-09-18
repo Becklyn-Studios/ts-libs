@@ -5,7 +5,7 @@ import {
     FC,
     PropsWithChildren,
     createContext,
-    useContext,
+    use,
     useEffect,
     useLayoutEffect,
 } from "react";
@@ -52,7 +52,7 @@ export const GtmProvider: FC<PropsWithChildren<GtmProviderProps>> = ({
     }, []);
 
     return (
-        <Context.Provider value={{ hasConsent }}>
+        <Context value={{ hasConsent }}>
             {hasConsent && (
                 <Script id="google-tag-manager" data-cookieconsent="marketing">
                     {`
@@ -65,11 +65,11 @@ export const GtmProvider: FC<PropsWithChildren<GtmProviderProps>> = ({
                 </Script>
             )}
             {children}
-        </Context.Provider>
+        </Context>
     );
 };
 
-export const useGtm = () => useContext(Context);
+export const useGtm = () => use(Context);
 
 export const withGtm = <P extends {} & GtmProviderProps>(Component: FC<P>) => {
     return (props: P) => (

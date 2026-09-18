@@ -36,6 +36,7 @@ export const FormSection = <
     return (
         <SectionWrapper>
             {section.content.map((entry, index) => (
+                // eslint-disable-next-line react-x/no-array-index-key -- form config is static; entries carry no stable id
                 <FormEntry key={index} entry={entry} Components={Components}>
                     {children}
                 </FormEntry>
