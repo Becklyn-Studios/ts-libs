@@ -1,0 +1,96 @@
+@use "@becklyn/next/scss/mixins" as *;
+
+$border-color: #000;
+$hover-color: #00f;
+$disabled-color: #aaa;
+
+.wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 1px solid $border-color;
+    position: relative;
+    cursor: pointer;
+    color: transparent;
+    @include square(20px);
+    @include transition(color);
+
+    @include hover {
+        border-color: $hover-color;
+    }
+
+    @include focus-visible {
+        outline: 2px solid $hover-color;
+        outline-offset: 0;
+    }
+
+    &:disabled {
+        color: transparent;
+
+        &,
+        &:hover,
+        &:active,
+        &:focus {
+            border-color: #aaa;
+        }
+
+        &:checked {
+            color: $disabled-color;
+        }
+
+        &::before {
+            opacity: 50%;
+        }
+    }
+
+    &::before {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: currentColor;
+        pointer-events: none;
+        content: "";
+    }
+
+    &::after {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -60%, 0) rotate(45deg) scale(0.8);
+        transform-origin: center;
+        border: 2px solid $border-color;
+        opacity: 0;
+        border-width: 0 2px 2px 0;
+        width: 6px;
+        height: 12px;
+        pointer-events: none;
+        content: "";
+        @include transition(opacity);
+    }
+
+
+    &:checked {
+        &::after {
+            opacity: 1;
+        }
+    }
+}
+
+
+.label {
+    cursor: pointer;
+    padding-left: 8px;
+    user-select: none;
+
+    &.disabled {
+        color: $disabled-color;
+    }
+}
