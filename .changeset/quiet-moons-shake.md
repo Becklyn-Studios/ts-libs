@@ -1,6 +1,6 @@
 ---
 "@becklyn/react-usercentrics": major
-"@becklyn/components": major
+"@becklyn/components": minor
 "@becklyn/forms": major
 "@becklyn/next": major
 ---
@@ -11,7 +11,9 @@ The React packages in this repo standardise on React 19. `@becklyn/forms`,
 `@becklyn/next` and `@becklyn/react-usercentrics` use React 19-only APIs
 internally — `use(Context)` in place of `useContext(Context)`, and `<Context>`
 in place of `<Context.Provider>`. `@becklyn/components` follows the same policy
-so the set stays consistent.
+so the set stays consistent — but as a minor bump (0.4.8 → 0.5.0), not a
+major one. The package is not ready to claim a 1.0; on 0.x a minor is the
+conventional way to signal a breaking change.
 
 Peer ranges:
 
