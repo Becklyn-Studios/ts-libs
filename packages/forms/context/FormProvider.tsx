@@ -1,4 +1,4 @@
-import { PropsWithChildren, useContext, useMemo } from "react";
+import { PropsWithChildren, use, useMemo } from "react";
 import { useFormValidations } from "../hook/useFormValidations";
 import { FormFieldConfig } from "../type";
 import { fieldsFromConfig } from "../util";
@@ -32,7 +32,7 @@ export const FormProviderInner = <
     ...props
 }: PropsWithChildren<FormProviderProps<T, GlobalFormData>>) => {
     const externalForm = useForm<T, GlobalFormData>();
-    const { data, editData } = useContext(FormDataContext);
+    const { data, editData } = use(FormDataContext);
     const { config, validationStrategy = "blur", onInput: internalOnInput, inheritData } = props;
 
     const onInput = inheritData && externalForm ? externalForm.onInput : internalOnInput;
@@ -44,7 +44,7 @@ export const FormProviderInner = <
     const formValidations = useFormValidations(config, fieldConfigs);
 
     return (
-        <FormContext.Provider
+        <FormContext
             value={{
                 ...formValidations,
                 data,
@@ -55,6 +55,6 @@ export const FormProviderInner = <
                 onInput,
             }}>
             {children}
-        </FormContext.Provider>
+        </FormContext>
     );
 };

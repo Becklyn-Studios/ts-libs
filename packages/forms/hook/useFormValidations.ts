@@ -1,4 +1,4 @@
-import { useCallback, useContext } from "react";
+import { use, useCallback } from "react";
 import { FormDataContext } from "../context/data/context";
 import { FormConfig, FormError, FormErrors, FormFieldConfig } from "../type";
 import { handleValidateConfig, handleValidateField } from "../validation";
@@ -31,7 +31,7 @@ export const useFormValidations = <
 ): FormValidations<T, GlobalFormData> => {
     const configRef = useRefEffect(config);
     const fieldConfigsRef = useRefEffect(fieldConfigs);
-    const { data, errors } = useContext(FormDataContext);
+    const { data, errors } = use(FormDataContext);
 
     const validateForm = useCallback(
         (

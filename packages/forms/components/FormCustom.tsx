@@ -32,6 +32,7 @@ export const FormCustom = <
         <React.Fragment>
             {custom.wrapper(
                 custom.content.map((entry, index) => (
+                    // eslint-disable-next-line react-x/no-array-index-key -- form config is static; entries carry no stable id
                     <FormEntry key={index} entry={entry} Components={Components}>
                         {children}
                     </FormEntry>

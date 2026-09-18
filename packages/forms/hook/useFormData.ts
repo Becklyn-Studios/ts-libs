@@ -1,4 +1,4 @@
-import { useContext, useSyncExternalStore } from "react";
+import { use, useSyncExternalStore } from "react";
 import { FormDataContext } from "../context/data/context";
 import { FormStore } from "./useFormStore";
 
@@ -6,7 +6,7 @@ import { FormStore } from "./useFormStore";
 export const useFormData = <GlobalFormData extends Record<string, any>>(
     selector: (store: GlobalFormData) => GlobalFormData
 ): [GlobalFormData, (value: Partial<GlobalFormData>) => void, () => GlobalFormData] => {
-    const { data } = useContext(FormDataContext);
+    const { data } = use(FormDataContext);
 
     if (!data) {
         throw new Error("Store not found");

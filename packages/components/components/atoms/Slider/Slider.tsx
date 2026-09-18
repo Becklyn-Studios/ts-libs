@@ -34,6 +34,7 @@ export const Slider: FC<PropsWithChildren<PropsWithClassName<SliderProps>>> = ({
                     <div className={styles.dots}>
                         {Array.from({ length: slideCount }).map((_, i) => (
                             <span
+                                // eslint-disable-next-line react-x/no-array-index-key -- one dot per slide index, the index is their only identity
                                 key={i}
                                 className={clsx(styles.dot, isActiveIndex(i) && styles.dotActive)}
                             />

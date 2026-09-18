@@ -1,11 +1,11 @@
-import { useContext, useSyncExternalStore } from "react";
+import { use, useSyncExternalStore } from "react";
 import { FormDataContext } from "../context/data/context";
 import { FormErrors } from "../type";
 
 export const useFormErrors = <SelectorOutput>(
     selector: (store: FormErrors) => SelectorOutput
 ): [SelectorOutput, (value: Partial<FormErrors>) => void, () => FormErrors] => {
-    const { errors } = useContext(FormDataContext);
+    const { errors } = use(FormDataContext);
 
     if (!errors) {
         throw new Error("Store not found");

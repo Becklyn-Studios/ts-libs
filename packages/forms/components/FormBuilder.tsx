@@ -1,4 +1,4 @@
-import { memo, useContext } from "react";
+import { memo, use } from "react";
 import { FormConfigContext } from "../context/data/context";
 import { isFormFieldConfig } from "../guard";
 import { FormBuilderProps, FormFieldConfig } from "../type";
@@ -23,12 +23,13 @@ const FormBuilderComponent = memo(
         children,
     }: FormBuilderProps<T, GlobalFormData>) => {
         const { BuilderWrapper } = Components;
-        const { config } = useContext(FormConfigContext);
+        const { config } = use(FormConfigContext);
 
         return (
             <BuilderWrapper>
                 {config.map((entry, index) => (
                     <FormEntry
+                        // eslint-disable-next-line react-x/no-array-index-key -- form config is static; row/section/custom entries carry no stable id
                         key={index + (isFormFieldConfig(entry) ? entry.name : "")}
                         entry={entry}
                         Components={Components}>
