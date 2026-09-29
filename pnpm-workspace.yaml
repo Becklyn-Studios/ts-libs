@@ -1,0 +1,11 @@
+packages:
+  - docs
+  - packages/*
+
+# Supply-chain protection: only resolve versions that have been public for at least 7 days (in minutes).
+minimumReleaseAge: 10080
+
+# Dependency build scripts stay disabled (as with the former `ignore-scripts=true`).
+allowBuilds:
+  '@parcel/watcher': false
+  esbuild: false

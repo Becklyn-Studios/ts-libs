@@ -11,7 +11,7 @@
         "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
         "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
         "build": "rm -rf ./dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
-        "prepublishOnly": "npm run lint && npm run build"
+        "prepublishOnly": "pnpm run lint && pnpm run build"
     },
     "dependencies": {
         "@contentful/rich-text-react-renderer": "^16.2.2",
@@ -20,8 +20,8 @@
         "zod": "^4.6.5"
     },
     "devDependencies": {
-        "@becklyn/eslint": "*",
-        "@becklyn/tsconfig": "*",
+        "@becklyn/eslint": "workspace:*",
+        "@becklyn/tsconfig": "workspace:*",
         "@contentful/rich-text-types": "^17.2.7",
         "@types/node": "^25.9.6",
         "@types/react": "^19.3.0",

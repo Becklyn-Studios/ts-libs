@@ -28,8 +28,8 @@
         "zod": "^4.6.5"
     },
     "devDependencies": {
-        "@becklyn/eslint": "*",
-        "@becklyn/tsconfig": "*",
+        "@becklyn/eslint": "workspace:*",
+        "@becklyn/tsconfig": "workspace:*",
         "@types/mdx": "^2.0.14",
         "@types/node": "^25.9.6",
         "@types/react": "^19.3.0",

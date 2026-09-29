@@ -11,14 +11,14 @@
         "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,md,json}\""
     },
     "dependencies": {
-        "@becklyn/deployment-protection": "*",
+        "@becklyn/deployment-protection": "workspace:*",
         "next": "^16.3.5",
         "react": "^19.3.0",
         "react-dom": "^19.3.0"
     },
     "devDependencies": {
-        "@becklyn/eslint": "*",
-        "@becklyn/tsconfig": "*",
+        "@becklyn/eslint": "workspace:*",
+        "@becklyn/tsconfig": "workspace:*",
         "@types/node": "^25.9.6",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
