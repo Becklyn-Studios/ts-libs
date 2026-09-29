@@ -253,6 +253,9 @@ importers:
       '@contentful/rich-text-react-renderer':
         specifier: ^16.2.2
         version: 16.2.2(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@contentful/rich-text-types':
+        specifier: ^17.2.7
+        version: 17.2.7
       keen-slider:
         specifier: ^6.8.6
         version: 6.8.6
@@ -269,9 +272,6 @@ importers:
       '@becklyn/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@contentful/rich-text-types':
-        specifier: ^17.2.7
-        version: 17.2.7
       '@types/node':
         specifier: ^25.9.6
         version: 25.9.6
