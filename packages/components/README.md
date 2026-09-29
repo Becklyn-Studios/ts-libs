@@ -1,3 +1,6 @@
+!! The package is no longer maintained !!
+
+
 # @becklyn/components
 
 A collection of reusable React components built with TypeScript and SCSS modules. This library provides a shadcn-ui-like experience but uses SCSS modules instead of Tailwind CSS for styling.
