@@ -27,10 +27,12 @@ jobs:
         with:
           node-version: '24'
 
+      # No store cache in the publishing job: it runs with `id-token: write`, so it
+      # should only use freshly downloaded, integrity-checked packages.
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
         with:
-          cache: true
+          cache: false
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
