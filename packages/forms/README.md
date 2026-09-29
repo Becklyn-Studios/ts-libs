@@ -20,6 +20,8 @@
 
 ```
 npm i --save @becklyn/forms
+# or
+pnpm add @becklyn/forms
 ```
 
 ### 2. Create your fields

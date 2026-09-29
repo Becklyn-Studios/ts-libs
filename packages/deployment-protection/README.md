@@ -20,6 +20,8 @@ Protection runs in:
 
 ```bash
 npm i @becklyn/deployment-protection
+# or
+pnpm add @becklyn/deployment-protection
 ```
 
 ## Quick setup
@@ -51,6 +53,8 @@ export const config = {
     "framework": null
 }
 ```
+
+With pnpm, use `"buildCommand": "pnpm run build-storybook"`.
 
 `withStorybookDeploymentProtection` does **not** require the `next` package. The matcher must stay a **string literal** in `middleware.ts` (same static-analysis rule as Next.js).
 

@@ -43,7 +43,7 @@ export default config;
 
 When using turborepo you might want to check for undeclared env variables.
 
-Install `eslint-plugin-turbo`: `npm install -D eslint-plugin-turbo`
+Install `eslint-plugin-turbo`: `npm install -D eslint-plugin-turbo` (or `pnpm add -D eslint-plugin-turbo`)
 
 ```js
 import { config } from "@becklyn/eslint/base";

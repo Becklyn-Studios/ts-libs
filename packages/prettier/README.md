@@ -9,6 +9,8 @@ Installation
 
 ```
 npm install --save-dev @becklyn/prettier
+# or
+pnpm add -D @becklyn/prettier
 ```
 
 In your `package.json` add the following line:
