@@ -28,7 +28,7 @@ npm i @becklyn/deployment-protection
 
 Built Storybook is static (`storybook-static`), so protection is **Vercel Routing Middleware** — not a Storybook addon.
 
-1. Install the package in the project that deploys Storybook (published build, or workspace package after `npm run build`).
+1. Install the package in the project that deploys Storybook (published build, or workspace package after `pnpm run build`).
 2. Add `middleware.ts` at the **Vercel project root** (same level Vercel uses for `vercel.json` / output):
 
 ```ts
