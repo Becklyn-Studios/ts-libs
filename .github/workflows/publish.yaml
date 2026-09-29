@@ -20,20 +20,26 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v6
 
+      # No `registry-url` here: it would write an `_authToken=${NODE_AUTH_TOKEN}` placeholder
+      # into .npmrc, which interferes with npm trusted publishing (OIDC).
       - name: Setup Node.js 24.x
         uses: actions/setup-node@v6
         with:
           node-version: '24'
-          registry-url: 'https://registry.npmjs.org'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
 
       - name: Install Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: npm run release
+          publish: pnpm run release
           commitMode: github-api
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
