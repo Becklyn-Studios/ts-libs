@@ -17,10 +17,12 @@
         "preversion": "npm run lint"
     },
     "devDependencies": {
-        "@becklyn/prettier": "*",
         "@becklyn/eslint": "*",
+        "@becklyn/prettier": "*",
         "@becklyn/tsconfig": "*",
         "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+        "eslint": "^10.10.0",
+        "prettier": "^3.9.6",
         "react": "^19.3.0",
         "react-dom": "^19.3.0",
         "typescript": "^5.9.3"
