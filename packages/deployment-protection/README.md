@@ -20,6 +20,8 @@ Protection runs in:
 
 ```bash
 npm i @becklyn/deployment-protection
+# or
+pnpm add @becklyn/deployment-protection
 ```
 
 ## Quick setup
@@ -28,7 +30,7 @@ npm i @becklyn/deployment-protection
 
 Built Storybook is static (`storybook-static`), so protection is **Vercel Routing Middleware** — not a Storybook addon.
 
-1. Install the package in the project that deploys Storybook (published build, or workspace package after `npm run build`).
+1. Install the package in the project that deploys Storybook (published build, or workspace package after `pnpm run build`).
 2. Add `middleware.ts` at the **Vercel project root** (same level Vercel uses for `vercel.json` / output):
 
 ```ts
@@ -51,6 +53,8 @@ export const config = {
     "framework": null
 }
 ```
+
+With pnpm, use `"buildCommand": "pnpm run build-storybook"`.
 
 `withStorybookDeploymentProtection` does **not** require the `next` package. The matcher must stay a **string literal** in `middleware.ts` (same static-analysis rule as Next.js).
 

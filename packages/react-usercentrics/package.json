@@ -11,19 +11,24 @@
         "test": "echo \"Error: no test specified\" && exit 0",
         "format": "eslint . --fix && prettier --write \"src/**/*.{ts,tsx}\"",
         "lint": "eslint . --max-warnings 0 && prettier --check \"src/**/*.{ts,tsx}\"",
-        "build": "npm run clean && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
+        "build": "pnpm run clean && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
         "clean": "rm -rf dist",
-        "prepublishOnly": "npm test && npm run lint && npm run build",
-        "preversion": "npm run lint"
+        "prepublishOnly": "pnpm test && pnpm run lint && pnpm run build",
+        "preversion": "pnpm run lint"
     },
     "devDependencies": {
-        "@becklyn/prettier": "*",
-        "@becklyn/eslint": "*",
-        "@becklyn/tsconfig": "*",
+        "@becklyn/eslint": "workspace:*",
+        "@becklyn/prettier": "workspace:*",
+        "@becklyn/tsconfig": "workspace:*",
         "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+        "eslint": "^10.10.0",
+        "prettier": "^3.9.6",
         "react": "^19.3.0",
         "react-dom": "^19.3.0",
         "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "tslib": "^2.8.1"
     },
     "peerDependencies": {
         "@types/react": "^19.0.0",

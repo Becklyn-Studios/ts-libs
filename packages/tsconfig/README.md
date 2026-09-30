@@ -67,7 +67,7 @@ Use in your `tsconfig.json`:
 
 If you use storybook you will need to use the `TsconfigPathsPlugin` plugin.
 
-Install it using `npm install --save tsconfig-paths-webpack-plugin`.
+Install it using `npm install --save tsconfig-paths-webpack-plugin` (or `pnpm add tsconfig-paths-webpack-plugin`).
 
 Use it in `.storybook/main.ts`:
 

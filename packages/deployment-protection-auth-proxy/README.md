@@ -28,7 +28,7 @@ DEPLOYMENT_PROTECTION_HANDOFF_SECRET=<same-as-proxy>
 ## Develop
 
 ```bash
-npm run dev -w @becklyn/deployment-protection-auth-proxy
+pnpm --filter @becklyn/deployment-protection-auth-proxy dev
 ```
 
 ## Deploy
