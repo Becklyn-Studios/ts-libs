@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.16
+
+### Patch Changes
+
+- 71bfffc: Resolve the bundled Prettier plugins via `require.resolve`, so the config works with strict package managers (e.g. pnpm) without installing the plugins in the consuming project.
+
 ## 2.1.15
 
 ### Patch Changes
