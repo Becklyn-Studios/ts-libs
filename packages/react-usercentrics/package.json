@@ -19,12 +19,12 @@
         "@becklyn/eslint": "workspace:*",
         "@becklyn/prettier": "workspace:*",
         "@becklyn/tsconfig": "workspace:*",
-        "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+        "@trivago/prettier-plugin-sort-imports": "^6.0.2",
         "eslint": "^10.10.0",
         "prettier": "^3.9.6",
         "react": "^19.3.0",
         "react-dom": "^19.3.0",
-        "typescript": "^5.9.3"
+        "typescript": "^7.0.2"
     },
     "dependencies": {
         "tslib": "^2.8.1"
