@@ -12,8 +12,7 @@
         "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx,md,json,mjs}\"",
         "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,md,json,mjs}\"",
         "test": "vitest run",
-        "build": "rm -rf dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json && node ./scripts/build-edge-bundles.mjs",
-        "prepublishOnly": "pnpm run lint && pnpm run build && pnpm run test"
+        "build": "rm -rf dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json && node ./scripts/build-edge-bundles.mjs"
     },
     "devDependencies": {
         "@becklyn/eslint": "workspace:*",

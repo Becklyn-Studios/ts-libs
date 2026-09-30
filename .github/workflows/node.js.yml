@@ -27,7 +27,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Setup pnpm
-      uses: pnpm/action-setup@v6
+      uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
       with:
         cache: true
 
@@ -39,3 +39,6 @@ jobs:
 
     - name: Build
       run: pnpm run build
+
+    - name: Test
+      run: pnpm run test

@@ -10,8 +10,7 @@
     "scripts": {
         "lint": "eslint . --max-warnings 0 && prettier --check \"./**/*.{ts,tsx}\"",
         "fix": "eslint . --fix && prettier --write \"./**/*.{ts,tsx,scss}\"",
-        "build": "rm -rf ./dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
-        "prepublishOnly": "pnpm run lint && pnpm run build"
+        "build": "rm -rf ./dist && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json"
     },
     "dependencies": {
         "@contentful/rich-text-react-renderer": "^16.2.2",

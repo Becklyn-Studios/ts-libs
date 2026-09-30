@@ -1,5 +1,11 @@
 # @becklyn/next
 
+## 6.0.1
+
+### Patch Changes
+
+- 68f9a81: Declare `@contentful/rich-text-types` as a dependency. `rte/generators` imports it at runtime, which failed in projects where it is not hoisted (e.g. strict pnpm setups or Yarn PnP).
+
 ## 6.0.0
 
 ### Major Changes

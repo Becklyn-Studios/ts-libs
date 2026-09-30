@@ -1,5 +1,11 @@
 # @becklyn/react-usercentrics
 
+## 6.0.1
+
+### Patch Changes
+
+- 71bfffc: Declare `tslib` as a dependency. The CommonJS build imports it at runtime (`importHelpers`), which failed in projects where `tslib` is not hoisted (e.g. pnpm).
+
 ## 6.0.0
 
 ### Major Changes
