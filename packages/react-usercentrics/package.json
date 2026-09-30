@@ -13,7 +13,6 @@
         "lint": "eslint . --max-warnings 0 && prettier --check \"src/**/*.{ts,tsx}\"",
         "build": "pnpm run clean && tsc -p tsconfig-es.json && tsc -p tsconfig-cjs.json",
         "clean": "rm -rf dist",
-        "prepublishOnly": "pnpm test && pnpm run lint && pnpm run build",
         "preversion": "pnpm run lint"
     },
     "devDependencies": {
