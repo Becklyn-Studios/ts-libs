@@ -16,6 +16,17 @@
             "groupName": "all dependencies",
             "matchPackageNames": ["*"],
             "rangeStrategy": "bump"
+        },
+        {
+            "description": "Pin third-party actions to commit SHAs, keep GitHub's own actions/* on version tags",
+            "matchDepTypes": ["action"],
+            "matchPackageNames": ["actions/**"],
+            "pinDigests": false
+        },
+        {
+            "description": "Keep SHA-pinned actions updated despite the global updatePinnedDependencies: false",
+            "matchDepTypes": ["action"],
+            "updatePinnedDependencies": true
         }
     ]
 }

@@ -18,12 +18,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@v6
 
       # No `registry-url` here: it would write an `_authToken=${NODE_AUTH_TOKEN}` placeholder
       # into .npmrc, which interferes with npm trusted publishing (OIDC).
       - name: Setup Node.js 24.x
-        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        uses: actions/setup-node@v6
         with:
           node-version: '24'
 
