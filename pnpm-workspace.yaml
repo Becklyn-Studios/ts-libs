@@ -9,3 +9,6 @@ minimumReleaseAge: 10080
 allowBuilds:
   '@parcel/watcher': false
   esbuild: false
+minimumReleaseAgeExclude:
+  # Renovate security update: next@16.3.6
+  - next@16.3.6
