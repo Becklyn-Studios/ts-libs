@@ -9,14 +9,14 @@
     },
     "devDependencies": {
         "@becklyn/prettier": "workspace:*",
-        "@changesets/cli": "^2.31.1",
+        "@changesets/cli": "^3.0.3",
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",
         "prettier": "^3.9.6",
         "turbo": "^2.10.12",
-        "typescript": "^5.9.3"
+        "typescript": "^7.0.2"
     },
     "engines": {
-        "node": ">=22.13.0"
+        "node": ">=24.21.0"
     },
     "packageManager": "pnpm@11.27.1",
     "prettier": "@becklyn/prettier"
