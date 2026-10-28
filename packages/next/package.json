@@ -22,14 +22,14 @@
     "devDependencies": {
         "@becklyn/eslint": "workspace:*",
         "@becklyn/tsconfig": "workspace:*",
-        "@types/node": "^25.9.6",
+        "@types/node": "^26.6.5",
         "@types/react": "^19.3.0",
         "@types/react-dom": "^19.3.0",
         "eslint": "^10.10.0",
         "next": "^16.3.5",
         "prettier": "^3.9.6",
         "react": "^19.3.0",
-        "typescript": "^5.9.3"
+        "typescript": "^7.0.2"
     },
     "peerDependencies": {
         "next": "^15.0.0 || ^16.0.0",
