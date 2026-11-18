@@ -1,5 +1,15 @@
 # @becklyn/next
 
+## 6.1.0
+
+### Minor Changes
+
+- 0abdaa6: Move `sass` from `dependencies` to an optional `peerDependency` (`^1.23.0`). As a dependency it pulled `sass > @parcel/watcher > picomatch` into every consumer's production graph, which fails `pnpm audit --prod` because of GHSA-fc5q-39xc-vjpf (picomatch ReDoS, no patched version). The shipped JS never imports sass; it is only needed to compile the `./scss/*` exports, which Next does with the consumer's own sass. If you use the scss exports, keep `sass` as a devDependency in your project.
+
+### Patch Changes
+
+- f842a2f: Update dependencies to their latest minor/patch versions (respecting the 7-day minimum release age).
+
 ## 6.0.1
 
 ### Patch Changes

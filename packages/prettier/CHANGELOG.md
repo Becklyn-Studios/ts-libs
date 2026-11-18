@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.17
+
+### Patch Changes
+
+- f842a2f: Update dependencies to their latest minor/patch versions (respecting the 7-day minimum release age).
+
 ## 2.1.16
 
 ### Patch Changes
