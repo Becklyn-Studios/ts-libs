@@ -17,12 +17,12 @@
     "devDependencies": {
         "@becklyn/eslint": "workspace:*",
         "@becklyn/tsconfig": "workspace:*",
-        "@types/node": "^25.9.9",
+        "@types/node": "^26.6.6",
         "esbuild": "^0.28.2",
         "eslint": "^10.14.0",
         "next": "^16.4.6",
         "prettier": "^3.9.10",
-        "typescript": "^5.9.3",
+        "typescript": "^7.0.2",
         "vitest": "^3.2.7"
     },
     "peerDependencies": {
