@@ -18,6 +18,6 @@
     "engines": {
         "node": ">=22.13.0"
     },
-    "packageManager": "pnpm@11.28.11",
+    "packageManager": "pnpm@11.28.13",
     "prettier": "@becklyn/prettier"
 }
