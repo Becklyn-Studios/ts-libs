@@ -318,7 +318,7 @@ importers:
   packages/react-usercentrics:
     dependencies:
       '@types/react':
-        specifier: ^19.0.0
+        specifier: ^19.3.0
         version: 19.3.0
       tslib:
         specifier: ^2.9.1
