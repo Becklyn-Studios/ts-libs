@@ -1,5 +1,11 @@
 # @becklyn/eslint
 
+## 3.0.2
+
+### Patch Changes
+
+- 9e12a26: Update dependencies to their latest minor/patch versions (respecting the 7-day minimum release age).
+
 ## 3.0.1
 
 ### Patch Changes
