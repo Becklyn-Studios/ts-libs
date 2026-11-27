@@ -1,5 +1,11 @@
 # @becklyn/prettier
 
+## 2.1.18
+
+### Patch Changes
+
+- 9e12a26: Update dependencies to their latest minor/patch versions (respecting the 7-day minimum release age).
+
 ## 2.1.17
 
 ### Patch Changes
